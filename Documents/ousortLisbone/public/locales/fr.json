@@ -1,0 +1,16 @@
+{
+    "navbar": {
+      "events": "Événements",
+      "restaurants": "Restaurants",
+      "bars": "Bars",
+      "clubs": "Clubs",
+      "activities": "Activités",
+      "boats": "Bateaux",
+      "blog": "Blog",
+      "contact": "Contact",
+      "bookNow": "Réserver Maintenant",
+      "login": "Connexion",
+      "language": "Langue"
+    }
+  }
+  
