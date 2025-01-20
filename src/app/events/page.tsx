@@ -12,6 +12,7 @@ export default function EventsPage() {
       className="min-h-screen bg-gradient-to-br from-[#2a2765]/5 to-[#37b7ab]/5"
     >
       <header className="py-20 px-6 text-center bg-gradient-to-r from-[#2a2765] to-[#37b7ab] shadow-lg">
+       
         <h1 className="text-5xl md:text-6xl font-garage-gothic-bold text-white mb-6">
           Découvrez nos événements
         </h1>

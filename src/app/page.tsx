@@ -5,7 +5,7 @@ import FeaturedEvent from '@/components/FeaturedEvents';
 import HeroSection from '@/components/Hero';
 import Newsletter from '@/components/Newsletter';
 import PromotionsBanner from '@/components/PromotionBanner';
-import Testimonials from '@/components/Testimential';
+import {TestimonialsSectionDemo} from '@/components/Testimential';
 import { motion } from 'framer-motion';
 import React from 'react';
 
@@ -70,7 +70,7 @@ const HomePage = () => {
         variants={sectionVariants}
         transition={{ delay: 0.8 }}
       >
-        <Testimonials />
+        <TestimonialsSectionDemo />
       </motion.div>
 
       {/* Newsletter with Animation */}

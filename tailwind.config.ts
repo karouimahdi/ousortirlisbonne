@@ -9,9 +9,21 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		maxWidth: {
+			container: "1280px",
+		  },
+		  animation: {
+			marquee: 'marquee var(--duration) linear infinite',
+		  },
+		  keyframes: {
+			marquee: {
+			  from: { transform: 'translateX(0)' },
+			  to: { transform: 'translateX(calc(-100% - var(--gap)))' }
+			}},
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+  			
   		},
   		colors: {
   			redmk: '#F35C7A',

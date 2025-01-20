@@ -1,97 +1,143 @@
 "use client"
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Clock, ChevronRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, MapPin, Clock, ChevronRight, Users, Heart } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import { events } from '@/app/data/events';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-const cardVariants: Variants = {
-  offscreen: {
-    y: 50,
-    opacity: 0,
-  },
-  onscreen: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      bounce: 0.4,
-      duration: 0.8,
-    },
-  },
-};
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  category: string;
+  image: string;
+  slug: string;
+  capacity?: string | number;
+  price?: number;
+}
 
-const hoverVariants: Variants = {
-  hover: {
-    scale: 1.05,
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut",
-    },
-  },
-};
+interface EventsListProps {
+  category?: string;
+  sortOrder?: 'asc' | 'desc';
+}
 
-const EventsList: React.FC<{ category?: string }> = ({ category }) => {
+const EventsList: React.FC<EventsListProps> = ({ category, sortOrder = 'asc' }) => {
   const router = useRouter();
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
 
-  const filteredEvents = category 
-    ? events.filter(event => event.category === category) 
+  const filteredEvents = category
+    ? events.filter((event: Event) => event.category === category)
     : events;
 
+  const sortedEvents = filteredEvents.sort((a: Event, b: Event) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+  });
+
+  const formatDate = (dateString: string): string => {
+    const options: Intl.DateTimeFormatOptions = { 
+      weekday: 'long', 
+      day: 'numeric', 
+      month: 'long' 
+    };
+    return new Date(dateString).toLocaleDateString('fr-FR', options);
+  };
+
   return (
-    <div className="space-y-4">
-      {filteredEvents.map((event, index) => (
+    <div className="grid gap-8 py-4">
+      {sortedEvents.map((event: Event, index: number) => (
         <motion.div
           key={event.id}
-          initial="offscreen"
-          whileInView="onscreen"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={cardVariants}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1 }}
+          whileHover={{ y: -4 }}
+          onHoverStart={() => setHoveredId(event.id)}
+          onHoverEnd={() => setHoveredId(null)}
         >
-          <motion.div
-            whileHover="hover"
-            variants={hoverVariants}
-          >
-            <Card className="overflow-hidden hover:shadow-lg transition-all">
-              <div className="flex flex-col md:flex-row">
+          <Card className="overflow-hidden bg-white dark:bg-gray-800 border-0 shadow-lg">
+            <div className="flex flex-col md:flex-row h-full">
+              <div className="relative md:w-72 overflow-hidden">
                 <motion.img
                   src={event.image}
                   alt={event.title}
-                  className="h-48 w-full md:w-48 object-cover"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  className="h-56 md:h-full w-full object-cover"
+                  animate={{
+                    scale: hoveredId === event.id ? 1.05 : 1
+                  }}
+                  transition={{ duration: 0.3 }}
                 />
-                <CardContent className="flex-1 p-4">
-                  <h3 className="text-xl font-garage-gothic-bold text-[#2a2765] mb-2">
-                    {event.title}
-                  </h3>
-                  <div className="space-y-2 text-gray-600">
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      <span>{new Date(event.date).toLocaleDateString('fr-FR')}</span>
+                <div className="absolute top-4 left-4 flex gap-2">
+                  <Badge className="bg-white/90 text-black hover:bg-white/75">
+                    {event.category}
+                  </Badge>
+                </div>
+              </div>
+              
+              <CardContent className="flex-1 p-6">
+                <div className="flex flex-col h-full justify-between">
+                  <div>
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                        {event.title}
+                      </h3>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="text-gray-400 hover:text-red-500"
+                      >
+                        <Heart className="w-6 h-6" />
+                      </motion.button>
                     </div>
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-2" />
-                      <span>{event.time}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <MapPin className="w-4 h-4 mr-2" />
-                      <span>{event.location}</span>
+                    
+                    <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-gray-400" />
+                        <span>{formatDate(event.date)}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-gray-400" />
+                        <span>{event.time}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-gray-400" />
+                        <span>{event.location}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-gray-400" />
+                        <span>{event.capacity || 'Unlimited'} places</span>
+                      </div>
                     </div>
                   </div>
-                  <Button 
-                    className="mt-4 bg-[#37b7ab] hover:bg-[#2a2765] text-white"
-                    onClick={() => router.push(`/events/${event.slug}`)}
-                  >
-                    Voir Détails
-                    <ChevronRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </CardContent>
-              </div>
-            </Card>
-          </motion.div>
+
+                  <div className="flex items-center justify-between mt-4">
+                    <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {event.price ? `${event.price}€` : 'Gratuit'}
+                    </p>
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Button
+                        className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6"
+                        onClick={() => router.push(`/events/${event.slug}`)}
+                      >
+                        Voir Détails
+                        <ChevronRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </motion.div>
+                  </div>
+                </div>
+              </CardContent>
+            </div>
+          </Card>
         </motion.div>
       ))}
     </div>

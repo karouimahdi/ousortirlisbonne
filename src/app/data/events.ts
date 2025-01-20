@@ -8,6 +8,7 @@ export const events = [
     slug: "concert-de-jazz",
     image: "/ImageS3.jpg",
     category: "Musique",
+    capacity:150
   },
   {
     id: 2,
@@ -18,6 +19,8 @@ export const events = [
     slug: "exposition-art-moderne",
     image: "/ImageS3.jpg",
     category: "Art",
+    capacity:100
+
   },
   // Ajoutez d'autres événements avec des catégories
 ];
