@@ -51,7 +51,7 @@ export default function ActivitiesPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {categories.map((category) => (
             <motion.div key={category.id} variants={fadeInUp}>
-              <Link href={`/activities/${category.name.toLowerCase()}`}>
+              <Link href={`/activities/${category.slug}`}>
                 <div className="bg-gray-100 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center cursor-pointer">
                   <div className="flex justify-center mb-4">
                     <img
@@ -67,6 +67,42 @@ export default function ActivitiesPage() {
               </Link>
             </motion.div>
           ))}
+        </div>
+      </motion.div>
+
+      {/* Featured Activities Section */}
+      <motion.div
+        className="max-w-7xl mx-auto px-4 py-16"
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
+      >
+        <h2 className="text-3xl font-garage-gothic-bold text-[#2a2765] mb-8 text-center">
+          Activités à la Une
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {categories.map((category) =>
+            category.activities.map((activity) => (
+              <motion.div key={activity.id} variants={fadeInUp}>
+                <Link href={`/activities/${category.slug}/${activity.id}`}>
+                  <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                    <img
+                      src={activity.image}
+                      alt={activity.title}
+                      className="w-full h-48 object-cover rounded-t-lg"
+                    />
+                    <h3 className="text-xl font-garage-gothic-bold text-[#2a2765] mt-4">
+                      {activity.title}
+                    </h3>
+                    <p className="text-gray-700 mt-2">{activity.description}</p>
+                    <p className="text-[#37b7ab] font-garage-gothic-bold mt-4">
+                      {activity.price}
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))
+          )}
         </div>
       </motion.div>
     </div>

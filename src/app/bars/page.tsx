@@ -1,57 +1,17 @@
-"use client"
+"use client";
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, Star, MapPin, ChevronDown, Filter } from 'lucide-react';
-import { categories } from '../data/venues';
-import { useState } from 'react';
+import { MapPin, Search, Star } from 'lucide-react';
+import { categories, venues } from '../data/venues';
 import HeroCarousel from '@/components/HeroCarousel';
 
-const featuredVenues = [
-  {
-    id: 1,
-    name: "Le Petit Jardin",
-    category: "Restaurant",
-    rating: 4.8,
-    reviews: 128,
-    image: "/rest1.jpeg",
-    price: "€€€",
-    location: "Montmartre, Paris",
-    categorySlug: "restaurants-gastronomiques",
-    slug: "le-petit-jardin", 
-  },
-  {
-    id: 2,
-    name: "Sky Bar",
-    category: "Rooftop",
-    rating: 4.9,
-    reviews: 256,
-    image: "/resto2*.jpeg",
-    price: "€€€€",
-    location: "Champs-Élysées, Paris"
-  },
-  {
-    id: 3,
-    name: "L'Atelier",
-    category: "Restaurant",
-    rating: 4.7,
-    reviews: 189,
-    image: "/rsto3.jpeg",
-    price: "€€",
-    location: "Le Marais, Paris"
-  }
-];
-
 export default function VenuesPage() {
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Hero Section with parallax effect */}
-      <HeroCarousel/>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <HeroCarousel />
 
-
-      {/* Categories Section with hover effects */}
+      {/* Categories Section */}
       <section className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <span className="text-[#37b7ab] font-semibold mb-2 block">Catégories</span>
@@ -90,61 +50,46 @@ export default function VenuesPage() {
         </div>
       </section>
 
-      {/* Featured Venues Section with enhanced cards */}
-      <section className="bg-white py-20">
+      {/* Featured Venues Section */}
+      <section className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-[#37b7ab] font-semibold mb-2 block">Découvrir</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#2a2765] mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#2a2765] mb-4">
               Lieux à la Une
             </h2>
-            <div className="w-24 h-1 bg-[#37b7ab] mx-auto mt-6 mb-8 rounded-full" />
+            <div className="w-24 h-1 bg-[#37b7ab] mx-auto mt-4 mb-8" />
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Découvrez nos meilleures recommandations du moment
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredVenues.map(venue => (
-              <div 
-                key={venue.id} 
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+            {venues.map(venue => (
+              <Link
+                key={venue.id}
+                href={`/bars/${venue.categorySlug}/${venue.slug}`}
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
-                <div className="relative h-72">
+                <div className="relative h-48">
                   <Image
                     src={venue.image}
                     alt={venue.name}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full font-semibold">
-                    {venue.price}
+                </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-bold text-[#2a2765]">{venue.name}</h3>
+                  <p className="text-gray-600 flex items-center mt-2">
+                    <MapPin size={16} className="mr-2" />
+                    {venue.location}
+                  </p>
+                  <div className="flex items-center mt-2">
+                    <Star size={16} className="text-yellow-400 mr-2" />
+                    <span className="text-sm text-gray-600">4.5/5</span>
                   </div>
                 </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="px-3 py-1 bg-[#37b7ab]/10 text-[#37b7ab] rounded-full text-sm font-semibold">
-                      {venue.category}
-                    </span>
-                    <div className="flex items-center bg-yellow-50 px-3 py-1 rounded-full">
-                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="ml-1 text-sm font-semibold">{venue.rating}</span>
-                      <span className="ml-1 text-sm text-gray-500">({venue.reviews})</span>
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#2a2765] mb-2 group-hover:text-[#37b7ab] transition-colors duration-300">
-                    {venue.name}
-                  </h3>
-                  <div className="flex items-center text-gray-500 mb-4">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    <span className="text-sm">{venue.location}</span>
-                  </div>
-                  <Link
-  href={`/bars/${venue.categorySlug}/${venue.slug}`}
-  className="w-full bg-[#ea3e4e] hover:bg-[#37b7ab] text-white px-6 py-3 rounded-full transition-colors duration-300"
->
-  Lire plus
-</Link>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -13,7 +13,7 @@ const fadeInUp = {
 };
 
 export default function CategoryPage({ params }: { params: { category: string } }) {
-  const selectedCategory = categories.find((e) => e.name.toLowerCase() === params.category);
+  const selectedCategory = categories.find((e) => e.slug === params.category);
 
   if (!selectedCategory) {
     return notFound();
@@ -21,6 +21,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Hero Section */}
       <div className="relative h-[40vh] w-full bg-[#2a2765] flex items-center justify-center">
         <motion.h1
           className="text-4xl sm:text-5xl md:text-6xl font-garage-gothic-bold text-white text-center px-4"
@@ -32,6 +33,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
         </motion.h1>
       </div>
 
+      {/* Activities Grid */}
       <motion.div
         className="max-w-7xl mx-auto px-4 py-16"
         initial="hidden"

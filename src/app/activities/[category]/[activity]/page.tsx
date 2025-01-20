@@ -14,7 +14,7 @@ const fadeInUp = {
 };
 
 export default function ActivityDetails({ params }: { params: { category: string; activity: string } }) {
-  const selectedCategory = categories.find((cat) => cat.name.toLowerCase() === params.category);
+  const selectedCategory = categories.find((cat) => cat.slug === params.category);
   let selectedActivity: any = null;
 
   if (selectedCategory) {
