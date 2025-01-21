@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactButton from "@/components/contactButton";
+import { TranslationProvider } from "@/translations/provider/localeProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,17 +17,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
- 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar/>
-        {children}
-        <ContactButton 
-          phoneNumber="1234567890"
-          message="Bonjour, je souhaite plus d'informations"
-        />
-        <Footer/> </body>
+        <TranslationProvider>
+          <Navbar />
+          {children}
+          <ContactButton
+            phoneNumber="1234567890"
+            message="Bonjour, je souhaite plus d'informations"
+          />
+          {/* <Footer /> */}
+        </TranslationProvider>
+      </body>
     </html>
   );
 }
