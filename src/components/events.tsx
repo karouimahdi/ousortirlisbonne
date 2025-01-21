@@ -1,5 +1,5 @@
-"use client"
 
+"use client"
 import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,22 +24,16 @@ interface Event {
 
 interface EventsListProps {
   category?: string;
-  sortOrder?: 'asc' | 'desc';
 }
 
-const EventsList: React.FC<EventsListProps> = ({ category, sortOrder = 'asc' }) => {
+const EventsList: React.FC<EventsListProps> = ({ category }) => {
   const router = useRouter();
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
+  // Filter events based on the selected category
   const filteredEvents = category
-    ? events.filter((event: Event) => event.category === category)
+    ? events.filter((event) => event.category === category)
     : events;
-
-  const sortedEvents = filteredEvents.sort((a: Event, b: Event) => {
-    const dateA = new Date(a.date).getTime();
-    const dateB = new Date(b.date).getTime();
-    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-  });
 
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = { 
@@ -52,7 +46,7 @@ const EventsList: React.FC<EventsListProps> = ({ category, sortOrder = 'asc' }) 
 
   return (
     <div className="grid gap-8 py-4">
-      {sortedEvents.map((event: Event, index: number) => (
+      {filteredEvents.map((event: Event, index: number) => (
         <motion.div
           key={event.id}
           initial={{ opacity: 0, y: 20 }}

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ContactButton from "@/components/contactButton";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,6 +22,10 @@ export default async function RootLayout({
       <body className={inter.className}>
         <Navbar/>
         {children}
+        <ContactButton 
+          phoneNumber="1234567890"
+          message="Bonjour, je souhaite plus d'informations"
+        />
         <Footer/> </body>
     </html>
   );

@@ -1,98 +1,186 @@
-"use client"
 import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { useRouter } from 'next/navigation';
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
 import EventsList from './events';
 
-const CategoryGrid = () => {
-  const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+interface CategoryGridProps {
+  selectedCategory: string | null;
+  setSelectedCategory: (category: string | null) => void;
+}
+
+const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelectedCategory }) => {
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   const categories = [
-    { name: "Musique", icon: "🎵", color: "#2a2765", gradient: "linear-gradient(135deg, #2a2765, #3a3575)" }, // Blue
-    { name: "Art", icon: "🎨", color: "#37b7ab", gradient: "linear-gradient(135deg, #37b7ab, #47c7bb)" }, // Green
-    { name: "Gastronomie", icon: "🍽️", color: "#ea3e4e", gradient: "linear-gradient(135deg, #ea3e4e, #fa4e5e)" }, // Pink
-    { name: "Sport", icon: "⚽", color: "#2a2765", gradient: "linear-gradient(135deg, #2a2765, #3a3575)" }, // Blue
-  ];
-  
-  const cardVariants: Variants = {
-    offscreen: {
-      y: 50,
-      opacity: 0,
+    {
+      name: "Musique",
+      icon: "🎵",
+      gradient: "from-indigo-900 to-indigo-700",
+      description: "Découvrez des événements musicaux exceptionnels"
     },
-    onscreen: {
+    {
+      name: "Art",
+      icon: "🎨",
+      gradient: "from-teal-600 to-teal-400",
+      description: "Explorez le monde de l'art contemporain"
+    },
+    {
+      name: "Gastronomie",
+      icon: "🍽️",
+      gradient: "from-rose-600 to-rose-400",
+      description: "Savourez des expériences culinaires uniques"
+    },
+    {
+      name: "Sport",
+      icon: "⚽",
+      gradient: "from-blue-900 to-blue-700",
+      description: "Participez à des événements sportifs passionnants"
+    }
+  ];
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const cardVariants: Variants = {
+    hidden: {
+      y: 50,
+      opacity: 0
+    },
+    visible: {
       y: 0,
       opacity: 1,
       transition: {
         type: "spring",
         bounce: 0.4,
-        duration: 0.8,
-      },
+        duration: 0.8
+      }
     },
-  };
-
-  const hoverVariants: Variants = {
-    hover: {
-      scale: 1.05,
-      boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
+    selected: {
+      scale: 0.95,
       transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
+        type: "spring",
+        bounce: 0.3
+      }
     }
   };
 
   const iconVariants: Variants = {
     hover: {
-      rotate: [0, -10, 10, -10, 0], // Slight wobble effect
+      scale: 1.2,
+      rotate: [0, -10, 10, -10, 0],
       transition: {
         duration: 0.5,
         ease: "easeInOut",
-      },
+        repeat: Infinity,
+        repeatType: "reverse"
+      }
+    }
+  };
+
+  const overlayVariants: Variants = {
+    hover: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3
+      }
+    },
+    initial: {
+      opacity: 0,
+      y: 20
     }
   };
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {categories.map((category, index) => (
+    <div className="px-4 py-8">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+      >
+        {categories.map((category) => (
           <motion.div
             key={category.name}
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.2 }}
             variants={cardVariants}
+            animate={selectedCategory === category.name ? "selected" : "visible"}
+            onHoverStart={() => setHoveredCategory(category.name)}
+            onHoverEnd={() => setHoveredCategory(null)}
+            className="h-full"
           >
-            <motion.div
-              whileHover="hover"
-              variants={hoverVariants}
+            <Card
+              className={`h-full cursor-pointer transition-all duration-300 border-2 
+                ${selectedCategory === category.name 
+                  ? 'border-white shadow-xl' 
+                  : 'border-transparent hover:shadow-2xl'}`}
+              onClick={() => setSelectedCategory(category.name)}
             >
-              <Card 
-                className="group hover:shadow-lg transition-all cursor-pointer border-2 border-transparent hover:border-[#37b7ab] overflow-hidden"
-                onClick={() => setSelectedCategory(category.name)}
-                style={{ background: category.gradient }}
-              >
-                <CardContent className="flex flex-col items-center justify-center p-8 text-center relative">
-                  {/* Subtle background animation */}
-                  <motion.div
-                    className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                  />
-                  <motion.span 
-                    className="text-5xl mb-4"
-                    whileHover="hover"
+              <CardContent className={`h-full relative overflow-hidden bg-gradient-to-br ${category.gradient} p-8`}>
+                <div className="relative z-10 h-full flex flex-col items-center justify-center">
+                  <motion.span
+                    className="text-6xl mb-6"
                     variants={iconVariants}
+                    whileHover="hover"
                   >
                     {category.icon}
                   </motion.span>
-                  <h3 className="text-2xl font-garage-gothic-bold text-white">{category.name}</h3>
-                </CardContent>
-              </Card>
-            </motion.div>
+                  
+                  <h3 className="text-2xl font-garage-gothic-bold text-white mb-4">
+                    {category.name}
+                  </h3>
+
+                  <motion.div
+                    variants={overlayVariants}
+                    initial="initial"
+                    animate={hoveredCategory === category.name ? "hover" : "initial"}
+                    className="text-white/90 text-sm text-center"
+                  >
+                    {category.description}
+                    <div className="mt-4 flex items-center justify-center">
+                      <ChevronRight className="w-5 h-5" />
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Background decoration */}
+                <motion.div
+                  className="absolute inset-0 bg-white/5 rounded-full transform -translate-x-1/2 -translate-y-1/2"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.1, 0.2, 0.1],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </CardContent>
+            </Card>
           </motion.div>
         ))}
-      </div>
-      <EventsList category={selectedCategory!} />
+      </motion.div>
+
+      <AnimatePresence mode="wait">
+        {selectedCategory && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <EventsList category={selectedCategory} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
