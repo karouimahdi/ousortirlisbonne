@@ -1,5 +1,12 @@
 "use client";
-import React, { createContext, useContext, ReactNode, useMemo, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useMemo,
+  useState,
+  useEffect,
+} from "react";
 import { Translations } from "..";
 import { Locale } from "..";
 import { getTranslation } from "..";
@@ -14,12 +21,17 @@ const TranslationContext = createContext<{
 } | null>(null);
 
 // Create a provider component
-export const TranslationProvider = ({ children }: { children: ReactNode }) => {
+export const TranslationProvider = ({
+  children,
+  initialLocal,
+}: {
+  children: ReactNode;
+  initialLocal: Locale;
+}) => {
   const router = useRouter();
-  const path = usePathname();
 
   // State to manage the current locale
-  const [locale, setLocaleState] = useState<Locale>("en"); // Default locale for SSR
+  const [locale, setLocaleState] = useState<Locale>(initialLocal); // Default locale for SSR
 
   // Initialize the locale on the client side
   useEffect(() => {
