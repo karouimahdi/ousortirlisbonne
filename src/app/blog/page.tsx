@@ -1,144 +1,91 @@
-// app/blog/page.tsx
-"use client";
+"use client"
+import React, { useState } from 'react';
+import ArticleList from '@/components/Articlelist';
+import ArticleGrid from '@/components/categoryArt';
+import { motion, AnimatePresence } from 'framer-motion';
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import React from "react";
-import { articles } from "../data/article"; // Assurez-vous que le chemin est correct
+import { articles } from '../data/article'; // Import des données
 
-// Variantes d'animation pour Framer Motion
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2, // Délai entre les animations des enfants
-    },
-  },
+const categoryColors = {
+  'Activités': '#FF4B6E',
+  'Clubs, Bars, Events': '#4A4FE4',
+  'Restaurants, Rooftops': '#00C9A7',
+  'Selon le profil': '#FF8F3F',
 };
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
+const ArticlePage = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  
+  const filteredArticles = selectedCategory
+    ? articles.filter(article => article.category === selectedCategory)
+    : articles;
 
-const scaleUp = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } },
-};
-
-const BlogPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-white to-[#B4E7E6]/20">
-      <motion.div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
-      >
-        {/* Section du titre et du slogan */}
-        <motion.div
-          className="text-center mb-24 relative overflow-hidden" // Augmenter mb-16 à mb-24 pour plus d'espace
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0, y: 50 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-          }}
-        >
-          {/* Arrière-plan animé */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-[#2E2A5D]/20 to-[#37b7ab]/20 rounded-lg" // Augmenter l'opacité du gradient
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          />
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50">
+      {/* Decorative elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-br from-pink-100/20 to-purple-100/20 rounded-full blur-3xl transform translate-x-1/4 -translate-y-1/4" />
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-blue-100/20 to-green-100/20 rounded-full blur-3xl transform -translate-x-1/4 translate-y-1/4" />
+      </div>
 
-          {/* Titre avec gradient animé et soulignement */}
-          <motion.h1
-            className="font-garage-bold text-7xl text-transparent bg-clip-text bg-gradient-to-r from-[#2E2A5D] to-[#37b7ab] mb-6 relative z-10" // Augmenter text-6xl à text-7xl et mb-4 à mb-6
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
-            }}
-          >
-            Notre Blog
-            <motion.span
-              className="absolute bottom-0 left-0 w-full h-1.5 bg-[#37b7ab]" // Augmenter h-1 à h-1.5
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            />
-          </motion.h1>
+      {/* Main content */}
+      <div className="relative z-10">
+        <ArticleGrid
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
 
-          {/* Slogan avec animation */}
-          <motion.p
-            className="font-garage-regular text-2xl text-[#37b7ab] relative z-10" // Augmenter text-xl à text-2xl
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.4 } },
-            }}
-          >
-            Faites de votre vie un évènement!
-          </motion.p>
-        </motion.div>
-
-        {/* Grille d'articles */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={staggerContainer}
-        >
-          {articles.map((article, index) => (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+          <AnimatePresence mode="wait">
             <motion.div
-              key={article.id}
-              variants={scaleUp}
-              whileHover={{
-                y: -10,
-                transition: { duration: 0.3 },
-              }}
-              className="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-100"
+              key={selectedCategory || 'all'}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
             >
-              {/* Image miniature avec effet de zoom au survol */}
-              <div className="relative overflow-hidden h-48">
-                <motion.img
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.6 }}
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Contenu de l'article */}
-              <div className="p-6">
-                <h2 className="font-garage-bold text-2xl text-[#2E2A5D] mb-3">
-                  {article.title}
-                </h2>
-                <p className="font-garage-regular text-gray-600 mb-6 text-sm">
-                  {article.description}
-                </p>
-
-                {/* Bouton "Lire Plus" avec animation */}
-                <Link href={`/blog/${article.slug}`}>
-                  <motion.span
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-block bg-[#37b7ab] text-white px-6 py-2 rounded-full font-garage-regular text-sm hover:bg-[#ea3e4e] transition-colors duration-300"
+              {/* Category header */}
+              <div className="flex items-center justify-between mb-12">
+                <div>
+                  <motion.h2 
+                    className="text-4xl font-bold mb-4"
+                    style={{ 
+                      color: selectedCategory ? categoryColors[selectedCategory as keyof typeof categoryColors] : '#4A4FE4'
+                    }}
                   >
-                    Lire Plus
-                  </motion.span>
-                </Link>
+                    {selectedCategory || 'Tous nos Articles'}
+                  </motion.h2>
+                  <p className="text-gray-600 text-lg">
+                    {selectedCategory 
+                      ? `Découvrez nos articles dans la catégorie ${selectedCategory}`
+                      : 'Explorez notre sélection des articles sur Lisbonne'
+                    }
+                  </p>
+                </div>
+
+                {selectedCategory && (
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-gray-500 hover:text-gray-700 flex items-center gap-2 text-sm"
+                    onClick={() => setSelectedCategory(null)}
+                  >
+                    Voir tous les articles
+                  </motion.button>
+                )}
               </div>
+
+              {/* Articles section */}
+              <ArticleList
+                articles={filteredArticles}
+                selectedCategory={selectedCategory || 'all'}
+              />
             </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default BlogPage;
+export default ArticlePage;

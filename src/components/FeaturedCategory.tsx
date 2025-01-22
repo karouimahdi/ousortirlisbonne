@@ -121,7 +121,7 @@ const FeaturedCategories = () => {
             <span className="text-sm font-medium text-[#ea3e4e] tracking-wider">DÉCOUVREZ</span>
           </div>
           
-          <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-[#2a2765] via-[#37b7ab] to-[#ea3e4e] text-transparent bg-clip-text">
+          <h2 className="text-5xl font-bold mb-6 text-[#2a2765] bg-clip-text">
             Nos Catégories
           </h2>
           

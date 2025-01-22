@@ -1,186 +1,178 @@
 "use client";
 import React from 'react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Anchor, Users, Sunset, Waves, MapPin, Clock } from "lucide-react";
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { Sunset, Heart, Anchor, Fish, Sailboat, PartyPopper } from "lucide-react";
 import Link from 'next/link';
-import { motion, useInView } from 'framer-motion';
-import { privateBoats, groupCruises } from '../data/boats';
 import BoatHeroSlider from '@/components/BoatHero';
 
-// Animation variants for Framer Motion
-const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const staggerContainer = {
+const fadeIn = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3
-    }
-  }
+  visible: { opacity: 1, transition: { duration: 0.4 } }
 };
 
 const cardHover = {
-  hover: { scale: 1.05, transition: { duration: 0.3 } }
+  hover: { 
+    y: -4,
+    boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+    transition: { duration: 0.3 }
+  }
 };
 
+const categories = [
+  {
+    id: 1,
+    title: "Lisbonne",
+    subcategories: [
+      {
+        type: "En groupe",
+        items: [
+          { title: "Croisières en journée", slug: "croisiere-journee" },
+          { title: "Croisières au coucher de soleil", slug: "croisiere-coucher" },
+          { title: "Boat Party avec baignade", slug: "boat-party" },
+          { title: "Croisières du nouvel an", slug: "croisiere-nouvel-an-lisbonne" }
+        ]
+      },
+      {
+        type: "Privée",
+        items: [
+          { title: "Croisière Romantique", slug: "croisiere-romantique" },
+          { title: "Location de bateau de 4 à 18 personnes", slug: "location-bateau-4-18-lisbonne" },
+          { title: "Location de bateau de 19 à 80 personnes", slug: "location-bateau-19-80-lisbonne" },
+          { title: "Croisières privée du nouvel an", slug: "croisiere-nouvel-an-privee-lisbonne" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Cascais",
+    subcategories: [
+      {
+        type: "Privée",
+        items: [
+          { title: "Croisières ou Session Pêche", slug: "croisiere-peche-cascais" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "Setubal – Troia – Arrabida",
+    subcategories: [
+      {
+        type: "Privée",
+        items: [
+          { title: "Croisières en bateau à moteur ou de plaisance", slug: "croisiere-bateau-moteur-setubal" }
+        ]
+      }
+    ]
+  }
+];
+
+const CategoryIcon = ({ title }: { title: string }) => {
+  const iconClass = "w-5 h-5 text-[#37b7ab]";
+  return (
+    <div className="flex items-center justify-center w-8 h-8 bg-white rounded-full shadow-sm">
+      {title.includes("Romantique") ? <Heart className={iconClass} /> :
+       title.includes("Pêche") ? <Fish className={iconClass} /> :
+       title.includes("Nouvel an") ? <PartyPopper className={iconClass} /> :
+       title.includes("Soleil") ? <Sunset className={iconClass} /> :
+       title.includes("Boat Party") ? <Sailboat className={iconClass} /> :
+       <Anchor className={iconClass} />}
+    </div>
+  );
+};
 export default function BoatsPage() {
-  // Use useInView to detect when elements are in the viewport
+  const ref = React.useRef(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
+  const prefersReducedMotion = useReducedMotion();
   const heroRef = React.useRef<HTMLDivElement>(null);
-  const heroInView = useInView(heroRef, { once: true });
-
-  const privateBoatsRef = React.useRef(null);
-  const privateBoatsInView = useInView(privateBoatsRef, { once: true });
-
-  const groupCruisesRef = React.useRef(null);
-  const groupCruisesInView = useInView(groupCruisesRef, { once: true });
-
-  const sloganRef = React.useRef(null);
-  const sloganInView = useInView(sloganRef, { once: true });
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section - Now using BoatHeroSlider */}
-      <BoatHeroSlider heroRef={heroRef} />
-
-      {/* Categories Section */}
-      <div id="boats" className="max-w-7xl mx-auto px-4 py-16">
-        {/* Private Rentals */}
-        <section className="mb-16" ref={privateBoatsRef}>
-          <h2 className="text-4xl font-garage-gothic-bold text-[#2a2765] mb-8">
-            Locations Privées
-          </h2>
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            initial="hidden"
-            animate={privateBoatsInView ? "visible" : "hidden"}
-            variants={staggerContainer}
-          >
-            {privateBoats.map((boat) => (
-              <motion.div key={boat.id} variants={fadeInUp}>
-                <Link href={`/boats/${boat.slug}`}>
-                  <motion.div
-                    className="hover:shadow-xl transition-all duration-300"
-                    whileHover="hover"
-                    variants={cardHover}
-                  >
-                    <Card>
-                      <div className="relative h-48 overflow-hidden">
-                        <img
-                          src={boat.image}
-                          alt={boat.title}
-                          className="w-full h-full object-cover rounded-t-lg"
-                        />
-                      </div>
-                      <CardContent className="p-6">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <Anchor className="w-5 h-5 text-[#ea3e4e]" />
-                          <span className="font-garage-gothic-bold text-[#2a2765]">{boat.type}</span>
-                        </div>
-                        <h3 className="text-xl font-garage-gothic-bold text-[#2a2765] mb-2">
-                          {boat.title}
-                        </h3>
-                        <div className="flex items-center space-x-2">
-                          <Users className="w-4 h-4 text-[#ea3e4e]" />
-                          <span>{boat.capacity}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <MapPin className="w-4 h-4 text-[#ea3e4e]" />
-                          <span>{boat.location}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Clock className="w-4 h-4 text-[#ea3e4e]" />
-                          <span>{boat.duration}</span>
-                        </div>
-                        <p className="text-[#37b7ab] font-garage-gothic-bold mt-4">{boat.price}</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </section>
-
-        {/* Group Cruises */}
-        <section className="bg-gradient-to-r from-[#2a2765] to-[#37b7ab] py-16" ref={groupCruisesRef}>
-          <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-4xl font-garage-gothic-bold text-white mb-8">
-              Croisières de Groupe
-            </h2>
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-              initial="hidden"
-              animate={groupCruisesInView ? "visible" : "hidden"}
-              variants={staggerContainer}
+    <div className="min-h-screen bg-gray-50">
+     <BoatHeroSlider heroRef={heroRef}/>
+      
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <motion.div 
+          ref={ref}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } },
+            hidden: {}
+          }}
+          className="space-y-8"
+        >
+          {categories.map((category) => (
+            <motion.section 
+              key={category.id}
+              variants={prefersReducedMotion ? {} : fadeIn}
+              className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow"
+              whileHover={{ scale: prefersReducedMotion ? 1 : 1.005 }}
             >
-              {groupCruises.map((cruise) => (
-                <motion.div key={cruise.id} variants={fadeInUp}>
-                  <Link href={`/boats/${cruise.slug}`}>
-                    <motion.div
-                      className="hover:shadow-xl transition-all duration-300"
-                      whileHover="hover"
-                      variants={cardHover}
-                    >
-                      <Card>
-                        <div className="relative h-48 overflow-hidden">
-                          <img
-                            src={cruise.image}
-                            alt={cruise.title}
-                            className="w-full h-full object-cover rounded-t-lg"
-                          />
-                        </div>
-                        <CardContent className="p-6">
-                          <div className="flex items-center space-x-2 mb-2">
-                            {cruise.title.includes("Soleil") ? (
-                              <Sunset className="w-5 h-5 text-[#ea3e4e]" />
-                            ) : (
-                              <Waves className="w-5 h-5 text-[#ea3e4e]" />
-                            )}
-                            <span className="font-garage-gothic-bold text-[#2a2765]">{cruise.type}</span>
-                          </div>
-                          <h3 className="text-xl font-garage-gothic-bold text-[#2a2765] mb-2">
-                            {cruise.title}
-                          </h3>
-                          <div className="flex items-center space-x-2">
-                            <Users className="w-4 h-4 text-[#ea3e4e]" />
-                            <span>{cruise.capacity}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <MapPin className="w-4 h-4 text-[#ea3e4e]" />
-                            <span>{cruise.location}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Clock className="w-4 h-4 text-[#ea3e4e]" />
-                            <span>{cruise.duration}</span>
-                          </div>
-                          <p className="text-[#37b7ab] font-garage-gothic-bold mt-4">{cruise.price}</p>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
+              {/* Header with progressive disclosure */}
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-semibold text-[#2a2765]">
+                  {category.title}
+                </h2>
+               
+              </div>
+              
+              <div className="space-y-6">
+                {category.subcategories.map((subcategory) => (
+                  <div key={subcategory.type}>
+                    <div className="flex items-center mb-4 space-x-3">
+                      <h3 className="text-sm font-medium text-[#37b7ab] uppercase tracking-wide">
+                        {subcategory.type}
+                      </h3>
+                      <div className="h-px flex-1 bg-gradient-to-r from-[#37b7ab]/30 to-transparent" />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {subcategory.items.map((item) => (
+                        <motion.div
+                          key={item.slug}
+                          whileHover="hover"
+                          whileTap={{ scale: prefersReducedMotion ? 1 : 0.98 }}
+                          variants={prefersReducedMotion ? {} : cardHover}
+                        >
+                          <Link 
+                            href={`/boats/${item.slug}`}
+                            className="group block relative"
+                          >
+                            <div className="flex items-center p-4 rounded-xl border border-gray-100 hover:border-[#37b7ab]/30 transition-colors bg-white">
+                              <CategoryIcon title={item.title} />
+                              
+                              <div className="ml-4 flex-1">
+                                <span className="text-gray-700 group-hover:text-[#2a2765] transition-colors">
+                                  {item.title}
+                                </span>
+                                <motion.div 
+                                  className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-[#37b7ab]/10"
+                                  initial={false}
+                                  animate={{ opacity: 0 }}
+                                  whileHover={{ opacity: 1 }}
+                                />
+                              </div>
+                              
+                              <motion.div
+                                className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
+                                initial={false}
+                              >
+                                →
+                              </motion.div>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.section>
+          ))}
+        </motion.div>
       </div>
-
-      {/* Slogan */}
-      <motion.div
-        className="text-center text-2xl font-cursive italic text-[#2a2765] py-12"
-        ref={sloganRef}
-        initial={{ opacity: 0, y: 50 }}
-        animate={sloganInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.3 }}
-      >
-        Faites de votre vie un évènement!
-      </motion.div>
     </div>
   );
 }

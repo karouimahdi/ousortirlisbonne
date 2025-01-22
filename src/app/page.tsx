@@ -1,6 +1,7 @@
 "use client";
 
-import ArticleCards from '@/components/AricleCard';
+import ArticleCards from '@/components/Articlelist';
+import FAQ from '@/components/Faq';
 import FeaturedCategories from '@/components/FeaturedCategory';
 import FeaturedEvent from '@/components/FeaturedEvents';
 import HeroSection from '@/components/Hero';
@@ -73,6 +74,7 @@ const HomePage = () => {
       >
         <TestimonialsSection />
       </motion.div>
+    
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -80,7 +82,7 @@ const HomePage = () => {
         variants={sectionVariants}
         transition={{ delay: 0.8 }}
       >
-        <ArticleCards />
+        <FAQ />
       </motion.div>
       {/* Newsletter with Animation */}
       <motion.div

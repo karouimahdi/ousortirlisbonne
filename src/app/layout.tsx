@@ -36,7 +36,7 @@ export default async function RootLayout({
             phoneNumber="1234567890"
             message="Bonjour, je souhaite plus d'informations"
           />
-          {/* <Footer /> */}
+          <Footer />
         </TranslationProvider>
       </body>
     </html>

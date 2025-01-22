@@ -101,3 +101,11 @@ scrollbar-hide{
 .animate-marquee2:hover {
   animation-play-state: paused;
 }
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  position: relative;
+  min-width: 100%;
+}

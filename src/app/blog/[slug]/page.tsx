@@ -1,13 +1,18 @@
-// app/blog/[slug]/page.tsx
 "use client";
 import { motion } from "framer-motion";
 import React from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation"; // Import useParams
 import { articles } from "../../data/article";
 import { fadeInUp, slideIn } from "../../animation";
 
-const ArticlePage = ({ params }: { params: { slug: string } }) => {
-  const article = articles.find((article) => article.slug === params.slug);
+const ArticlePage = () => {
+  // Use useParams to access the slug
+  const params = useParams();
+  const slug = params.slug as string; // Cast slug to string
+
+  // Find the article based on the slug
+  const article = articles.find((article) => article.slug === slug);
 
   if (!article) {
     return (

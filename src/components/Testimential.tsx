@@ -83,7 +83,7 @@ export function TestimonialsSection() {
     <section className="py-20 overflow-hidden bg-gradient-to-br from-[#2a2765]/5 via-[#37b7ab]/5 to-[#ea3e4e]/5">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#2a2765] via-[#37b7ab] to-[#ea3e4e] text-transparent bg-clip-text">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#2a2765]  bg-clip-text">
             Témoignages Facebook Où sortir à Lisbonne
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
