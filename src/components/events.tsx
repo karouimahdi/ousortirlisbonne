@@ -23,17 +23,14 @@ interface Event {
 }
 
 interface EventsListProps {
-  category?: string;
+  events: Event[]; // Nouvelle prop pour recevoir les événements filtrés
 }
 
-const EventsList: React.FC<EventsListProps> = ({ category }) => {
+const EventsList: React.FC<EventsListProps> = ({ events }) => {
   const router = useRouter();
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
-  // Filter events based on the selected category
-  const filteredEvents = category
-    ? events.filter((event) => event.category === category)
-    : events;
+ 
 
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = { 
@@ -46,7 +43,7 @@ const EventsList: React.FC<EventsListProps> = ({ category }) => {
 
   return (
     <div className="grid gap-8 py-4">
-      {filteredEvents.map((event: Event, index: number) => (
+      {events?.map((event: Event, index: number) => (
         <motion.div
           key={event.id}
           initial={{ opacity: 0, y: 20 }}
@@ -120,7 +117,7 @@ const EventsList: React.FC<EventsListProps> = ({ category }) => {
                       whileTap={{ scale: 0.98 }}
                     >
                       <Button
-                        className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6"
+                        className="bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full  text-white px-6"
                         onClick={() => router.push(`/events/${event.slug}`)}
                       >
                         Voir Détails

@@ -183,7 +183,7 @@ export default function VenuePage({
             transition={{ duration: 0.8, delay: 1.4 }}
             whileHover={{ scale: 1.05 }}
           >
-            <Button className="w-full py-6 text-lg bg-[#37b7ab] hover:bg-[#2a2765] transition-colors duration-300">
+            <Button className="w-full py-6 text-lg bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full">
               Réserver Maintenant
             </Button>
           </motion.div>

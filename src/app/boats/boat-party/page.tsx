@@ -1,32 +1,22 @@
 import React from 'react';
 import { Calendar, Clock, Waves, Martini, Users, MapPin } from 'lucide-react';
+import HeroSection from '@/components/Hero';
 
 const BoatPartyPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative h-[90vh] overflow-hidden">
-        <div className="absolute inset-0 ">
-          <img 
-            src="/Boat-Party.jpeg" 
-            alt="Catamaran party" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#2a2765]" />
-        </div>
-        
-        <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center">
-          <div className="animate-fade-in-down text-center">
-            <h1 className="text-7xl font-bold mb-6 text-white drop-shadow-lg">
-              Boat Party
-            </h1>
-            <p className="text-2xl mb-8 text-white">Une expérience unique sur la Méditerranée</p>
-            <button className="bg-[#ea3e4e] hover:bg-[#ea3e4e]/90 text-white font-bold py-4 px-10 rounded-full transform hover:scale-105 transition-all shadow-lg">
-              Embarquez dès maintenant!
-            </button>
-          </div>
-        </div>
-      </div>
+     
+<HeroSection
+
+  imageUrl="/Boat-Party.jpeg"
+  title="Boat Party"
+  description="Une expérience unique sur la Méditerranée"
+  buttonText="Embarquez dès maintenant!"
+  buttonLink="#"
+  altText="Vue panoramique de Lisbonne"
+/>
+     
 
       {/* Features Section */}
       <div className="container mx-auto px-4 -mt-20 relative z-20">
@@ -88,7 +78,7 @@ const BoatPartyPage = () => {
               <div className="bg-[#ea3e4e] rounded-xl p-8 text-center w-full transform hover:scale-105 transition-all shadow-lg">
                 <h3 className="text-5xl font-bold mb-4 text-white">50€</h3>
                 <p className="text-2xl mb-8 text-white">par personne</p>
-                <button className="bg-white text-[#ea3e4e] font-bold py-4 px-8 rounded-full hover:bg-gray-50 transform hover:scale-105 transition-all shadow-lg text-lg">
+                <button className="bg-[#ea3e4e] text-white font-bold py-4 px-8 rounded-full hover:bg-[#37b7ab] transform hover:scale-105 transition-all shadow-lg text-lg">
                   Réserver maintenant
                 </button>
               </div>

@@ -141,7 +141,7 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles, selectedCategory })
 
                   {/* Read More Button */}
                   <motion.div 
-                    className="inline-flex items-center gap-2 text-[#4A4FE4] font-medium mt-4"
+                    className="inline-flex items-center gap-2 rounded-full text-white bg-[#ea3e4e] hover:bg-[#37b7ab] font-medium mt-4"
                     whileHover={{ x: 5 }}
                   >
                     Lire l'article

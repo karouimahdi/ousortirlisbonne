@@ -29,16 +29,16 @@ const categories = [
           { title: "Croisières en journée", slug: "croisiere-journee" },
           { title: "Croisières au coucher de soleil", slug: "croisiere-coucher" },
           { title: "Boat Party avec baignade", slug: "boat-party" },
-          { title: "Croisières du nouvel an", slug: "croisiere-nouvel-an-lisbonne" }
+          { title: "Croisières du nouvel an", slug: "croisiere-nouvel-an" }
         ]
       },
       {
         type: "Privée",
         items: [
           { title: "Croisière Romantique", slug: "croisiere-romantique" },
-          { title: "Location de bateau de 4 à 18 personnes", slug: "location-bateau-4-18-lisbonne" },
-          { title: "Location de bateau de 19 à 80 personnes", slug: "location-bateau-19-80-lisbonne" },
-          { title: "Croisières privée du nouvel an", slug: "croisiere-nouvel-an-privee-lisbonne" }
+          { title: "Location de bateau de 4 à 18 personnes", slug: "location-bateau" },
+          { title: "Location de bateau de 19 à 80 personnes", slug: "location-grande-bateau" },
+          { title: "Croisières privée du nouvel an", slug: "croisiere-nouvel-an" }
         ]
       }
     ]
@@ -50,7 +50,7 @@ const categories = [
       {
         type: "Privée",
         items: [
-          { title: "Croisières ou Session Pêche", slug: "croisiere-peche-cascais" }
+          { title: "Croisières ou Session Pêche", slug: "croisiere-peche" }
         ]
       }
     ]
@@ -62,7 +62,7 @@ const categories = [
       {
         type: "Privée",
         items: [
-          { title: "Croisières en bateau à moteur ou de plaisance", slug: "croisiere-bateau-moteur-setubal" }
+          { title: "Croisières en bateau à moteur ou de plaisance", slug: "croisiere-arrabida" }
         ]
       }
     ]

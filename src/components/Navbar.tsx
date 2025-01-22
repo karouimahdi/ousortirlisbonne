@@ -59,14 +59,10 @@ const Navbar = () => {
       name: translations["customExperience"],
       icon: <Map className="w-5 h-5" />,
       items: [
-        { name: translations["walkingTour"], path: '/experience/visite-pieds', icon: <Footprints className="w-4 h-4" /> },
-        { name: translations["tuktukTour"], path: '/experience/tuktuk', icon: <Car className="w-4 h-4" /> },
-        { name: translations["sidecarTour"], path: '/experience/sidecar', icon: <Car className="w-4 h-4" /> },
-        { name: translations["bikeTour"], path: '/experience/velo', icon: <Bike className="w-4 h-4" /> },
-        { name: translations["sintraExcursion"], path: '/experience/sintra', icon: <Train className="w-4 h-4" /> },
-        { name: translations["landAndSea"], path: '/experience/terre-mer', icon: <Compass className="w-4 h-4" /> },
-        { name: translations["customDayExcursion"], path: '/experience/journee', icon: <Calendar className="w-4 h-4" /> },
-        { name: translations["wineTasting"], path: '/experience/degustation', icon: <Wine className="w-4 h-4" /> },
+        { name: translations["walkingTour"], path: '/decouvertes/visite-privee', icon: <Footprints className="w-4 h-4" /> },
+        { name: translations["tuktukTour"], path: '/decouvertes/tuktuk-tour', icon: <Car className="w-4 h-4" /> },
+        { name: translations["sidecarTour"], path: '/decouvertes/side-car', icon: <Car className="w-4 h-4" /> },
+        { name: "plus d'experiences", path: '/decouvertes',  },
       ]
     },
     croisieres: {
@@ -74,16 +70,16 @@ const Navbar = () => {
       icon: <Ship className="w-5 h-5" />,
       items: [
         { name: translations["groupCruise"], path: '/boats', icon: <Anchor className="w-4 h-4" /> },
-        { name: translations["arrabidaCruise"], path: '/', icon: <Ship className="w-4 h-4" /> },
-        { name: translations["fishingCruise"], path: '/test', icon: <Fish className="w-4 h-4" /> },
+        { name: translations["arrabidaCruise"], path: '/boats/croisiere-arrabida', icon: <Ship className="w-4 h-4" /> },
+        { name: translations["fishingCruise"], path: '/boats/croisiere-peche', icon: <Fish className="w-4 h-4" /> },
       ]
     },
     sports: {
       name: translations["sportsAndAdventures"],
       icon: <Mountain className="w-5 h-5" />,
       items: [
-        { name: translations["outdoorActivities"], path: '/sports/plein-air', icon: <Trees className="w-4 h-4" /> },
-        { name: translations["sesimbraAdventure"], path: '/sports/sesimbra', icon: <TentTree className="w-4 h-4" /> },
+        { name: translations["outdoorActivities"], path: '/activites-sportives', icon: <Trees className="w-4 h-4" /> },
+        { name: translations["sesimbraAdventure"], path: '/activites-a-sesimbra-arrabida', icon: <TentTree className="w-4 h-4" /> },
       ]
     }
   };
@@ -161,7 +157,7 @@ const Navbar = () => {
               <span className="font-medium">{locale.toUpperCase()}</span>
             </button>
 
-            <Link href="/sejour-mesure">
+            <Link href="/reservation">
               <Button 
                 className="bg-[#ea3e4e] hover:bg-[#37b7ab] text-white px-6 py-6 rounded-full transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl font-medium flex items-center space-x-2"
               >

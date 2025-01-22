@@ -28,7 +28,12 @@ const HomePage = () => {
         viewport={{ once: true, amount: 0.5 }} // Trigger when 50% of the section is in view
         variants={sectionVariants}
       >
-        <HeroSection />
+        <HeroSection imageUrl="/tage2min.jpg"
+  title="Découvrez les Meilleures Expériences"
+  description="Explorez les événements, restaurants et activités incontournables"
+  buttonText="Découvrir Maintenant"
+  buttonLink="/decouvertes"
+  altText="Vue panoramique de Lisbonne"/>
       </motion.div>
 
       {/* Featured Categories with Animation */}

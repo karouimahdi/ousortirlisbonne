@@ -146,7 +146,7 @@ export default function EventDetail({ params }: { params: { slug: string } }) {
               whileTap={{ scale: 0.95 }}
             >
               <Button
-                className="w-full bg-[#37b7ab] hover:bg-[#2a2765] text-lg py-6"
+                className="w-full bg-[#37b7ab] rounded-full hover:bg-[#ea3e4e] text-lg py-6"
                 onClick={() => {/* Handle reservation */}}
               >
 Réserver  Maintenant         </Button>

@@ -3,6 +3,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FocusCards } from '@/components/ui/focus-cards';
+import HeroSection from '@/components/Hero';
 
 const TourTuktukPage = () => {
     const cards = [
@@ -37,24 +38,19 @@ const TourTuktukPage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <div 
-        className="relative h-screen bg-cover bg-center"
-        style={{
-          backgroundImage: `linear-gradient(rgba(42, 39, 101, 0.7), rgba(42, 39, 101, 0.7)), url('/api/placeholder/1920/1080')`
-        }}
+        className="relative h-screen "
+        
       >
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4 md:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Tour en tuktuk à Lisbonne
-          </h1>
-          <p className="text-lg md:text-xl max-w-3xl mb-8 leading-relaxed">
-            Lisbonne est un véritable musée à ciel ouvert. Venez admirer places, monuments, oeuvres street art et paysages, confortablement installé à bord de tuktuk electrique 6 places ou piaggo 2 places accompagné par nos guides passionnés et passionnants.
-          </p>
-          <Button 
-            className="bg-[#ea3e4e] hover:bg-[#d03545] text-white px-8 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105"
-          >
-            Faites de chaque instant un événement
-          </Button>
-        </div>
+        
+        <HeroSection
+  imageUrl="/Image.jpg"
+  title="  Tour en tuktuk à Lisbonne"
+  description="Lisbonne est un véritable musée à ciel ouvert. Venez admirer places, monuments, oeuvres street art et paysages, confortablement installé à bord de tuktuk electrique 6 places ou piaggo 2 places accompagné par nos guides passionnés et passionnants.
+"
+  buttonText="Faites de chaque instant un événement"
+  buttonLink="#"
+  altText="Vue panoramique de Lisbonne"
+/>
       </div>
 
       {/* Discovery Section */}

@@ -91,7 +91,7 @@ const RomanticExperienceSlider = () => {
     >
       <div className="embla__viewport h-full" ref={emblaRef}>
         <div className="embla__container h-full">
-          {['/romantic1.jpg', '/romantic2.jpg', '/romantic3.jpg'].map((img, index) => (
+          {[ '/Capture-decran-2024-02-05-a-18.29.34.jpg', '/Capture-decran-2024-02-05-a-18.28.53.jpg'].map((img, index) => (
             <div className="embla__slide relative flex-[0_0_100%]" key={index}>
               <img 
                 src={img} 
@@ -190,14 +190,14 @@ const PackageDetails = () => {
           </div>
 
           <Button 
-            className="bg-[#ea3e4e] hover:bg-[#d83343] px-8 py-6 rounded-xl text-lg shadow-lg w-full md:w-auto"
+            className="bg-[#ea3e4e] hover:bg-[#37b7ab] px-8 py-6 rounded-full text-lg shadow-lg w-full md:w-auto"
           >
             Réserver maintenant
           </Button>
         </div>
 
         <div className="grid gap-6">
-          {['/dinner.jpg', '/cabin.jpg', '/sunset.jpg'].map((img, index) => (
+          {["/romantic1.jpg" ,'/Capture-decran-2024-02-05-a-18.29.34.jpg', '/Capture-decran-2024-02-05-a-18.28.53.jpg'].map((img, index) => (
             <motion.div 
               key={index}
               whileHover={{ scale: 1.02 }}

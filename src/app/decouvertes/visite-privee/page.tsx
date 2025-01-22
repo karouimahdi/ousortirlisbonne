@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Clock, Users, MapPin } from 'lucide-react';
+import HeroSection from '@/components/Hero';
 
 const tours = [
   {
@@ -41,40 +42,15 @@ const VisitePriveePage = () => {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="relative h-screen">
-        <Image
-          src="/lisbon-walking-hero.jpg"
-          alt="Lisbonne à pied"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold mb-6 max-w-4xl"
-          >
-            Découvrez Lisbonne à pied : une immersion authentique
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl md:text-2xl mb-8 italic"
-          >
-            "Passant par son âme, pour rejoindre son coeur et découvrir son corps"
-          </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-[#37b7ab] hover:bg-[#2a2765] text-white px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105"
-          >
-            Suivez le guide
-          </motion.button>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+        
+        <HeroSection
+  imageUrl="/Image.jpg"
+  title=" Découvrez Lisbonne à pied : une immersion authentique"
+  description=" Passant par son âme, pour rejoindre son coeur et découvrir son corps"
+  buttonText="Suivez le guide"
+  buttonLink="#"
+  altText="Vue panoramique de Lisbonne"
+/>
       </div>
 
       {/* Introduction Section */}
@@ -175,7 +151,7 @@ const VisitePriveePage = () => {
                       <div className="text-[#2a2765] font-semibold">
                         {tour.price}
                       </div>
-                      <button className="bg-[#ea3e4e] hover:bg-[#2a2765] text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
+                      <button className="bg-[#ea3e4e] hover:bg-[#37b7ab] text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
                         Réserver
                       </button>
                     </div>

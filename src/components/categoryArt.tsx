@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles, ArrowRight, Target, Music, Utensils, Users } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import CategorySection from './CategorySection';
 
 interface ArticleGridProps {
   selectedCategory: string | null;
@@ -15,35 +16,35 @@ const ArticleGrid: React.FC<ArticleGridProps> = ({ selectedCategory, setSelected
   const categories = [
     {
       name: "Activités",
-      icon: "🎯",
+      icon: Target,
       color: '#FF4B6E',
       gradient: 'from-[#FF4B6E] via-[#FF4B6E]/40 to-[#FF4B6E]/10',
       description: "Découvrez les meilleures activités à faire",
-      highlights: ['Culture', 'Sport', 'Loisirs']
+      highlights: ['Culture', 'Sport', 'Loisirs'],
     },
     {
       name: "Clubs, Bars, Events",
-      icon: "🎵",
+      icon: Music,
       color: '#4A4FE4',
       gradient: 'from-[#4A4FE4] via-[#4A4FE4]/40 to-[#4A4FE4]/10',
       description: "Où aller écouter de la musique et danser",
-      highlights: ['Nightlife', 'Live Music', 'Concerts']
+      highlights: ['Nightlife', 'Live Music', 'Concerts'],
     },
     {
       name: "Restaurants, Rooftops",
-      icon: "🍽️",
+      icon: Utensils,
       color: '#00C9A7',
       gradient: 'from-[#00C9A7] via-[#00C9A7]/40 to-[#00C9A7]/10',
       description: "Spécial restauration pour tout les goûts, toutes les bourses",
-      highlights: ['Gastronomie', 'Vue Panoramique', 'Ambiance']
+      highlights: ['Gastronomie', 'Vue Panoramique', 'Ambiance'],
     },
     {
       name: "Selon le profil",
-      icon: "👥",
+      icon: Users,
       color: '#FF8F3F',
       gradient: 'from-[#FF8F3F] via-[#FF8F3F]/40 to-[#FF8F3F]/10',
       description: "Que faire selon le profil de mon groupe",
-      highlights: ['Famille', 'Amis', 'Couples']
+      highlights: ['Famille', 'Amis', 'Couples'],
     }
   ];
 
@@ -53,22 +54,6 @@ const ArticleGrid: React.FC<ArticleGridProps> = ({ selectedCategory, setSelected
       opacity: 1,
       transition: {
         staggerChildren: 0.15
-      }
-    }
-  };
-
-  const cardVariants: Variants = {
-    hidden: {
-      y: 50,
-      opacity: 0
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        bounce: 0.4,
-        duration: 0.8
       }
     }
   };
@@ -123,67 +108,22 @@ const ArticleGrid: React.FC<ArticleGridProps> = ({ selectedCategory, setSelected
           variants={containerVariants}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16"
         >
-          {categories.map((category) => (
-            <motion.div
+          {categories.map((category, index) => (
+            <CategorySection
               key={category.name}
-              variants={cardVariants}
-              className="h-full"
-            >
-              <Card 
-                className={cn(
-                  "h-full cursor-pointer group overflow-hidden hover:shadow-xl transition-all duration-300",
-                  "bg-white/80 backdrop-blur-lg border-0",
-                  selectedCategory === category.name && "scale-95 shadow-xl"
-                )}
-                onClick={() => setSelectedCategory(category.name)}
-              >
-                <CardContent className="h-full relative p-8">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-20 rounded-2xl`} />
-
-                  <div className="relative z-10 h-full flex flex-col items-center text-center">
-                    <motion.div
-                      className="p-4 rounded-2xl bg-white shadow-lg mb-6 text-6xl"
-                      whileHover={{ scale: 1.1, rotate: [0, -5, 5, -5, 0] }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {category.icon}
-                    </motion.div>
-                    
-                    <h3 className="text-2xl font-bold mb-4" style={{ color: category.color }}>
-                      {category.name}
-                    </h3>
-
-                    <p className="text-gray-600 mb-6">
-                      {category.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 justify-center mb-8">
-                      {category.highlights.map((highlight) => (
-                        <Badge
-                          key={highlight}
-                          className="px-3 py-1.5"
-                          style={{ 
-                            backgroundColor: `${category.color}15`,
-                            color: category.color
-                          }}
-                        >
-                          {highlight}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <motion.div 
-                      className="mt-auto flex items-center gap-2 font-medium"
-                      whileHover={{ x: 5 }}
-                      style={{ color: category.color }}
-                    >
-                      <span>Explorer</span>
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+              index={index}
+              icon={category.icon}
+              label={category.name}
+              color={category.color}
+              description={category.description}
+              gradient={category.gradient}
+              accent={category.gradient}
+              highlights={category.highlights}
+              onClick={() => setSelectedCategory(category.name)}
+              isSelected={selectedCategory === category.name}
+             
+              
+            />
           ))}
         </motion.div>
       </div>

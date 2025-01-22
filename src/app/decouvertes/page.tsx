@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TestimonialsSection } from "@/components/Testimential";
+import CategorySection from "@/components/CategorySection";
 
 const heroImages = [
   {
@@ -46,25 +47,37 @@ const DecouvertePage = () => {
     {
       title: "Visite privée à pied",
       icon: "🚶‍♂️",
+      color: '#FF4B6E',
+      gradient: 'from-[#FF4B6E] via-[#FF4B6E]/40 to-[#FF4B6E]/10',
       description: "Dégustation incluse",
+      highlights: ['Guide francophone', 'Personnalisable', '3h minimum'],
       route: "/decouvertes/visite-privee"
     },
     {
       title: "Tour en tuktuk",
-      icon: "🛺",
+      icon: "🛺", 
+      color: '#4A4FE4',
+      gradient: 'from-[#4A4FE4] via-[#4A4FE4]/40 to-[#4A4FE4]/10',
       description: "6 places disponibles",
+      highlights: ['Visite complète', 'Commentaires audio', 'Photos incluses'],
       route: "/decouvertes/tuktuk-tour"
     },
     {
       title: "Virée en side-car",
       icon: "🏍️",
+      color: '#00C9A7',
+      gradient: 'from-[#00C9A7] via-[#00C9A7]/40 to-[#00C9A7]/10',
       description: "Sensation unique",
+      highlights: ['Pilote expérimenté', 'Casques fournis', 'Circuit personnalisé'],
       route: "/decouvertes/side-car"
     },
     {
       title: "Croisière sur le Tejo",
       icon: "⛵",
+      color: '#FF8F3F',
+      gradient: 'from-[#FF8F3F] via-[#FF8F3F]/40 to-[#FF8F3F]/10',
       description: "Vue panoramique",
+      highlights: ['2h de croisière', 'Commentaires historiques', 'Rafraîchissements'],
       route: "/boats"
     }
   ];
@@ -143,6 +156,7 @@ const DecouvertePage = () => {
         >
           <ChevronRight size={24} />
         </button>
+        
       </div>
 
       {/* Enhanced Experience Cards */}
@@ -156,26 +170,18 @@ const DecouvertePage = () => {
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {experiences.map((experience, index) => (
-            <motion.div
+            <CategorySection
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 text-center group hover:shadow-2xl hover:border-[#37b7ab] transition-all duration-300"
-            >
-              <div className="text-4xl mb-4">{experience.icon}</div>
-              <h3 className="text-xl font-semibold text-[#2a2765] mb-3">
-                {experience.title}
-              </h3>
-              <p className="text-gray-600 mb-6">{experience.description}</p>
-              <Link
-                href={experience.route}
-                className="bg-[#ea3e4e] hover:bg-[#2a2765] text-white px-8 py-3 rounded-full text-sm transition-all duration-300 inline-block"
-              >
-                Explorer
-              </Link>
-            </motion.div>
+              index={index}
+              icon={() => <span className="text-4xl">{experience.icon}</span>} // Gestion des emojis
+              label={experience.title}
+              color={experience.color}
+              description={experience.description}
+              gradient={experience.gradient}
+              accent={experience.gradient}
+              highlights={experience.highlights}
+              route={experience.route}
+                  />
           ))}
         </div>
       </div>

@@ -117,31 +117,7 @@
               </div>
             </div>
   
-            <div className="relative h-full min-h-[400px]">
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="absolute inset-0"
-              >
-                <div className="relative h-full rounded-2xl overflow-hidden bg-[#2a2765]/40 border border-[#37b7ab]/20 backdrop-blur-md">
-                  <motion.div
-                    animate={{
-                      y: [0, -10, 0],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="absolute bottom-0 left-0 right-0 h-64"
-                    style={{
-                      background: `linear-gradient(to top, 
-                        rgba(55, 183, 171, 0.3) 0%,
-                        rgba(42, 39, 101, 0.1) 100%)`
-                    }}
-                  />
-                  <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-[#ea3e4e]/20 blur-xl" />
-                  <div className="absolute bottom-4 left-4 w-32 h-32 rounded-full bg-[#37b7ab]/20 blur-xl" />
-                </div>
-              </motion.div>
-            </div>
+           
           </motion.div>
         </div>
       </div>
@@ -226,7 +202,7 @@
               <p className="text-3xl font-bold text-[#37b7ab]">{price}</p>
             </div>
             <Button 
-              className="bg-[#ea3e4e] hover:bg-[#d83343] px-8 py-6 rounded-xl text-lg shadow-lg"
+              className="bg-[#ea3e4e] hover:bg-[#37b7ab] px-8 py-6 rounded-full text-lg shadow-lg"
             >
               Réserver
             </Button>
@@ -244,7 +220,7 @@
         time: "11h - 12h",
         capacity: "Jusqu'à 12 personnes",
         departure: "Départ de Belém",
-        images: ["/voilier1.jpg", "/voilier2.jpg", "/voilier3.jpg"]
+        images: ["/Voilier1.jpg", "/voilier2.jpg", "/voilier3.jpg"]
       },
       {
         title: "Catamaran Luxe",
@@ -252,7 +228,7 @@
         time: "14h - 16h",
         capacity: "Jusqu'à 20 personnes",
         departure: "Départ de Belém",
-        images: ["/catamaran1.jpg", "/catamaran2.jpg", "/catamaran3.jpg"]
+        images: ["/c*atamaran.jpg", "/catamaran2.jpg", "/catamaran1.jpg"]
       },
     ];
   

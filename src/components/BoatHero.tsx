@@ -11,19 +11,19 @@ interface BoatHeroSliderProps {
 
 const slides=[
   {
-    image: "/boat1.jpg",
+    image: "/Bateau-lisbonne-min.jpg",
     title: "Croisière au départ de Lisbonne, Cascais et Setubal",
     subtitle: "Découvrez notre catalogue composé d’une cinquantaine d’offres",
     description: "Croisières de groupe et excursions privées sur mesure."
   },
   {
-    image: "/boat2.jpg",
+    image: "/Evora-Mail-2.jpg",
     title: "Location de bateau à Setubal – TROIA – Portinho da Arrábida",
     subtitle: "Au programme de votre croisière dans la Serra de Arrabida",
     description: "Paysage à couper le souffle, du bleu-vert à perte de vue, des eaux cristallines, baignade, plages désertes, détente, convivialité et 95% de chance de rencontrer des dauphins."
   },
   {
-    image: "/boat1.jpg",
+    image: "/Portinho-de-Arrabida.jpeg",
     title: "Louer un bateau à Cascais",
     subtitle: "Yacht, voilier, bateau de pêche..",
     description: "Cascais, connue sous le nom de la «ville de rois et de pêcheurs», est l’une des stations balnéaires les plus appréciées du littoral de Lisbonne. Partez au large de Cascais à bord de l’une de nos embarcations, pour une journée hors du commun."
@@ -141,7 +141,7 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
           transition={{ delay: 1.1 }}
         >
           <Button
-            className="bg-[#37b7ab] hover:bg-[#ea3e4e] text-xl py-6 px-8 font-bold shadow-md"
+            className="hover:bg-[#37b7ab] bg-[#ea3e4e] rounded-full text-xl py-6 px-8 font-bold shadow-md"
             onClick={() => {
               document.getElementById('boats')?.scrollIntoView({ behavior: 'smooth' });
             }}

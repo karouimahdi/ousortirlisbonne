@@ -23,7 +23,7 @@ const FeaturedEvent = () => {
               <p className="text-gray-600 mb-6">
                 Profitez d'une soirée exceptionnelle avec les meilleurs artistes de jazz dans un cadre idyllique. Une expérience unique à ne pas manquer !
               </p>
-              <Button className="bg-[#2a2765] hover:bg-[#37b7ab] text-white rounded-full transform hover:scale-105 transition-all duration-200">
+              <Button className="bg-[#ea3e4e] hover:bg-[#37b7ab] text-white rounded-full transform hover:scale-105 transition-all duration-200">
                 En savoir plus
               </Button>
             </div>

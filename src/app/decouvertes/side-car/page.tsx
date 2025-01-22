@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Clock, Users, MapPin } from 'lucide-react';
 import { FocusCards } from '@/components/ui/focus-cards';
+import HeroSection from '@/components/Hero';
 
 const tours = [
   {
@@ -67,39 +68,16 @@ const VisitePriveePage = () => {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="relative h-screen">
-        <Image
-          src="/lisbon-walking-hero.jpg"
-          alt="Lisbonne à pied"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold mb-6 max-w-4xl"
-          >
-Virée authentique en Side-car à Lisbonne          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl md:text-2xl mb-8 italic"
-          >
-Le tour de Lisbonne et ses alentours en side-car est un excellent moyen de sortir des sentiers battus pour des souvenirs incroyables dans une ambiance authentique et originale.
-
-</motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-[#37b7ab] hover:bg-[#2a2765] text-white px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105"
-          >
-Voir les offres          </motion.button>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+        
+        <HeroSection
+  imageUrl="/ImageS3.jpg"
+  title="Virée authentique en Side-car à Lisbonne"
+  description="Le tour de Lisbonne et ses alentours en side-car est un excellent moyen de sortir des sentiers battus pour des souvenirs incroyables dans une ambiance authentique et originale.
+"
+  buttonText="Voir les offres "
+  buttonLink="#"
+  altText="Vue panoramique de Lisbonne"
+/>
       </div>
 
       {/* Introduction Section */}
@@ -183,7 +161,7 @@ Activité parfaite à deux pour les programmes de quelques jours à Lisbonne.
                       <div className="text-[#2a2765] font-semibold">
                         {tour.price}
                       </div>
-                      <button className="bg-[#ea3e4e] hover:bg-[#2a2765] text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
+                      <button className="bg-[#ea3e4e] rounded-full hover:bg-[#37b7ab] text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
                         Réserver
                       </button>
                     </div>
