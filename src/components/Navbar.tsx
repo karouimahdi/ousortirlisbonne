@@ -43,6 +43,7 @@ const Navbar = () => {
   const currentPath = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const { translations, setLocale, locale } = useTranslation();
+  const [openMobileMenu, setOpenMobileMenu] = useState<string | null>(null);
 
   const menuItems = {
     blog: {
@@ -178,6 +179,7 @@ const Navbar = () => {
           </div>
         </div>
 
+
         {/* Mobile menu */}
         <div 
           className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
@@ -187,23 +189,35 @@ const Navbar = () => {
           <div className="px-2 pt-2 pb-3 space-y-2 backdrop-blur-xl bg-[#2a2765]/95 rounded-xl mb-4 border border-white/10 shadow-2xl">
             {Object.entries(menuItems).map(([key, menu]) => (
               <div key={key} className="space-y-2">
-                <div className="px-4 py-2 text-[#37b7ab] font-bold flex items-center space-x-2">
-                  {menu.icon}
-                  <span>{menu.name}</span>
+                <button
+                  onClick={() => setOpenMobileMenu(openMobileMenu === key ? null : key)}
+                  className="w-full px-4 py-3 text-left flex items-center justify-between hover:bg-white/10 rounded-lg transition-colors duration-200"
+                >
+                  <div className="flex items-center space-x-2">
+                    {menu.icon}
+                    <span className="font-medium text-white">{menu.name}</span>
+                  </div>
+                  <ChevronDown 
+                    className={`w-5 h-5 transition-transform ${
+                      openMobileMenu === key ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                <div className={`${openMobileMenu === key ? 'block' : 'hidden'} space-y-2 ml-8`}>
+                  {menu.items.map((item) => (
+                    <Link
+                      key={item.path}
+                      href={item.path}
+                      className="flex items-center space-x-3 px-4 py-3 text-white hover:text-[#37b7ab] hover:bg-white/10 rounded-lg transition-all duration-200"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <div className="p-2 rounded-full bg-[#37b7ab]/10">
+                        {item.icon || <Compass className="w-4 h-4" />}
+                      </div>
+                      <span>{item.name}</span>
+                    </Link>
+                  ))}
                 </div>
-                {menu.items.map((item) => (
-                  <Link
-                    key={item.path}
-                    href={item.path}
-                    className="flex items-center space-x-3 px-6 py-3 text-white hover:text-[#37b7ab] hover:bg-white/10 rounded-lg transition-all duration-200"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <div className="p-2 rounded-full bg-[#37b7ab]/10">
-                      {item.icon || <Compass className="w-4 h-4" />}
-                    </div>
-                    <span>{item.name}</span>
-                  </Link>
-                ))}
               </div>
             ))}
             
@@ -231,5 +245,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;
+export default Navbar
