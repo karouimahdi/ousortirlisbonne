@@ -7,7 +7,7 @@ import { venues } from '../../../data/venues';
 import { notFound } from 'next/navigation';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import ImageGallery from '@/components/ImageGallery';
 
@@ -44,13 +44,13 @@ async function getCoordinates(location: string): Promise<Coordinates> {
   }
 }
 
-export default function VenuePage({
-  params
-}: {
-  params: { category: string; slug: string }
+export default function VenuePage(
+  {params}: {params: Promise<{category: string; slug: string }>
 }) {
+  const {category}=use (params);
+  const { slug } = use(params);
   const venue = venues.find(
-    v => v.categorySlug === params.category && v.slug === params.slug
+    v => v.categorySlug === category && v.slug === slug
   );
 
   const [coordinates, setCoordinates] = useState<Coordinates>({ lat: 48.8566, lon: 2.3522 });
@@ -77,7 +77,7 @@ export default function VenuePage({
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
       <Link 
-        href={`/clubs/${params.category}`}
+        href={`/clubs/${category}`}
         className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 group"
       >
         <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />

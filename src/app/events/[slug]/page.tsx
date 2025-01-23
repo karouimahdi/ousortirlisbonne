@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Clock, Loader2 } from "lucide-react"; // Import Loader2 for spinner
@@ -39,8 +39,10 @@ async function getCoordinates(location: string): Promise<Coordinates> {
   }
 }
 
-export default function EventDetail({ params }: { params: { slug: string } }) {
-  const event = events.find((e) => e.slug === params.slug);
+export default  function   EventDetail({params}: {params: Promise<{ slug: string }>})
+ {const { slug } = use(params);
+
+  const event = events.find((e) => e.slug === slug);
   const [coordinates, setCoordinates] = useState<Coordinates>({ lat: 48.8566, lon: 2.3522 });
   const [isLoading, setIsLoading] = useState(true);
 

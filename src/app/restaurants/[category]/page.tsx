@@ -2,14 +2,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Star } from 'lucide-react';
 import { venues } from '../../data/venues';
+import { use } from 'react';
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
-  const categoryVenues = venues.filter(
-    venue => venue.categorySlug === params.category
+export default function CategoryPage({params}: {params: Promise<{ category: string }>})
+ {const { category } = use(params);  const categoryVenues = venues.filter(
+    venue => venue.categorySlug === category
   );
 
   // Get the category name based on the slug
-  const categoryName = categoryVenues.length > 0 ? categoryVenues[0].category : params.category;
+  const categoryName = categoryVenues.length > 0 ? categoryVenues[0].category : category;
 
   return (
     <div className="bg-[#f8f9fa]">
@@ -41,7 +42,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
           {categoryVenues.map(venue => (
             <Link
               key={venue.id}
-              href={`/restaurants/${params.category}/${venue.slug}`}
+              href={`/restaurants/${category}/${venue.slug}`}
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
               <div className="relative h-48">

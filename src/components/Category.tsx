@@ -142,7 +142,6 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelect
               transition={{ duration: 0.3 }}
               className="mt-16"
             >
-              <EventsList category={selectedCategory} />
             </motion.div>
           )}
         </AnimatePresence>
