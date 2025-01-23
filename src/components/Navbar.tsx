@@ -49,10 +49,9 @@ const Navbar = () => {
       name: translations["blog"],
       icon: <BookOpen className="w-5 h-5" />,
       items: [
-        { name: translations["activities"], path: '/activities', icon: <Calendar className="w-4 h-4" /> },
         { name: translations["clubBars"], path: '/clubs', icon: <Wind className="w-4 h-4" /> },
         { name: translations["restaurant"], path: '/restaurants', icon: <Wine className="w-4 h-4" /> },
-        { name: translations["groupProfile"], path: '/blog/profil-groupe', icon: <Settings className="w-4 h-4" /> },
+        { name: translations["groupProfile"], path: '/blog', icon: <Settings className="w-4 h-4" /> },
       ]
     },
     experience: {
@@ -62,7 +61,7 @@ const Navbar = () => {
         { name: translations["walkingTour"], path: '/decouvertes/visite-privee', icon: <Footprints className="w-4 h-4" /> },
         { name: translations["tuktukTour"], path: '/decouvertes/tuktuk-tour', icon: <Car className="w-4 h-4" /> },
         { name: translations["sidecarTour"], path: '/decouvertes/side-car', icon: <Car className="w-4 h-4" /> },
-        { name: "plus d'experiences", path: '/decouvertes',  },
+        { name: "plus d'experiences", path: '/decouvertes', icon: <Compass className="w-4 h-4" /> }, // Added icon
       ]
     },
     croisieres: {
@@ -83,11 +82,12 @@ const Navbar = () => {
       ]
     }
   };
+
   const toggleLanguage = () => {
-    const locales: ("fr" | "en" | "pt")[] = ['fr', 'en', 'pt']; // Explicitly type the locales array
+    const locales: ("fr" | "en" | "pt")[] = ['fr', 'en', 'pt'];
     const currentIndex = locales.indexOf(locale);
     const nextIndex = (currentIndex + 1) % locales.length;
-    const newLocale = locales[nextIndex]; // newLocale is now correctly typed as "fr" | "en" | "pt"
+    const newLocale = locales[nextIndex];
     setLocale(newLocale);
   };
 
@@ -199,7 +199,7 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                   >
                     <div className="p-2 rounded-full bg-[#37b7ab]/10">
-                      {item.icon}
+                      {item.icon || <Compass className="w-4 h-4" />}
                     </div>
                     <span>{item.name}</span>
                   </Link>
@@ -216,7 +216,7 @@ const Navbar = () => {
                 <span className="font-medium">{locale.toUpperCase()}</span>
               </button>
               
-              <Link href="/sejour-mesure">
+              <Link href="/reservation">
                 <Button 
                   className="w-full bg-[#ea3e4e] hover:bg-[#37b7ab] text-white px-6 py-3 rounded-full transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
                 >

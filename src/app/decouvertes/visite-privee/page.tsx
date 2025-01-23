@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Clock, Users, MapPin } from 'lucide-react';
 import HeroSection from '@/components/Hero';
+import { FocusCards } from '@/components/ui/focus-cards';
 
 const tours = [
   {
@@ -13,7 +14,7 @@ const tours = [
     locations: ["Alfama", "Mouraria", "Graça"],
     description: "Plongez dans les quartiers les plus emblématiques de Lisbonne, où chaque coin de rue respire l'histoire. Explorez des monuments emblématiques, traversez des places pleines de vie, et découvrez des anecdotes locales méconnues qui feront revivre le passé de la ville.",
     price: "90€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ['/art.jpeg', '/bars.jpeg', '/boat3.jpg']
+    images: ['/prive2.jpeg', '/prive1.jpeg', '/prive3.jpg']
   },
   {
     id: 2,
@@ -22,7 +23,7 @@ const tours = [
     locations: ["Street Art à Alfama", "Mouraria", "Graça"],
     description: "Découvrez comment la culture street art a transformé certains des plus anciens quartiers de Lisbonne en véritables galeries à ciel ouvert. Vous en apprendrez plus sur les artistes portugais contemporains et sur les évolutions culturelles qui façonnent ces quartiers.",
     price: "90€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ['/street-art1.jpg', '/street-art2.jpg', '/street-art3.jpg']
+    images: ['/prive2.jpeg', '/prive1.jpeg', '/prive3.jpg']
   },
   {
     id: 3,
@@ -31,10 +32,35 @@ const tours = [
     locations: ["Belem", "Tage"],
     description: "Entre les monuments historiques de Belém et les rives du Tage, vivez un tour entre terre et fleuve où histoire et culture se mêlent pour raconter l'ère des grandes découvertes. Un incontournable pour ceux qui veulent comprendre l'importance de cette période pour Lisbonne et le Portugal.",
     price: "110€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ['/belem1.jpg', '/belem2.jpg', '/belem3.jpg']
+    images: ['/prive2.jpeg', '/prive1.jpeg', '/prive3.jpg']
   }
 ];
-
+const cards = [
+  {
+    title: "ALFAMA",
+    src: "/prive1.jpeg",
+  },
+  {
+    title: "BELEM ET SA TOUR",
+    src: "/prive4.jpg",
+  },
+  {
+    title: "BAIRRO ALTO",
+    src: "/prive5.jpg",
+  },
+  {
+    title: "PRACA DO COMERCIO",
+    src: "/prive6.jpg",
+  },
+  {
+    title: "PARQUES DAS NACOES",
+    src: "/prive9.jpg",
+  },
+  {
+    title: "MONASTERE DES HERONYMITES",
+    src: "/prive10.jpg",
+  },
+];
 const VisitePriveePage = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
@@ -44,7 +70,7 @@ const VisitePriveePage = () => {
       <div className="relative h-screen">
         
         <HeroSection
-  imageUrl="/Image.jpg"
+  imageUrl="/place-du-commerce-2-min.jpg"
   title=" Découvrez Lisbonne à pied : une immersion authentique"
   description=" Passant par son âme, pour rejoindre son coeur et découvrir son corps"
   buttonText="Suivez le guide"
@@ -98,6 +124,7 @@ const VisitePriveePage = () => {
           </p>
         </motion.div>
       </div>
+  <FocusCards cards={cards} />        
 
       {/* Tours Section */}
       <div className="bg-gray-50 py-20">

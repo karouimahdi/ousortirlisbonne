@@ -14,7 +14,7 @@ const tours = [
     locations: ["Alfama", "Mouraria", "Graça"],
     description: "Plongez dans les quartiers les plus emblématiques de Lisbonne, où chaque coin de rue respire l'histoire. Explorez des monuments emblématiques, traversez des places pleines de vie, et découvrez des anecdotes locales méconnues qui feront revivre le passé de la ville.",
     price: "90€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ['/art.jpeg', '/bars.jpeg', '/boat3.jpg']
+    images: ['/side3.jpg', '/side4.jpeg', '/side5.jpg']
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const tours = [
     locations: ["Street Art à Alfama", "Mouraria", "Graça"],
     description: "Découvrez comment la culture street art a transformé certains des plus anciens quartiers de Lisbonne en véritables galeries à ciel ouvert. Vous en apprendrez plus sur les artistes portugais contemporains et sur les évolutions culturelles qui façonnent ces quartiers.",
     price: "90€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ['/street-art1.jpg', '/street-art2.jpg', '/street-art3.jpg']
+    images: ['/side3.jpg', '/side4.jpeg', '/side5.jpg']
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const tours = [
     locations: ["Belem", "Tage"],
     description: "Entre les monuments historiques de Belém et les rives du Tage, vivez un tour entre terre et fleuve où histoire et culture se mêlent pour raconter l'ère des grandes découvertes. Un incontournable pour ceux qui veulent comprendre l'importance de cette période pour Lisbonne et le Portugal.",
     price: "110€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ['/belem1.jpg', '/belem2.jpg', '/belem3.jpg']
+    images: ['/side3.jpg', '/side4.jpeg', '/side5.jpg']
   }
 ];
 
@@ -40,28 +40,28 @@ const VisitePriveePage = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const cards = [
     {
-      title: "Forest Adventure",
-      src: "/boat1.jpg",
+      title: "",
+      src: "/side2.jpeg",
     },
     {
       title: "Valley of life",
-      src: "/boat2.jpg",
+      src: "/side3.jpg",
     },
     {
-      title: "Sala behta hi jayega",
-      src: "/plon.jpeg",
+      title: "",
+      src: "/side4.jpeg",
     },
     {
-      title: "Camping is for pros",
-      src: "/rooftop.jpeg",
+      title: "",
+      src: "/side5.jpg",
     },
     {
-      title: "The road not taken",
-      src: "/lisb.jpg",
+      title: "",
+      src: "/side6.jpeg",
     },
     {
-      title: "The First Rule",
-      src: "/rand.jpeg",
+      title: "",
+      src: "/side7.jpeg",
     },
   ];
   return (
@@ -70,7 +70,7 @@ const VisitePriveePage = () => {
       <div className="relative h-screen">
         
         <HeroSection
-  imageUrl="/ImageS3.jpg"
+  imageUrl="/Street-Art-Side-Car-Lisbon.jpeg"
   title="Virée authentique en Side-car à Lisbonne"
   description="Le tour de Lisbonne et ses alentours en side-car est un excellent moyen de sortir des sentiers battus pour des souvenirs incroyables dans une ambiance authentique et originale.
 "

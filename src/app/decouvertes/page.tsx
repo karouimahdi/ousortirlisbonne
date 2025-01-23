@@ -9,17 +9,17 @@ import CategorySection from "@/components/CategorySection";
 
 const heroImages = [
   {
-    src: "/lisbon-hero.jpg",
+    src: "/73.webp",
     title: "Visite touristique avec guides",
     description: "Découvrez la ville accompagnés de nos guides portugais francophones"
   },
   {
-    src: "/sintra.jpg",
+    src: "/Sintra-Catarina-Ferreira-min.jpg",
     title: "Sintra Magique",
     description: "Explorez les merveilles architecturales de Sintra"
   },
   {
-    src: "/degustation.jpg",
+    src: "/place-du-commerce-min.jpg",
     title: "Saveurs Portugaises",
     description: "Dégustez les meilleurs vins et tapas locaux"
   }
@@ -31,7 +31,7 @@ const DecouvertePage = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
+    }, 10000);
     return () => clearInterval(timer);
   }, []);
 
@@ -120,8 +120,8 @@ const DecouvertePage = () => {
                   className="inline-block"
                 >
                   <Link
-                    href="/experiences"
-                    className="bg-[#37b7ab] hover:bg-[#2a2765] text-white px-10 py-4 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                    href="#"
+                    className="hover:bg-[#37b7ab] bg-[#ea3e4e] text-white px-10 py-4 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     Découvrir nos expériences
                   </Link>
@@ -231,10 +231,10 @@ const DecouvertePage = () => {
               className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl"
             >
               <Image
-                src="/sintra.jpg"
+                src="/Sintra-Catarina-Ferreira-min.jpg"
                 alt="Sintra"
                 fill
-                className="object-cover hover:scale-110 transition-transform duration-700"
+                className="object-cover  hover:scale-110 transition-transform duration-700"
               />
             </motion.div>
           </motion.div>
@@ -274,7 +274,7 @@ const DecouvertePage = () => {
                 className="inline-block"
               >
                 <Link
-                  href="/taibat"
+                  href="#"
                   className="mt-6 inline-block bg-[#ea3e4e] hover:bg-[#2a2765] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   Découvrez les programmes de Taibat
@@ -357,8 +357,8 @@ const DecouvertePage = () => {
                   className="inline-block"
                 >
                   <Link
-                    href="/degustation"
-                    className="mt-6 inline-block bg-[#37b7ab] hover:bg-[#ea3e4e] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                    href="#"
+                    className="mt-6 inline-block hover:bg-[#37b7ab] bg-[#ea3e4e] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     Réservez votre dégustation
                   </Link>
@@ -376,7 +376,7 @@ const DecouvertePage = () => {
                 transition={{ duration: 0.3 }}
               >
                 <Image
-                  src="/degustation.jpg"
+                  src="/produits-locaux.jpg"
                   alt="Dégustation"
                   fill
                   className="object-cover hover:scale-110 transition-transform duration-700"

@@ -6,32 +6,32 @@ import { FocusCards } from '@/components/ui/focus-cards';
 import HeroSection from '@/components/Hero';
 
 const TourTuktukPage = () => {
-    const cards = [
-        {
-          title: "Forest Adventure",
-          src: "/boat1.jpg",
-        },
-        {
-          title: "Valley of life",
-          src: "/boat2.jpg",
-        },
-        {
-          title: "Sala behta hi jayega",
-          src: "/plon.jpeg",
-        },
-        {
-          title: "Camping is for pros",
-          src: "/rooftop.jpeg",
-        },
-        {
-          title: "The road not taken",
-          src: "/lisb.jpg",
-        },
-        {
-          title: "The First Rule",
-          src: "/rand.jpeg",
-        },
-      ];
+  const cards = [
+    {
+      title: "",
+      src: "/tuk8.jpeg",
+    },
+    {
+      title: "",
+      src: "/tuk7.jpeg",
+    },
+    {
+      title: "",
+      src: "/tuk6.jpg",
+    },
+    {
+      title: "",
+      src: "/tuk4.jpg",
+    },
+    {
+      title: "",
+      src: "/tuk5.jpg",
+    },
+    {
+      title: "",
+      src: "/tuk3.jpeg",
+    },
+  ];
     
 
   return (
@@ -43,7 +43,7 @@ const TourTuktukPage = () => {
       >
         
         <HeroSection
-  imageUrl="/Image.jpg"
+  imageUrl="/Tuktuk.jpg"
   title="  Tour en tuktuk à Lisbonne"
   description="Lisbonne est un véritable musée à ciel ouvert. Venez admirer places, monuments, oeuvres street art et paysages, confortablement installé à bord de tuktuk electrique 6 places ou piaggo 2 places accompagné par nos guides passionnés et passionnants.
 "

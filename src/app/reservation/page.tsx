@@ -6,6 +6,7 @@ import { ArrowRight, Calendar, Map, User, Mail, Phone } from "lucide-react";
 import StepperForm from '@/components/StepperForm';
 import { motion } from 'framer-motion';
 import { useTranslation } from "@/translations/provider/localeProvider"; // Import the translation hook
+import HeroSection from '@/components/Hero';
 
 const LisbonStayPage = () => {
   const { translations } = useTranslation(); // Use the translation hook
@@ -33,42 +34,16 @@ const LisbonStayPage = () => {
 
   return (
     <div className="bg-white text-[#2a2765]">
-      {/* Section 1: Hero Section with Image */}
-      <section className="relative h-[600px] flex items-center justify-center text-center overflow-hidden">
-        {/* Background Image */}
-        <motion.div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/lisb.jpg')" }}
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5 }}
-        >
-          <div className="absolute inset-0 bg-black/40"></div> {/* Overlay */}
-        </motion.div>
+     
+      <HeroSection
+  imageUrl="/lisb.jpg"
+  title={translations["planYourStay"]}
+  description={translations["discoverLisbon"]}
+  buttonText=            {translations["getStarted"]}
 
-        {/* Hero Content */}
-        <motion.div
-          className="relative z-10 max-w-4xl mx-auto px-4"
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-        >
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            {translations["planYourStay"]}
-          </h1>
-          <p className="text-xl text-white/90 mb-8">
-            {translations["discoverLisbon"]}
-          </p>
-          <motion.button
-            className="bg-[#37b7ab] text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-[#2a2765] transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {translations["getStarted"]}
-          </motion.button>
-        </motion.div>
-      </section>
-
+  buttonLink="#"
+  altText="Vue panoramique de Lisbonne"
+/>
       {/* Section 2: Who Are We? */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <motion.div
