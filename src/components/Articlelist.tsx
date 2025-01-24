@@ -140,13 +140,34 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles, selectedCategory })
                   )}
 
                   {/* Read More Button */}
-                  <motion.div 
-                    className="inline-flex items-center gap-2 rounded-full text-white bg-[#ea3e4e] hover:bg-[#37b7ab] font-medium mt-4"
-                    whileHover={{ x: 5 }}
-                  >
-                    Lire l'article
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.div>
+                  <motion.div
+  className="inline-flex items-center gap-2 text-white bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full font-medium mt-4 px-6 py-3  shadow-md transition-all"
+  whileHover={{ 
+    x: 5,
+    scale: 1.05,
+    shadow: "0 10px 20px rgba(0,0,0,0.2)"
+  }}
+  whileTap={{ 
+    scale: 0.95,
+    backgroundColor: "#2a8a80"
+  }}
+  transition={{
+    type: "spring",
+    stiffness: 300,
+    damping: 10
+  }}
+  role="button"
+  tabIndex={0}
+>
+  <span className="whitespace-nowrap">Lire l'article</span>
+  <motion.span
+    animate={{ x: 0 }}
+    whileHover={{ x: 5 }}
+    transition={{ type: "spring", stiffness: 300 }}
+  >
+    <ArrowRight className="w-4 h-4" />
+  </motion.span>
+</motion.div>
                 </div>
               </div>
             </CardContent>

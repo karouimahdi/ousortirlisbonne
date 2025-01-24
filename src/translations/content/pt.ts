@@ -80,7 +80,7 @@ export const pt = {
   discoverLisbon: "Descubra a história, tradição, natureza, cultura, gastronomia e o coração de Lisboa. Faça de cada momento um evento.",
   getStarted: "Começar",
   whoAreWe: "Quem Somos?",
-  whoAreWeDescription1: "Eu sou Tania Barros, uma luso-francesa e criadora do site O2 Sortir 4 Lisbonne. Como planejadora de viagens e especialista em relações públicas, ofereço a você uma rede sólida de contatos para simplificar e otimizar a organização da sua viagem.",
+  whoAreWeDescription1: "Eu sou Tania Barros, uma luso-francesa e criadora do site Ou Sortir à Lisbonne. Como planejadora de viagens e especialista em relações públicas, ofereço a você uma rede sólida de contatos para simplificar e otimizar a organização da sua viagem.",
   whoAreWeDescription2: "Seja para ajudar a reservar suas atividades (serviço gratuito) ou para criar um itinerário personalizado até sua execução (sob contrato de serviço), ofereço meu conhecimento profundo de Lisboa, minhas habilidades organizacionais e minha rede de parceiros confiáveis e diversificados para garantir uma estadia que supere todas as expectativas.",
   whoAreWeDescription3: "Nosso objetivo é oferecer a você uma descoberta memorável, enriquecedora e fluida de Lisboa e sua região circundante, adaptada aos seus desejos.",
   theBenefits: "Os Benefícios",

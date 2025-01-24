@@ -59,7 +59,7 @@ const CategorySection = ({
           "bg-gradient-to-br",
           gradient
         )}>
-          <div className="absolute inset-0 bg-[linear-gradient(40deg,transparent_40%,rgba(255,255,255,0.8)_45%,transparent_50%)] group-hover:translate-x-[400px] duration-[1500ms] transition-transform"/>
+          <div className="absolute inset-0 bg-[linear-gradient(40deg,transparent_40%,rgba(255,255,255,0.8)_45%,transparent_50%)] group-hover:translate-x-[400px]  transition-transform"/>
         </div>
 
         <div className="relative z-10">
