@@ -1,10 +1,10 @@
-"use client"
-import React from 'react';
-import { motion } from 'framer-motion';
+"use client";
+import React from "react";
+import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, Clock, ArrowRight, User, MapPin } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { CalendarDays, Clock, ArrowRight, User, MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface Article {
   id: number;
@@ -26,17 +26,20 @@ interface ArticleListProps {
   selectedCategory: string;
 }
 
-const ArticleList: React.FC<ArticleListProps> = ({ articles, selectedCategory }) => {
+const ArticleList: React.FC<ArticleListProps> = ({
+  articles,
+  selectedCategory,
+}) => {
   const categoryColors = {
-    'Activités': '#FF4B6E',
-    'Clubs, Bars, Events': '#4A4FE4',
-    'Restaurants, Rooftops': '#00C9A7',
-    'Selon le profil': '#FF8F3F',
+    Activités: "#FF4B6E",
+    "Clubs, Bars, Events": "#4A4FE4",
+    "Restaurants, Rooftops": "#00C9A7",
+    "Selon le profil": "#FF8F3F",
   };
   const router = useRouter();
 
   return (
-    <motion.div 
+    <motion.div
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       layout
     >
@@ -49,10 +52,10 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles, selectedCategory })
           transition={{
             duration: 0.5,
             delay: index * 0.1,
-            layout: { duration: 0.3 }
+            layout: { duration: 0.3 },
           }}
         >
-          <Card 
+          <Card
             className="group h-full overflow-hidden hover:shadow-xl transition-all duration-300 border-0 bg-white/80 backdrop-blur cursor-pointer"
             onClick={() => router.push(`/blog/${article.slug}`)}
           >
@@ -60,18 +63,21 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles, selectedCategory })
               {/* Image Container */}
               <div className="relative aspect-[4/3] overflow-hidden">
                 <div className="absolute inset-0 bg-black/20 z-10 group-hover:bg-black/30 transition-colors duration-300" />
-                <motion.img 
-                  src={article.image} 
+                <motion.img
+                  src={article.image}
                   alt={article.title}
                   className="w-full h-full object-cover transition-transform duration-700"
                   whileHover={{ scale: 1.05 }}
                 />
                 <div className="absolute top-4 left-4 z-20">
-                  <Badge 
+                  <Badge
                     className="px-3 py-1.5 text-sm font-medium"
-                    style={{ 
-                      backgroundColor: categoryColors[article.category as keyof typeof categoryColors],
-                      color: 'white'
+                    style={{
+                      backgroundColor:
+                        categoryColors[
+                          article.category as keyof typeof categoryColors
+                        ],
+                      color: "white",
                     }}
                   >
                     {article.category}
@@ -84,10 +90,10 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles, selectedCategory })
                 <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
                   <div className="flex items-center gap-1">
                     <CalendarDays className="w-4 h-4" />
-                    {new Date(article.date).toLocaleDateString('fr-FR', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric'
+                    {new Date(article.date).toLocaleDateString("fr-FR", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
                     })}
                   </div>
                   {article.readTime && (
@@ -141,33 +147,33 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles, selectedCategory })
 
                   {/* Read More Button */}
                   <motion.div
-  className="inline-flex items-center gap-2 text-white bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full font-medium mt-4 px-6 py-3  shadow-md transition-all"
-  whileHover={{ 
-    x: 5,
-    scale: 1.05,
-    shadow: "0 10px 20px rgba(0,0,0,0.2)"
-  }}
-  whileTap={{ 
-    scale: 0.95,
-    backgroundColor: "#2a8a80"
-  }}
-  transition={{
-    type: "spring",
-    stiffness: 300,
-    damping: 10
-  }}
-  role="button"
-  tabIndex={0}
->
-  <span className="whitespace-nowrap">Lire l'article</span>
-  <motion.span
-    animate={{ x: 0 }}
-    whileHover={{ x: 5 }}
-    transition={{ type: "spring", stiffness: 300 }}
-  >
-    <ArrowRight className="w-4 h-4" />
-  </motion.span>
-</motion.div>
+                    className="inline-flex items-center gap-2 text-white bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full font-medium mt-4 px-6 py-3  shadow-md transition-all"
+                    whileHover={{
+                      x: 5,
+                      scale: 1.05,
+                      shadow: "0 10px 20px rgba(0,0,0,0.2)",
+                    }}
+                    whileTap={{
+                      scale: 0.95,
+                      backgroundColor: "#2a8a80",
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 10,
+                    }}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <span className="whitespace-nowrap">Lire l'article</span>
+                    <motion.span
+                      animate={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.span>
+                  </motion.div>
                 </div>
               </div>
             </CardContent>

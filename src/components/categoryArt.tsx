@@ -1,51 +1,62 @@
 "use client";
-import React from 'react';
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight, Target, Music, Utensils, Users } from 'lucide-react';
+import { motion, Variants, AnimatePresence } from "motion/react";
+import {
+  Sparkles,
+  ArrowRight,
+  Target,
+  Music,
+  Utensils,
+  Users,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import CategorySection from './CategorySection';
+import CategorySection from "./CategorySection";
 
 interface ArticleGridProps {
   selectedCategory: string | null;
   setSelectedCategory: (category: string | null) => void;
 }
 
-const ArticleGrid: React.FC<ArticleGridProps> = ({ selectedCategory, setSelectedCategory }) => {
+const ArticleGrid: React.FC<ArticleGridProps> = ({
+  selectedCategory,
+  setSelectedCategory,
+}) => {
   const categories = [
     {
       name: "Activités",
       icon: Target,
-      color: '#FF4B6E',
-      gradient: 'from-[#FF4B6E] via-[#FF4B6E]/40 to-[#FF4B6E]/10',
+      color: "#FF4B6E",
+      gradient: "from-[#FF4B6E] via-[#FF4B6E]/40 to-[#FF4B6E]/10",
       description: "Découvrez les meilleures activités à faire",
-      highlights: ['Culture', 'Sport', 'Loisirs'],
+      highlights: ["Culture", "Sport", "Loisirs"],
     },
     {
       name: "Clubs, Bars, Events",
       icon: Music,
-      color: '#4A4FE4',
-      gradient: 'from-[#4A4FE4] via-[#4A4FE4]/40 to-[#4A4FE4]/10',
+      color: "#4A4FE4",
+      gradient: "from-[#4A4FE4] via-[#4A4FE4]/40 to-[#4A4FE4]/10",
       description: "Où aller écouter de la musique et danser",
-      highlights: ['Nightlife', 'Live Music', 'Concerts'],
+      highlights: ["Nightlife", "Live Music", "Concerts"],
     },
     {
       name: "Restaurants, Rooftops",
       icon: Utensils,
-      color: '#00C9A7',
-      gradient: 'from-[#00C9A7] via-[#00C9A7]/40 to-[#00C9A7]/10',
-      description: "Spécial restauration pour tout les goûts, toutes les bourses",
-      highlights: ['Gastronomie', 'Vue Panoramique', 'Ambiance'],
+      color: "#00C9A7",
+      gradient: "from-[#00C9A7] via-[#00C9A7]/40 to-[#00C9A7]/10",
+      description:
+        "Spécial restauration pour tout les goûts, toutes les bourses",
+      highlights: ["Gastronomie", "Vue Panoramique", "Ambiance"],
     },
     {
       name: "Selon le profil",
       icon: Users,
-      color: '#FF8F3F',
-      gradient: 'from-[#FF8F3F] via-[#FF8F3F]/40 to-[#FF8F3F]/10',
+      color: "#FF8F3F",
+      gradient: "from-[#FF8F3F] via-[#FF8F3F]/40 to-[#FF8F3F]/10",
       description: "Que faire selon le profil de mon groupe",
-      highlights: ['Famille', 'Amis', 'Couples'],
-    }
+      highlights: ["Famille", "Amis", "Couples"],
+    },
   ];
 
   const containerVariants: Variants = {
@@ -53,9 +64,9 @@ const ArticleGrid: React.FC<ArticleGridProps> = ({ selectedCategory, setSelected
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
-      }
-    }
+        staggerChildren: 0.15,
+      },
+    },
   };
 
   return (
@@ -66,7 +77,7 @@ const ArticleGrid: React.FC<ArticleGridProps> = ({ selectedCategory, setSelected
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -88,16 +99,21 @@ const ArticleGrid: React.FC<ArticleGridProps> = ({ selectedCategory, setSelected
                 }}
               />
             </div>
-            <span className="text-lg font-medium text-[#FF4B6E] tracking-wider">DÉCOUVREZ</span>
+            <span className="text-lg font-medium text-[#FF4B6E] tracking-wider">
+              DÉCOUVREZ
+            </span>
           </div>
-          
+
           <h2 className="text-6xl font-bold mb-8 bg-clip-text text-[#2a2765]">
             Nos Articles
           </h2>
-          
+
           <p className="text-gray-600 max-w-2xl mx-auto text-xl leading-relaxed">
             Explorez nos articles et guides pour découvrir
-            <span className="text-[#00C9A7] font-semibold"> les meilleures expériences </span>
+            <span className="text-[#00C9A7] font-semibold">
+              {" "}
+              les meilleures expériences{" "}
+            </span>
             à vivre
           </p>
         </motion.div>
@@ -121,8 +137,6 @@ const ArticleGrid: React.FC<ArticleGridProps> = ({ selectedCategory, setSelected
               highlights={category.highlights}
               onClick={() => setSelectedCategory(category.name)}
               isSelected={selectedCategory === category.name}
-             
-              
             />
           ))}
         </motion.div>

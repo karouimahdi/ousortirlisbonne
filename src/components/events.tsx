@@ -1,13 +1,19 @@
-
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Clock, ChevronRight, Users, Heart } from "lucide-react";
-import { useRouter } from 'next/navigation';
-import { events } from '@/app/data/events';
-import { motion } from 'framer-motion';
+import {
+  Calendar,
+  MapPin,
+  Clock,
+  ChevronRight,
+  Users,
+  Heart,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { events } from "@/app/(root)/data/events";
+import { motion } from "motion/react";
 
 interface Event {
   id: number;
@@ -30,15 +36,13 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
   const router = useRouter();
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
- 
-
   const formatDate = (dateString: string): string => {
-    const options: Intl.DateTimeFormatOptions = { 
-      weekday: 'long', 
-      day: 'numeric', 
-      month: 'long' 
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
     };
-    return new Date(dateString).toLocaleDateString('fr-FR', options);
+    return new Date(dateString).toLocaleDateString("fr-FR", options);
   };
 
   return (
@@ -61,7 +65,7 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
                   alt={event.title}
                   className="h-56 md:h-full w-full object-cover"
                   animate={{
-                    scale: hoveredId === event.id ? 1.05 : 1
+                    scale: hoveredId === event.id ? 1.05 : 1,
                   }}
                   transition={{ duration: 0.3 }}
                 />
@@ -71,7 +75,7 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
                   </Badge>
                 </div>
               </div>
-              
+
               <CardContent className="flex-1 p-6">
                 <div className="flex flex-col h-full justify-between">
                   <div>
@@ -87,7 +91,7 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
                         <Heart className="w-6 h-6" />
                       </motion.button>
                     </div>
-                    
+
                     <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6">
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-gray-400" />
@@ -103,14 +107,14 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
                       </div>
                       <div className="flex items-center gap-2">
                         <Users className="w-4 h-4 text-gray-400" />
-                        <span>{event.capacity || 'Unlimited'} places</span>
+                        <span>{event.capacity || "Unlimited"} places</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between mt-4">
                     <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {event.price ? `${event.price}€` : 'Gratuit'}
+                      {event.price ? `${event.price}€` : "Gratuit"}
                     </p>
                     <motion.div
                       whileHover={{ scale: 1.02 }}

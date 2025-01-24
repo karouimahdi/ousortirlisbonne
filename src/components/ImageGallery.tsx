@@ -1,8 +1,8 @@
 // components/ImageGallery.tsx
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import React, { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "motion/react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 interface ImageGalleryProps {
@@ -23,7 +23,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, venueName }) => {
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <motion.div 
+      <motion.div
         className="relative h-[70vh] w-full rounded-xl overflow-hidden shadow-xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, venueName }) => {
       </motion.div>
 
       {/* Secondary Images Grid */}
-      <motion.div 
+      <motion.div
         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, venueName }) => {
             key={index}
             className={`
               relative aspect-square rounded-lg overflow-hidden cursor-pointer
-              ${mainImageIndex === index ? 'ring-4 ring-[#37b7ab]' : 'hover:ring-2 ring-[#2a2765]'}
+              ${mainImageIndex === index ? "ring-4 ring-[#37b7ab]" : "hover:ring-2 ring-[#2a2765]"}
               transition-all duration-200 transform hover:scale-[1.02]
             `}
             whileHover={{ y: -4 }}
@@ -94,13 +94,19 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, venueName }) => {
 
             {/* Navigation Controls */}
             <button
-              onClick={() => setLightboxIndex((prev) => (prev - 1 + images.length) % images.length)}
+              onClick={() =>
+                setLightboxIndex(
+                  (prev) => (prev - 1 + images.length) % images.length
+                )
+              }
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-3 rounded-full text-white hover:bg-black/70 transition-all"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
-              onClick={() => setLightboxIndex((prev) => (prev + 1) % images.length)}
+              onClick={() =>
+                setLightboxIndex((prev) => (prev + 1) % images.length)
+              }
               className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-3 rounded-full text-white hover:bg-black/70 transition-all"
             >
               <ChevronRight className="w-6 h-6" />

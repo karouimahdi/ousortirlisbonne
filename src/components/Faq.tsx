@@ -1,10 +1,9 @@
-
 "use client";
 
-import React, { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useTranslation } from "@/translations/provider/localeProvider";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from "motion/react";
 
 const FAQ = () => {
   const { translations } = useTranslation();
@@ -99,44 +98,45 @@ const FAQ = () => {
       question: translations["faqCheckInQuestion"],
       answer: <p>{translations["faqCheckInAnswer"]}</p>,
     },
-  ];  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  ];
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
-    setOpenIndex(prev => prev === index ? null : index);
+    setOpenIndex((prev) => (prev === index ? null : index));
   };
 
   // Conserver les variantes d'animation existantes
-  const cardVariants = { 
-    hover: { 
+  const cardVariants = {
+    hover: {
       scale: 1.02,
-      boxShadow: "0 10px 20px rgba(0,0,0,0.3)"
+      boxShadow: "0 10px 20px rgba(0,0,0,0.3)",
     },
-    tap: { scale: 0.98 }
+    tap: { scale: 0.98 },
   };
 
   const answerVariants = {
-    open: { 
+    open: {
       opacity: 1,
       height: "auto",
-      transition: { 
+      transition: {
         type: "spring",
         stiffness: 300,
-        damping: 20
-      }
+        damping: 20,
+      },
     },
-    closed: { 
+    closed: {
       opacity: 0,
       height: 0,
       transition: {
-        duration: 0.3
-      }
-    }
+        duration: 0.3,
+      },
+    },
   };
 
   return (
     <div className="mt-4 py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "0px 0px -100px 0px" }}
@@ -144,7 +144,7 @@ const FAQ = () => {
         >
           {translations["faqTitle"]}
         </motion.h2>
-        
+
         {/* Remplacer le grid par une div simple */}
         <div className="space-y-6 w-full max-w-3xl mx-auto">
           {faqData.map((faq, index) => (
@@ -164,7 +164,9 @@ const FAQ = () => {
                 >
                   <motion.span
                     className="text-xl font-semibold"
-                    animate={{ color: openIndex === index ? "#37b7ab" : "#ffffff" }}
+                    animate={{
+                      color: openIndex === index ? "#37b7ab" : "#ffffff",
+                    }}
                     transition={{ duration: 0.2 }}
                   >
                     {faq.question}

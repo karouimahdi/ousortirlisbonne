@@ -1,13 +1,13 @@
-"use client"
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Phone, MessageCircle } from 'lucide-react';
+"use client";
+import React from "react";
+import { motion } from "motion/react";
+import { Phone, MessageCircle } from "lucide-react";
 
 interface ContactButtonProps {
   phoneNumber?: string;
   message?: string;
-  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-  icon?: 'phone' | 'whatsapp';
+  position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+  icon?: "phone" | "whatsapp";
   text?: string;
   className?: string;
 }
@@ -18,20 +18,20 @@ const ContactButton = ({
   position = "bottom-right",
   icon = "whatsapp",
   text = "Contactez-nous",
-  className = ""
+  className = "",
 }: ContactButtonProps) => {
   const positionClasses = {
-    'bottom-right': 'bottom-8 right-8',
-    'bottom-left': 'bottom-8 left-8',
-    'top-right': 'top-8 right-8',
-    'top-left': 'top-8 left-8'
+    "bottom-right": "bottom-8 right-8",
+    "bottom-left": "bottom-8 left-8",
+    "top-right": "top-8 right-8",
+    "top-left": "top-8 left-8",
   };
 
   const getIcon = () => {
     switch (icon) {
-      case 'phone':
+      case "phone":
         return <Phone className="w-6 h-6" />;
-      case 'whatsapp':
+      case "whatsapp":
         return <MessageCircle className="w-6 h-6" />;
       default:
         return <MessageCircle className="w-6 h-6" />;
@@ -39,7 +39,7 @@ const ContactButton = ({
   };
 
   const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/${phoneNumber}${message ? `?text=${encodedMessage}` : ''}`;
+  const whatsappUrl = `https://wa.me/${phoneNumber}${message ? `?text=${encodedMessage}` : ""}`;
 
   return (
     <div className={`fixed ${positionClasses[position]} z-50 ${className}`}>
@@ -48,9 +48,7 @@ const ContactButton = ({
         whileTap={{ scale: 0.9 }}
         className="relative group"
       >
-        <motion.div
-          className="absolute -inset-1 bg-gradient-to-r from-green-600 to-green-400 rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity duration-200"
-        />
+        <motion.div className="absolute -inset-1 bg-gradient-to-r from-green-600 to-green-400 rounded-full blur opacity-0 group-hover:opacity-30 transition-opacity duration-200" />
         <a
           href={whatsappUrl}
           target="_blank"

@@ -1,18 +1,29 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Sparkles, ArrowRight,LandPlot, Music, Palette, Utensils } from 'lucide-react';
+import { motion, Variants, AnimatePresence } from "motion/react";
+import {
+  ChevronRight,
+  Sparkles,
+  ArrowRight,
+  LandPlot,
+  Music,
+  Palette,
+  Utensils,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import EventsList from './events';
-import CategorySection from './CategorySection'; // Import du nouveau composant
+import EventsList from "./events";
+import CategorySection from "./CategorySection"; // Import du nouveau composant
 
 interface CategoryGridProps {
   selectedCategory: string | null;
   setSelectedCategory: (category: string | null) => void;
 }
 
-const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelectedCategory }) => {
+const CategoryGrid: React.FC<CategoryGridProps> = ({
+  selectedCategory,
+  setSelectedCategory,
+}) => {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -20,35 +31,35 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelect
     {
       name: "Musique",
       icon: Music,
-      color: '#FF4B6E',
-      gradient: 'from-[#FF4B6E] via-[#FF4B6E]/40 to-[#FF4B6E]/10',
+      color: "#FF4B6E",
+      gradient: "from-[#FF4B6E] via-[#FF4B6E]/40 to-[#FF4B6E]/10",
       description: "Découvrez des événements musicaux exceptionnels",
-      highlights: ['Concerts', 'Festivals', 'DJ Sets'],
+      highlights: ["Concerts", "Festivals", "DJ Sets"],
     },
     {
       name: "Art",
       icon: Palette,
-      color: '#00C9A7',
-      gradient: 'from-[#00C9A7] via-[#00C9A7]/40 to-[#00C9A7]/10',
+      color: "#00C9A7",
+      gradient: "from-[#00C9A7] via-[#00C9A7]/40 to-[#00C9A7]/10",
       description: "Explorez le monde de l'art contemporain",
-      highlights: ['Expositions', 'Galeries', 'Ateliers'],
+      highlights: ["Expositions", "Galeries", "Ateliers"],
     },
     {
       name: "Gastronomie",
       icon: Utensils,
-      color: '#4A4FE4',
-      gradient: 'from-[#4A4FE4] via-[#4A4FE4]/40 to-[#4A4FE4]/10',
+      color: "#4A4FE4",
+      gradient: "from-[#4A4FE4] via-[#4A4FE4]/40 to-[#4A4FE4]/10",
       description: "Savourez des expériences culinaires uniques",
-      highlights: ['Cuisine Locale', 'Dégustations', 'Chefs Étoilés'],
+      highlights: ["Cuisine Locale", "Dégustations", "Chefs Étoilés"],
     },
     {
       name: "Sport",
-      icon:LandPlot ,
-      color: '#FF8F3F',
-      gradient: 'from-[#FF8F3F] via-[#FF8F3F]/40 to-[#FF8F3F]/10',
+      icon: LandPlot,
+      color: "#FF8F3F",
+      gradient: "from-[#FF8F3F] via-[#FF8F3F]/40 to-[#FF8F3F]/10",
       description: "Participez à des événements sportifs passionnants",
-      highlights: ['Compétitions', 'Marathons', 'Sports Nautiques'],
-    }
+      highlights: ["Compétitions", "Marathons", "Sports Nautiques"],
+    },
   ];
 
   const containerVariants: Variants = {
@@ -56,9 +67,9 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelect
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
-      }
-    }
+        staggerChildren: 0.15,
+      },
+    },
   };
 
   return (
@@ -69,7 +80,7 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelect
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -91,20 +102,25 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelect
                 }}
               />
             </div>
-            <span className="text-lg font-medium text-[#FF4B6E] tracking-wider">DÉCOUVREZ</span>
+            <span className="text-lg font-medium text-[#FF4B6E] tracking-wider">
+              DÉCOUVREZ
+            </span>
           </div>
-          
+
           <h2 className="text-6xl font-bold mb-8 text-[#2a2765] bg-clip-text">
             Nos Catégories
           </h2>
-          
+
           <p className="text-gray-600 max-w-2xl mx-auto text-xl leading-relaxed">
-            Explorez notre sélection d'expériences uniques et découvrez 
-            <span className="text-[#00C9A7] font-semibold"> les meilleures activités </span>
+            Explorez notre sélection d'expériences uniques et découvrez
+            <span className="text-[#00C9A7] font-semibold">
+              {" "}
+              les meilleures activités{" "}
+            </span>
             à Lisbonne
           </p>
         </motion.div>
-        
+
         <motion.div
           initial="hidden"
           animate="visible"
@@ -123,12 +139,12 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelect
               accent={category.gradient}
               highlights={category.highlights}
               isSelected={selectedCategory === category.name}
-
               onHover={() => setHoveredCategory(category.name)}
               onClick={() => {
                 setSelectedCategory(category.name);
                 setHoveredIndex(index); // Force le hover sur la catégorie sélectionnée
-              }}              hoverIndex={selectedCategory === category.name ? index : null}
+              }}
+              hoverIndex={selectedCategory === category.name ? index : null}
             />
           ))}
         </motion.div>
@@ -141,8 +157,7 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ selectedCategory, setSelect
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
               className="mt-16"
-            >
-            </motion.div>
+            ></motion.div>
           )}
         </AnimatePresence>
       </div>

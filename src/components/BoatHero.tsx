@@ -1,33 +1,34 @@
-import React, { useState, useEffect, RefObject } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, RefObject } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Circle } from 'lucide-react';
-import Image from 'next/image';
-
+import { ChevronLeft, ChevronRight, Circle } from "lucide-react";
+import Image from "next/image";
 
 interface BoatHeroSliderProps {
   heroRef: RefObject<HTMLDivElement>;
 }
 
-const slides=[
+const slides = [
   {
     image: "/Bateau-lisbonne-min.jpg",
     title: "Croisière au départ de Lisbonne, Cascais et Setubal",
     subtitle: "Découvrez notre catalogue composé d’une cinquantaine d’offres",
-    description: "Croisières de groupe et excursions privées sur mesure."
+    description: "Croisières de groupe et excursions privées sur mesure.",
   },
   {
     image: "/Evora-Mail-2.jpg",
     title: "Location de bateau à Setubal – TROIA – Portinho da Arrábida",
     subtitle: "Au programme de votre croisière dans la Serra de Arrabida",
-    description: "Paysage à couper le souffle, du bleu-vert à perte de vue, des eaux cristallines, baignade, plages désertes, détente, convivialité et 95% de chance de rencontrer des dauphins."
+    description:
+      "Paysage à couper le souffle, du bleu-vert à perte de vue, des eaux cristallines, baignade, plages désertes, détente, convivialité et 95% de chance de rencontrer des dauphins.",
   },
   {
     image: "/Portinho-de-Arrabida.jpeg",
     title: "Louer un bateau à Cascais",
     subtitle: "Yacht, voilier, bateau de pêche..",
-    description: "Cascais, connue sous le nom de la «ville de rois et de pêcheurs», est l’une des stations balnéaires les plus appréciées du littoral de Lisbonne. Partez au large de Cascais à bord de l’une de nos embarcations, pour une journée hors du commun."
-  }
+    description:
+      "Cascais, connue sous le nom de la «ville de rois et de pêcheurs», est l’une des stations balnéaires les plus appréciées du littoral de Lisbonne. Partez au large de Cascais à bord de l’une de nos embarcations, pour une journée hors du commun.",
+  },
 ];
 
 const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
@@ -45,20 +46,20 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
 
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? '100%' : '-100%',
+      x: direction > 0 ? "100%" : "-100%",
       opacity: 0,
-      transition: { duration: 1 }
+      transition: { duration: 1 },
     }),
     center: {
-      x: '0%',
+      x: "0%",
       opacity: 1,
-      transition: { duration: 0.8, ease: 'easeInOut' }
+      transition: { duration: 0.8, ease: "easeInOut" },
     },
     exit: (direction: number) => ({
-      x: direction > 0 ? '-100%' : '100%',
+      x: direction > 0 ? "-100%" : "100%",
       opacity: 0,
-      transition: { duration: 0.8, ease: 'easeInOut' }
-    })
+      transition: { duration: 0.8, ease: "easeInOut" },
+    }),
   };
 
   const handleNext = () => {
@@ -143,7 +144,9 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
           <Button
             className="hover:bg-[#37b7ab] bg-[#ea3e4e] rounded-full text-xl py-6 px-8 font-bold shadow-md"
             onClick={() => {
-              document.getElementById('boats')?.scrollIntoView({ behavior: 'smooth' });
+              document
+                .getElementById("boats")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
           >
             Découvrir les Bateaux
@@ -161,7 +164,9 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
               setCurrentSlide(index);
             }}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              currentSlide === index ? 'bg-[#37b7ab]' : 'bg-white/50 hover:bg-white/75'
+              currentSlide === index
+                ? "bg-[#37b7ab]"
+                : "bg-white/50 hover:bg-white/75"
             }`}
           />
         ))}
