@@ -1,34 +1,75 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from 'payload';
 
 export const Blog: CollectionConfig = {
   slug: 'blogs',
   fields: [
     {
-        name: 'miniature',
-        type: 'upload',
-        relationTo: 'media',
-      },
-    {
       name: 'title',
       type: 'text',
-     localized: true,
+      required: true,
+      localized: true,
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
     },
     {
       name: 'description',
       type: 'textarea',
+      required: true,
       localized: true,
-    },
-    {
-        name :'category',
-        type: 'relationship',
-        relationTo: 'blogs-categories',
-        localized: true,
     },
     {
       name: 'content',
-      type: 'textarea',
+      type: 'richText', // Consider using richText instead of textarea for better content editing
+      required: true,
       localized: true,
     },
-
-  ]
-}
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+     
+    
+    },
+    {
+      name: 'date',
+      type: 'date',
+      required: true,
+      admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
+      },
+    },
+    {
+      name: 'category',
+      type: 'relationship',
+      relationTo: 'blogs-categories',//es collection slug
+      required: true,
+    },
+    {
+      name: 'readTime',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'tags',
+      type: 'array',
+      fields: [
+        {
+          name: 'tag',
+          type: 'text',
+          required: true,
+        },
+      ],
+     
+    },
+  ],
+  admin: {
+    defaultColumns: ['title', 'category', 'date', 'readTime'],
+  },
+};

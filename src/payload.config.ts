@@ -6,6 +6,8 @@ import { Media } from './collections/Media'
 import { Blog } from './collections/Blog'
 import { BlogCategory } from './collections/BlogCategory'
 import { Form, Submissions } from './collections/Form'
+import { CategoryRestaurants } from './collections/CategoryRestaurants.'
+import { Restaurants } from './collections/Restaurants'
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
@@ -13,7 +15,7 @@ export default buildConfig({
 
   // Define and configure your collections in this array
   collections: [
-    Media,BlogCategory, Blog,Form, Submissions
+    Media,BlogCategory, Blog,CategoryRestaurants, Restaurants,Form, Submissions
   ],
 
   // Your Payload secret - should be a complex and secure string, unguessable
