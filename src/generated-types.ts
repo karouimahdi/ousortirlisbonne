@@ -14,6 +14,8 @@ export interface Config {
     media: Media;
     'blogs-categories': BlogsCategory;
     blogs: Blog;
+    'resto-categories': RestoCategory;
+    restaurants: Restaurant;
     forms: Form;
     submissions: Submission;
     users: User;
@@ -26,6 +28,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     'blogs-categories': BlogsCategoriesSelect<false> | BlogsCategoriesSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
+    'resto-categories': RestoCategoriesSelect<false> | RestoCategoriesSelect<true>;
+    restaurants: RestaurantsSelect<false> | RestaurantsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     submissions: SubmissionsSelect<false> | SubmissionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -133,6 +137,52 @@ export interface Blog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resto-categories".
+ */
+export interface RestoCategory {
+  id: string;
+  name: string;
+  slug?: string | null;
+  image: string | Media;
+  highlighted?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "restaurants".
+ */
+export interface Restaurant {
+  id: string;
+  name: string;
+  slug?: string | null;
+  category: string | RestoCategory;
+  location: string;
+  mainImage: string | Media;
+  images?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  description: string;
+  price?: number | null;
+  contact?: {
+    phone?: string | null;
+    hours?: string | null;
+  };
+  features?:
+    | {
+        feature?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  verified?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms".
  */
 export interface Form {
@@ -211,14 +261,12 @@ export interface Form {
         id?: string | null;
       }[]
     | null;
-  emailSettings?: {
-    enableEmailNotifications?: boolean | null;
-    emailSubject?: string | null;
-    /**
-     * Use {{fieldName}} to insert form field values.
-     */
-    emailContent?: string | null;
-  };
+  enableEmailNotifications?: boolean | null;
+  emailSubject?: string | null;
+  /**
+   * Use {{fieldName}} to insert form field values.
+   */
+  emailContent?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -275,6 +323,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'blogs';
         value: string | Blog;
+      } | null)
+    | ({
+        relationTo: 'resto-categories';
+        value: string | RestoCategory;
+      } | null)
+    | ({
+        relationTo: 'restaurants';
+        value: string | Restaurant;
       } | null)
     | ({
         relationTo: 'forms';
@@ -381,6 +437,52 @@ export interface BlogsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resto-categories_select".
+ */
+export interface RestoCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  image?: T;
+  highlighted?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "restaurants_select".
+ */
+export interface RestaurantsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  category?: T;
+  location?: T;
+  mainImage?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  description?: T;
+  price?: T;
+  contact?:
+    | T
+    | {
+        phone?: T;
+        hours?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  verified?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms_select".
  */
 export interface FormsSelect<T extends boolean = true> {
@@ -446,13 +548,9 @@ export interface FormsSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  emailSettings?:
-    | T
-    | {
-        enableEmailNotifications?: T;
-        emailSubject?: T;
-        emailContent?: T;
-      };
+  enableEmailNotifications?: T;
+  emailSubject?: T;
+  emailContent?: T;
   updatedAt?: T;
   createdAt?: T;
 }

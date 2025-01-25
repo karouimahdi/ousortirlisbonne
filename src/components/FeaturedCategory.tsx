@@ -13,9 +13,8 @@ import {
   Star,
   ArrowRight,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import Link from "next/link"; // Import the Link component
 import CategorySection from "./CategorySection";
 
 const FeaturedCategories = () => {
@@ -30,7 +29,7 @@ const FeaturedCategories = () => {
       gradient: "from-[#ea3e4e]/20 via-[#ea3e4e]/10 to-transparent",
       accent: "group-hover:border-[#ea3e4e]/50",
       highlights: ["Festivals", "Concerts", "Expositions"],
-      route: "/events", // Add a route for each category
+      route: "/events",
     },
     {
       icon: Utensils,
@@ -95,17 +94,17 @@ const FeaturedCategories = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50">
+    <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="relative">
-              <Sparkles className="w-6 h-6 text-[#ea3e4e]" />
+              <Sparkles className="w-4 sm:w-6 h-4 sm:h-6 text-[#ea3e4e]" />
               <motion.div
                 className="absolute inset-0 rounded-full bg-[#ea3e4e]/20"
                 animate={{
@@ -119,16 +118,16 @@ const FeaturedCategories = () => {
                 }}
               />
             </div>
-            <span className="text-sm font-medium text-[#ea3e4e] tracking-wider">
+            <span className="text-xs sm:text-sm font-medium text-[#ea3e4e] tracking-wider">
               DÉCOUVREZ
             </span>
           </div>
 
-          <h2 className="text-5xl font-bold mb-6 text-[#2a2765] bg-clip-text">
+          <h2 className="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6 text-[#2a2765] bg-clip-text">
             Nos Catégories
           </h2>
 
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-lg">
             Explorez notre sélection d'expériences uniques et découvrez
             <span className="text-[#37b7ab] font-medium">
               {" "}
@@ -138,7 +137,7 @@ const FeaturedCategories = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-8">
           {categories.map((category, index) => (
             <CategorySection key={category.label} {...category} index={index} />
           ))}

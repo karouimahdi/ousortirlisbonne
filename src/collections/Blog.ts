@@ -1,75 +1,78 @@
-import type { CollectionConfig } from 'payload';
+import type { CollectionConfig } from "payload";
 
 export const Blog: CollectionConfig = {
-  slug: 'blogs',
+  slug: "blogs",
+  labels: {
+    singular: "Blog",
+    plural: "Blogs",
+  },
+
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
       localized: true,
     },
     {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
+      name: "image",
+      type: "upload",
+      relationTo: "media",
       required: true,
     },
     {
-      name: 'description',
-      type: 'textarea',
-      required: true,
-      localized: true,
-    },
-    {
-      name: 'content',
-      type: 'richText', // Consider using richText instead of textarea for better content editing
+      name: "description",
+      type: "textarea",
       required: true,
       localized: true,
     },
     {
-      name: 'slug',
-      type: 'text',
+      name: "content",
+      type: "richText", // Consider using richText instead of textarea for better content editing
+      required: true,
+      localized: true,
+    },
+    {
+      name: "slug",
+      type: "text",
       required: true,
       unique: true,
-     
-    
     },
     {
-      name: 'date',
-      type: 'date',
+      name: "date",
+      type: "date",
       required: true,
       admin: {
         date: {
-          pickerAppearance: 'dayAndTime',
+          pickerAppearance: "dayAndTime",
         },
       },
     },
     {
-      name: 'category',
-      type: 'relationship',
-      relationTo: 'blogs-categories',//es collection slug
+      name: "category",
+      type: "relationship",
+      relationTo: "blogs-categories", //es collection slug
       required: true,
     },
     {
-      name: 'readTime',
-      type: 'text',
+      name: "readTime",
+      type: "text",
       required: true,
     },
     {
-      name: 'tags',
-      type: 'array',
+      name: "tags",
+      type: "array",
       fields: [
         {
-          name: 'tag',
-          type: 'text',
+          name: "tag",
+          type: "text",
           required: true,
         },
       ],
-     
     },
   ],
   admin: {
-    defaultColumns: ['title', 'category', 'date', 'readTime'],
+    defaultColumns: ["title", "category", "date", "readTime"],
+    useAsTitle: "title",
   },
 };

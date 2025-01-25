@@ -1,6 +1,6 @@
 // src/collections/Restaurants.ts
 import { CollectionConfig } from 'payload';
-const CATEGORIES_RESTAURANTS_SLUG = 'categories-restaurants' as const;
+
 
 export const Restaurants: CollectionConfig = {
   slug: 'restaurants',
@@ -24,10 +24,8 @@ export const Restaurants: CollectionConfig = {
     {
       name: 'category',
       type: 'relationship',
-      relationTo:'resto-categories',//es collection slug
-
+      relationTo: 'resto-categories',//es collection slug
       required: true,
-      hasMany: false,
     },
     {
       name: 'location',
