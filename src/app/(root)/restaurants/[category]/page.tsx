@@ -30,6 +30,8 @@ export default function CategoryPage({params}: {params: Promise<{ category: stri
           location: restaurant.location,
           price: restaurant.price,
           highlighted: restaurant.highlighted,
+          images:restaurant.images
+
 
         }));
       } catch (err) {

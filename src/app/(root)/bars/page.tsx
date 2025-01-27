@@ -49,6 +49,7 @@ export default function VenuesPage() {
           location: restaurant.location,
           price: restaurant.price,
           highlighted: restaurant.highlighted,
+          images:restaurant.images
         }));
       } catch (err) {
         console.error('Error fetching restaurants:', err);

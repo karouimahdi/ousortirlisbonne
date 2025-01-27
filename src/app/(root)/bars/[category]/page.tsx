@@ -17,7 +17,7 @@ export default function CategoryPage({params}: {params: Promise<{ category: stri
     async () => {
       try {
         const restaurants = await getrestaurants(category);
-        return restaurants.map((restaurant: any) => ({
+        return restaurants.map((restaurant:any) => ({
           id: restaurant.id,
           name: restaurant.name,
           slug: restaurant.slug,
@@ -29,6 +29,8 @@ export default function CategoryPage({params}: {params: Promise<{ category: stri
           location: restaurant.location,
           price: restaurant.price,
           highlighted: restaurant.highlighted,
+          images:restaurant.images
+
         }));
       } catch (err) {
         console.error('Error fetching restaurants:', err);
