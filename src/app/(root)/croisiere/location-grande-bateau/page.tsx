@@ -85,7 +85,7 @@ interface BoatCardProps {
   prices?: Array<{ duration: string; price: string }>;
   badge?: string;
   features?: string[];
-  images?: string[];
+  images?: { id: string; alt?: string; url: string }[]; // Update this line
   hasSunsetFee?: boolean;
 }
 
@@ -111,30 +111,25 @@ const BoatCard = ({
     >
       <div className="relative h-64 bg-gradient-to-br from-[#2a2765] to-[#37b7ab]">
         <div className="embla__container h-full" ref={emblaRef}>
-          {images?.map((image, index) => (
-            <div
-              className="embla__slide relative flex-[0_0_100%] h-full"
-              key={index}
-            >
-              <img
-                src={image}
-                alt={`${title} - Image ${index + 1}`}
-                className="w-full h-full object-cover opacity-90 transition-opacity duration-300 hover:opacity-100"
-              />
-              <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-                {images.map((_, idx) => (
-                  <div
-                    key={idx}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      idx === selectedIndex
-                        ? "w-6 bg-[#37b7ab]"
-                        : "w-2 bg-white/50"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
+        {images?.map((image, index) => (
+  <div className="embla__slide relative flex-[0_0_100%] h-full" key={image.id}>
+    <img
+      src={image.url} // Use image.url instead of image
+      alt={image.alt || `${title} - Image ${index + 1}`}
+      className="w-full h-full object-cover opacity-90 transition-opacity duration-300 hover:opacity-100"
+    />
+    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+      {images.map((_, idx) => (
+        <div
+          key={idx}
+          className={`h-2 rounded-full transition-all duration-300 ${
+            idx === selectedIndex ? "w-6 bg-[#37b7ab]" : "w-2 bg-white/50"
+          }`}
+        />
+      ))}
+    </div>
+  </div>
+))}
         </div>
       </div>
 
@@ -212,25 +207,11 @@ export default function LocationBateauPage() {
     "big-boats",
     async () => {
       try {
-        const boats = await getBoats(); 
-        console.log("bbb",boats);
-        // Fetch boats from your API
-        return boats.map((boat) => ({
-          title: boat.title,
-          capacity: boat.capacity,
-          description: boat.description,
-          badge: boat.badge,
-          prices: boat.prices?.map((price) => ({
-            duration: price.duration,
-            price: price.price,
-          })),
-          features: boat.features,
-          images: boat.images, // Assuming images are already in the correct format
-        }));
-
+        const boats = await getBoats();
+        return boats;
       } catch (err) {
-        console.error('Error fetching sunset cruise boats:', err);
-        throw new Error('Failed to load sunset cruises');
+        console.error("Error fetching boats:", err);
+        throw new Error("Failed to load boats");
       }
     },
     {
@@ -239,7 +220,7 @@ export default function LocationBateauPage() {
       onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
         if (retryCount >= 3) return;
         setTimeout(() => revalidate({ retryCount }), 5000);
-      }
+      },
     }
   );
 

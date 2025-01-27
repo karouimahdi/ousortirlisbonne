@@ -22,7 +22,17 @@ export const EventCategory: CollectionConfig = {
       localized: true,
       required: true,
     },
-  
+    {
+        name: "tags",
+        type: "array",
+        fields: [
+          {
+            name: "tag",
+            type: "text",
+            required: true,
+          },
+        ],
+      },
     {
       name: 'color',
       type: 'text',
@@ -32,15 +42,6 @@ export const EventCategory: CollectionConfig = {
         description: 'Hex color code for category styling'
       }
     },
-   
-    {
-      name: 'priority',
-      type: 'number',
-      required: true,
-      defaultValue: 0,
-      admin: {
-        description: 'Higher numbers appear first in category lists'
-      }
-    }
+
   ],
 };

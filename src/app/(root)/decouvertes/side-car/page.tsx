@@ -5,39 +5,11 @@ import Image from "next/image";
 import { Clock, Users, MapPin } from "lucide-react";
 import { FocusCards } from "@/components/ui/focus-cards";
 import HeroSection from "@/components/Hero";
+import useSWR from "swr";
+import { Discover } from "@/types";
+import { getTours } from "./action";
 
-const tours = [
-  {
-    id: 1,
-    title: "L'âme des quartiers historiques",
-    duration: "3 HEURES",
-    locations: ["Alfama", "Mouraria", "Graça"],
-    description:
-      "Plongez dans les quartiers les plus emblématiques de Lisbonne, où chaque coin de rue respire l'histoire. Explorez des monuments emblématiques, traversez des places pleines de vie, et découvrez des anecdotes locales méconnues qui feront revivre le passé de la ville.",
-    price: "90€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ["/side3.jpg", "/side4.jpeg", "/side5.jpg"],
-  },
-  {
-    id: 2,
-    title: "Une galerie d'art dans les vieux quartiers",
-    duration: "3 HEURES",
-    locations: ["Street Art à Alfama", "Mouraria", "Graça"],
-    description:
-      "Découvrez comment la culture street art a transformé certains des plus anciens quartiers de Lisbonne en véritables galeries à ciel ouvert. Vous en apprendrez plus sur les artistes portugais contemporains et sur les évolutions culturelles qui façonnent ces quartiers.",
-    price: "90€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ["/side3.jpg", "/side4.jpeg", "/side5.jpg"],
-  },
-  {
-    id: 3,
-    title: "Belem Terre et fleuve",
-    duration: "3 HEURES",
-    locations: ["Belem", "Tage"],
-    description:
-      "Entre les monuments historiques de Belém et les rives du Tage, vivez un tour entre terre et fleuve où histoire et culture se mêlent pour raconter l'ère des grandes découvertes. Un incontournable pour ceux qui veulent comprendre l'importance de cette période pour Lisbonne et le Portugal.",
-    price: "110€ pour deux personnes puis 15€ par participant supplémentaire",
-    images: ["/side3.jpg", "/side4.jpeg", "/side5.jpg"],
-  },
-];
+
 
 const VisitePriveePage = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -67,6 +39,26 @@ const VisitePriveePage = () => {
       src: "/side7.jpeg",
     },
   ];
+  const { data: tours, isLoading: boatLoading, error: boatError } = useSWR<Discover[]>(
+    "tours",
+    async () => {
+      try {
+        const tours = await getTours(); 
+        return tours;
+      } catch (err) {
+        console.error('Error fetching tours:', err);
+        throw new Error('Failed to load tours');
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        if (retryCount >= 3) return;
+        setTimeout(() => revalidate({ retryCount }), 5000);
+      }
+    }
+  );
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -121,7 +113,7 @@ const VisitePriveePage = () => {
             Nos visites guidées
           </h2>
           <div className="grid grid-cols-1 gap-12">
-            {tours.map((tour, index) => (
+            {tours?.map((tour, index) => (
               <motion.div
                 key={tour.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -132,7 +124,7 @@ const VisitePriveePage = () => {
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="relative h-80">
                     <Image
-                      src={tour.images[activeImageIndex]}
+                      src={tour.images[activeImageIndex].url}
                       alt={tour.title}
                       fill
                       className="object-cover"
@@ -162,7 +154,7 @@ const VisitePriveePage = () => {
                       </div>
                       <div className="flex items-center">
                         <MapPin className="w-5 h-5 mr-2 text-[#37b7ab]" />
-                        {tour.locations.join(", ")}
+                        {tour.locations}
                       </div>
                     </div>
                     <p className="text-gray-700 mb-6">{tour.description}</p>

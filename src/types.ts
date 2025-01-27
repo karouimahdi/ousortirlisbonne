@@ -124,16 +124,18 @@ export type Restaurant= {
     capacity: string;
     description: string;
     badge: string;
-    prices: Price[];
-    features: string[];
-    images: {
-      image: {
-        id: string;
-        alt?:string
-        url: string;
-      };
-      id?: string;
-    }[];  }
+    prices?: {
+      duration: string;
+      price: string;
+    }[];
+    features?: string[];
+    images?: {
+      
+      id: string;
+      alt?:string
+      url: string;
+    
+  }[];  }
   export type Discover= {
     id:string;
     title: string;
@@ -142,10 +144,9 @@ export type Restaurant= {
     locations: string;
     price: string;
     images: {
-      image: {
+      
         id: string;
         alt?:string
         url: string;
-      };
-      id?: string;
+      
     }[];  }  

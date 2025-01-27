@@ -34,6 +34,7 @@ export interface Config {
     club: Club;
     discover: Discover;
     boats: Boat;
+    'side-car-viree': SideCarViree;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -64,6 +65,7 @@ export interface Config {
     club: ClubSelect<false> | ClubSelect<true>;
     discover: DiscoverSelect<false> | DiscoverSelect<true>;
     boats: BoatsSelect<false> | BoatsSelect<true>;
+    'side-car-viree': SideCarVireeSelect<false> | SideCarVireeSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -419,14 +421,16 @@ export interface EventsCategory {
   id: string;
   title: string;
   description: string;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Hex color code for category styling
    */
   color: string;
-  /**
-   * Higher numbers appear first in category lists
-   */
-  priority: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -699,6 +703,24 @@ export interface Boat {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "side-car-viree".
+ */
+export interface SideCarViree {
+  id: string;
+  title: string;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  description: string;
+  duration: string;
+  price: string;
+  locations: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -812,6 +834,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'boats';
         value: string | Boat;
+      } | null)
+    | ({
+        relationTo: 'side-car-viree';
+        value: string | SideCarViree;
       } | null)
     | ({
         relationTo: 'users';
@@ -1138,8 +1164,13 @@ export interface SubmissionsSelect<T extends boolean = true> {
 export interface EventsCategoriesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
   color?: T;
-  priority?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1414,6 +1445,25 @@ export interface BoatsSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "side-car-viree_select".
+ */
+export interface SideCarVireeSelect<T extends boolean = true> {
+  title?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  description?: T;
+  duration?: T;
+  price?: T;
+  locations?: T;
   updatedAt?: T;
   createdAt?: T;
 }

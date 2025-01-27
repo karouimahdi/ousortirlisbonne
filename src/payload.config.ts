@@ -28,6 +28,7 @@ import BoatJourney from "./collections/BoatJourney";
 import newYearCruise from "./collections/NewYearCruise";
 import RentBoat from "./collections/RentBoat";
 import {BigBoatCollection} from "./collections/BigBoat"
+import { SideCar } from "./collections/SideCar";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -60,7 +61,8 @@ export default buildConfig({
     ClubCategory,
     Club,
     Decouvertes,
-    BigBoatCollection
+    BigBoatCollection,
+    SideCar
 
   ],
   typescript: {
