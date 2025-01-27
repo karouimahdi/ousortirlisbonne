@@ -10,6 +10,10 @@ import { Button } from "@/components/ui/button";
 import { use, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import ImageGallery from "@/components/ImageGallery";
+import useSWR from "swr";
+import { Restaurant } from "@/types";
+import { getRestorant } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 interface Coordinates {
   lat: number;
@@ -49,11 +53,14 @@ export default function VenuePage({
 }: {
   params: Promise<{ category: string; slug: string }>;
 }) {
+  const { translations } = useTranslation();
+ 
   const { category } = use(params);
   const { slug } = use(params);
-  const venue = venues.find(
-    (v) => v.categorySlug === category && v.slug === slug
-  );
+  const { data: venue } = useSWR(
+    useSWR<Restaurant>,
+    async (_) => await getRestorant(slug)
+  ); 
 
   const [coordinates, setCoordinates] = useState<Coordinates>({
     lat: 48.8566,
@@ -75,8 +82,7 @@ export default function VenuePage({
   }, [venue?.location]);
 
   if (!venue) {
-    notFound();
-  }
+return null;  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -86,7 +92,7 @@ export default function VenuePage({
         className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 group"
       >
         <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />
-        Retour à la liste
+        {translations["backToList"]}
       </Link>
 
       {/* Inspirational Text with Framer Motion */}
@@ -96,8 +102,8 @@ export default function VenuePage({
         transition={{ duration: 0.8, delay: 0.2 }}
         className="text-center text-2xl font-garage-gothic-regular italic text-[#2a2765] mb-8"
       >
-        Faites de votre vie un évènement!
-      </motion.div>
+        {translations["makeLifeEvent"]}
+        </motion.div>
 
       {/* Main Content */}
       <div className="grid lg:grid-cols-2 gap-8">
@@ -108,7 +114,9 @@ export default function VenuePage({
           transition={{ duration: 0.8 }}
         >
           <ImageGallery
-            images={venue.images} // Make sure your venue data includes an images array
+            images={(venue.images?.map((image) => {return(typeof image.image === "string"
+              ? image.image
+              : (image.image.url )) as string}))as string[]}
             venueName={venue.name}
           />
         </motion.div>
@@ -129,22 +137,22 @@ export default function VenuePage({
             {[
               {
                 icon: <MapPin className="w-5 h-5 text-blue-600 mt-1" />,
-                title: "Adresse",
+                title: translations["address"],
                 content: venue.location,
               },
               {
                 icon: <Phone className="w-5 h-5 text-blue-600 mt-1" />,
-                title: "Téléphone",
-                content: venue.phone,
+                title:  translations["phone"],
+                content: venue.contact.phone,
               },
               {
                 icon: <Clock className="w-5 h-5 text-blue-600 mt-1" />,
-                title: "Horaires",
-                content: venue.hours,
+                title: translations["hours"],
+                content: venue.contact.hours,
               },
               {
                 icon: <DollarSign className="w-5 h-5 text-blue-600 mt-1" />,
-                title: "Prix",
+                title:  translations["price"],
                 content: venue.price,
               },
             ].map((item, index) => (
@@ -191,8 +199,8 @@ export default function VenuePage({
                   title="Venue location map"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 text-sm p-2 text-center">
-                  Coordinates: {coordinates.lat.toFixed(4)},{" "}
-                  {coordinates.lon.toFixed(4)}
+                {translations["coordinatesLabel"]}: {coordinates.lat.toFixed(4)},{" "}
+                {coordinates.lon.toFixed(4)}
                 </div>
               </>
             )}
@@ -206,8 +214,7 @@ export default function VenuePage({
             whileHover={{ scale: 1.05 }}
           >
             <Button className="w-full py-6 text-lg bg-[#ea3e4e] hover:bg-[#37b7ab] transition-colors duration-300">
-              Réserver Maintenant
-            </Button>
+{translations["bookNow"]}            </Button>
           </motion.div>
         </div>
       </div>

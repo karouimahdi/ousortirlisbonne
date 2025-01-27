@@ -69,7 +69,7 @@ const FeaturedCategories = () => {
       gradient: "from-[#37b7ab]/20 via-[#37b7ab]/10 to-transparent",
       accent: "group-hover:border-[#37b7ab]/50",
       highlights: ["Croisières", "Yacht", "Sunset"],
-      route: "/boats",
+      route: "/croisiere",
     },
     {
       icon: Activity,

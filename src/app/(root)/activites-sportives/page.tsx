@@ -4,44 +4,68 @@ import { motion } from "motion/react";
 import { Fish, Bike, Car, Users, Clock, Camera, Badge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useEmblaCarousel from "embla-carousel-react";
-import { sports } from "../data/sport";
 import HeroSection from "@/components/Hero";
+import useSWR from "swr";
+import { Sport } from "@/types";
+import { getSportActivities } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 const SportsPage = () => {
+  const { translations } = useTranslation();
+
   const [emblaRef] = useEmblaCarousel({ loop: true });
   const [activeParaSlide, setActiveParaSlide] = useState(0);
 
-  const parapenteSlides = [
-    {
-      title: "Baptême de parapente",
-      subtitle: "Arrabida/Sesimbra - Praia das Bicas – Fonte da Telha",
-      content: `Envie d’un expérience hors du commun dans un décor paradisiaque...`,
+  const { data: sports, error, isLoading } = useSWR<Sport[]>(
+    ['getSportActivities'],
+    async ([key]): Promise<Sport[]> => {
+      try {
+        const response = await getSportActivities();
+        return response.map((activity) => ({
+          title: activity.title,
+          location: activity.location,
+          price: parseFloat(activity.price) || 0,
+          duration: activity.duration,
+          includedItems: activity.includedItems.map(item => item.item),
+          image: (activity.image as any)?.url || '' ,// Adaptez le typage selon votre Media
+          badge:activity.badge
+        }));
+      } catch (err) {
+        console.error('Error fetching activities:', err);
+        throw err;
+      }
     },
-    // Ajouter les autres slides
-  ];
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
+  );
+  
+  if (isLoading) return <div>Loading sports...</div>;
+  if (error) return <div>Error loading sports</div>;
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <HeroSection
         imageUrl="/activites-sportives-min.jpg"
-        title=" Activités à Sesimbra Arrabida
-"
-        description="Surf, Parapente, Jet ski - Profitez toute l'année de nos activités outdoor"
-        buttonText="Voir les activitées"
+        title={translations["sportsPageTitle"]}
+        description={translations["sportsPageDescription"]}
+        buttonText={translations["viewActivities"]}
         buttonLink="#"
+        altText={translations["sportsHeroAltText"]}
       />
 
       <section className="max-w-7xl mx-auto px-4 py-24">
         <h2 className="text-3xl font-bold text-center text-[#2a2765] mb-16">
-          Nos activités en plein air
+        {translations["outdoorActivities1"]}
         </h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sports.map((activity) => {
+          {sports?.map((activity) => {
             return (
               <motion.div
-                key={activity.id}
+                key={activity.title}
                 className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all"
                 whileHover={{ y: -5 }}
               >
@@ -89,7 +113,7 @@ const SportsPage = () => {
                   </ul>
 
                   <Button className="w-full rounded-full bg-[#ea3e4e] hover:bg-[#37b7ab]">
-                    Réserver
+                  {translations["bookNow1"]}
                   </Button>
                 </div>
               </motion.div>

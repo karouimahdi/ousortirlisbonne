@@ -11,36 +11,12 @@ import {
 } from "lucide-react";
 import HeroSection from "@/components/Hero";
 import { Button } from "@/components/ui/button";
+import useSWR from "swr";
+import { SessimbraActivities } from "@/types";
+import { getSessimbraActivities } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
-interface Activity {
-  id: string;
-  title: string;
-  description: string[];
-  includes?: string[];
-  info?: string[];
-  images: string[];
-}
 
-const activities: Activity[] = [
-  {
-    id: "snorkeling",
-    title: "AVENTURE SNORKELING À ARRÁBIDA ET SESIMBRA 🤿",
-    description: [
-      "Plongez dans un monde incroyable de vie marine et de découvertes surprenantes.",
-      "Une expérience dans l'univers sous-marin de la côte de Sesimbra et Arrábida où vivent plus de 1350 espèces.",
-    ],
-    includes: [
-      "Kit de plongée en apnée",
-      "Combinaison isothermique",
-      "Départ de bateau",
-      "Skipper",
-      "Guides",
-      "Assurance",
-    ],
-    images: ["/arrabida2.jpg", "/arrabida3.jpg", "/arrabida1.jpg"],
-  },
-  // Ajouter les autres activités ici...
-];
 
 const ImageSlider = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -102,16 +78,44 @@ const ImageSlider = ({ images }: { images: string[] }) => {
 };
 
 export default function ActivitiesPage() {
+  const { translations } = useTranslation();
+
+  const { data: activities, error, isLoading } = useSWR<SessimbraActivities[]>(
+    ['getSessimbraActivities'], // Key sous forme de tableau
+    async ([key]): Promise<SessimbraActivities[]> => { // Fetcher typé
+      try {
+        const response = await getSessimbraActivities();
+        return response.map((activity) => ({
+          id: activity.id,
+          title: activity.title,
+          description: activity.descriptions.map((d) => d.description),
+          includes: activity.includes.map((i) => i.include),
+          images: activity.images.map((img) => 
+            (img.image as unknown as { url: string }).url // Assertion de type sécurisée
+          ),
+        }));
+      } catch (err) {
+        console.error('Error fetching activities:', err);
+        throw err;
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
+  ); if (isLoading) return <div>Loading restaurants...</div>;
+  if (error) return <div>Error loading restaurants</div>;
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-[#f8f9fd]">
       {/* Hero Section */}
       <HeroSection
         imageUrl="/Snorking-Arrabida.jpg"
-        title=" Activites-a-sesimbra-arrabida"
+        title={translations["activitiesPageTitle"]}  
         description=""
-        buttonText="Découvrir Nos activitées"
+        buttonText={translations["discoverOurActivities"]}   
         buttonLink="#"
-        altText="Vue panoramique de Lisbonne"
+        altText={translations["heroAltText"]}   
       />
       <section className="max-w-7xl mx-auto px-4 py-28">
         <motion.div
@@ -121,19 +125,18 @@ export default function ActivitiesPage() {
           className="text-center space-y-12"
         >
           <h2 className="text-5xl font-bold text-[#2a2765] leading-tight">
-            DÉCOUVREZ LA MAGIE
-            <br />
-            DE SÉSIMBRA & ARRÁBIDA
+{translations["discoverMagicPart1"]}            <br />
+{translations["discoverMagicPart2"]}  
           </h2>
 
           <div className="relative max-w-4xl mx-auto">
             <p className="text-2xl text-gray-700 leading-relaxed">
-              Entre mer cristalline et montagnes majestueuses, vivez des
-              expériences uniques
+            {translations["activityDescriptionPart1"]}
+
               <span className="text-[#37b7ab] font-semibold">
                 {" "}
-                au cœur d'une nature préservée
-              </span>
+                {translations["activityDescriptionHighlight"]}
+                </span>
             </p>
 
             {/* Élément décoratif */}
@@ -147,11 +150,11 @@ export default function ActivitiesPage() {
           >
             <div className="bg-white/95 px-12 py-8 rounded-xl backdrop-blur-sm">
               <p className="text-lg font-medium text-[#2a2765]">
-                🚨 Important : Tarifs dégressifs pour groupes -
-                <span className="text-[#ea3e4e]">
+              {translations["groupDiscountsPart1"]}
+              <span className="text-[#ea3e4e]">
                   {" "}
-                  Contactez-nous pour privatiser votre expérience
-                </span>
+                  {translations["groupDiscountsPart2"]}
+                  </span>
               </p>
             </div>
           </motion.div>
@@ -159,9 +162,9 @@ export default function ActivitiesPage() {
       </section>
       {/* Activities Section */}
       <section className="max-w-7xl mx-auto px-4 py-16 lg:py-24 space-y-20">
-        {activities.map((activity, index) => (
+        {activities?.map((activity, index) => (
           <motion.div
-            key={activity.id}
+            key={activity.title}
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -176,9 +179,9 @@ export default function ActivitiesPage() {
             {/* Content */}
             <div className="space-y-6 lg:space-y-8 lg:pl-8">
               <h2 className="text-3xl lg:text-4xl font-bold text-[#2a2765] leading-tight">
-                <span>{activity.title.split(" ")[0]}</span>
+                <span>{activity?.title?.split(" ")[0]}</span>
                 <br />
-                {activity.title.split(" ").slice(1).join(" ")}
+                {activity?.title?.split(" ").slice(1).join(" ")}
               </h2>
 
               <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
@@ -204,7 +207,7 @@ export default function ActivitiesPage() {
                       <Users className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-xl font-semibold text-[#2a2765]">
-                      Ce qui est inclus :
+                    {translations["included"]}
                     </h3>
                   </div>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -231,8 +234,8 @@ export default function ActivitiesPage() {
                 transform hover:scale-105 transition-all duration-200"
                 >
                   {" "}
-                  Réserver maintenant
-                </Button>
+                  {translations["bookNow"]}
+                  </Button>
               </motion.div>
             </div>
           </motion.div>

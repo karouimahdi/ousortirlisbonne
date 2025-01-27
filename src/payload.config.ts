@@ -12,6 +12,22 @@ import path from "path";
 import { en } from "@payloadcms/translations/languages/en";
 import { fr } from "@payloadcms/translations/languages/fr";
 import { pt } from "@payloadcms/translations/languages/pt";
+import { EventCategory } from "./collections/EventCategory";
+import { Event } from "./collections/Event";
+import {BoatParty} from "./collections/BoatParty";
+import ArrabidaBoatCollection from "./collections/BoatArabidaCascais";
+import CoucherBoat from "./collections/Boats";
+import { SessimbraActivity } from "./collections/SesimbraActivity";
+import { Sport } from "./collections/Sport";
+import { Bars } from "./collections/Bars";
+import { CategoryBars } from "./collections/BarsCategory";
+import { ClubCategory } from "./collections/ClubCategory";
+import { Club } from "./collections/Club";
+import { Decouvertes } from "./collections/Decouvertes";
+import BoatJourney from "./collections/BoatJourney";
+import newYearCruise from "./collections/NewYearCruise";
+import RentBoat from "./collections/RentBoat";
+import {BigBoatCollection} from "./collections/BigBoat"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,12 +39,29 @@ export default buildConfig({
   // Define and configure your collections in this array
   collections: [
     Media,
+    BoatJourney,
+    newYearCruise,
+    RentBoat,
     BlogCategory,
     Blog,
     CategoryRestaurants,
     Restaurants,
     Form,
+    CoucherBoat,
     Submissions,
+    EventCategory,
+    Event,
+    BoatParty,
+    SessimbraActivity,
+    ArrabidaBoatCollection,
+    CategoryBars,
+    Bars,
+    Sport,
+    ClubCategory,
+    Club,
+    Decouvertes,
+    BigBoatCollection
+
   ],
   typescript: {
     outputFile: path.resolve(__dirname, "generated-types.ts"),

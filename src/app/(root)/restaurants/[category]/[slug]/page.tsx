@@ -3,13 +3,15 @@
 import { MapPin, Phone, Clock, DollarSign, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { venues } from "../../../data/venues";
 import { notFound } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { use, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import ImageGallery from "@/components/ImageGallery";
+import { Restaurant } from "@/types";
+import useSWR from "swr";
+import { getRestorant } from "./action";
 
 interface Coordinates {
   lat: number;
@@ -47,14 +49,15 @@ async function getCoordinates(location: string): Promise<Coordinates> {
 export default function VenuePage({
   params,
 }: {
-  params: Promise<{ category: string; slug: string }>;
+  params: Promise< {category:string,slug: string }>;
 }) {
-  const { category } = use(params);
   const { slug } = use(params);
-  const venue = venues.find(
-    (v) => v.categorySlug === category && v.slug === slug
-  );
-
+  const { category } = use(params);
+  const { data: venue } = useSWR(
+    useSWR<Restaurant>,
+    async (_) => await getRestorant(slug)
+  ); 
+  
   const [coordinates, setCoordinates] = useState<Coordinates>({
     lat: 48.8566,
     lon: 2.3522,
@@ -75,14 +78,13 @@ export default function VenuePage({
   }, [venue?.location]);
 
   if (!venue) {
-    notFound();
-  }
+return null   }
 
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
       <Link
-        href={`/clubs/${category}`}
+        href={`/restaurant/${category}`}
         className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 group"
       >
         <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />
@@ -108,7 +110,9 @@ export default function VenuePage({
           transition={{ duration: 0.8 }}
         >
           <ImageGallery
-            images={venue.images} // Make sure your venue data includes an images array
+            images={(venue.images?.map((image) => {return(typeof image.image === "string"
+              ? image.image
+              : (image.image.url )) as string}))as string[]}
             venueName={venue.name}
           />
         </motion.div>
@@ -135,12 +139,12 @@ export default function VenuePage({
               {
                 icon: <Phone className="w-5 h-5 text-blue-600 mt-1" />,
                 title: "Téléphone",
-                content: venue.phone,
+                content: venue.contact.phone,
               },
               {
                 icon: <Clock className="w-5 h-5 text-blue-600 mt-1" />,
                 title: "Horaires",
-                content: venue.hours,
+                content: venue.contact.hours,
               },
               {
                 icon: <DollarSign className="w-5 h-5 text-blue-600 mt-1" />,

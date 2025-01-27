@@ -20,7 +20,7 @@ async function layout({ children }: { children: React.ReactNode }) {
       <body>
         <TranslationProvider initialLocal={initialLocale}>
           <Navbar />
-          {children}
+        <main className="min-h-screen"> {children}</main> 
           <ContactButton
             phoneNumber="1234567890"
             message="Bonjour, je souhaite plus d'informations"

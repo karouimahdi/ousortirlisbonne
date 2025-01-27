@@ -2,10 +2,64 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Search, Star } from 'lucide-react';
-import { categories, venues } from '../data/venues';
 import HeroCarousel from '@/components/HeroCarousel';
+import useSWR from 'swr';
+import { Restaurant, RestaurantCategory } from '@/types';
+import { getFeaturedBars, getBarsCategories } from './action';
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 export default function VenuesPage() {
+  const { translations } = useTranslation();
+
+  const { data:categories, error, isLoading } = useSWR<RestaurantCategory[]>(
+    "getBarsCategories",
+    async () => {
+      try {
+        const restaurantsCategory = await getBarsCategories();
+        return restaurantsCategory.map((restaurant: any) => ({
+          id: restaurant.id,
+          name: restaurant.name,
+          slug: restaurant.slug,
+          image:restaurant.image?.url,
+        }));
+      } catch (err) {
+        console.error('Error fetching restaurants:', err);
+        throw err;
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
+  );
+ const { data:venues } =useSWR<Restaurant[]>(
+    "getFeaturedBars",
+    async () => {
+      try {
+        const restaurants = await getFeaturedBars();
+        return restaurants.map((restaurant: any) => ({
+          id: restaurant.id,
+          name: restaurant.name,
+          slug: restaurant.slug,
+          mainImage: {
+            url: restaurant.mainImage?.url || '/default-restaurant.jpg',
+            alt: restaurant.name
+          },
+          category: restaurant.category,
+          location: restaurant.location,
+          price: restaurant.price,
+          highlighted: restaurant.highlighted,
+        }));
+      } catch (err) {
+        console.error('Error fetching restaurants:', err);
+        throw err;
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
+  );
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -14,15 +68,16 @@ export default function VenuesPage() {
       {/* Categories Section */}
       <section className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="text-[#37b7ab] font-semibold mb-2 block">Catégories</span>
+          <span className="text-[#37b7ab] font-semibold mb-2 block">            {translations["categoriesSectionSubtitle"]}
+          </span>
           <h2 className="text-4xl md:text-5xl font-bold text-[#2a2765] mb-4">
-            Explorez nos Catégories
+          {translations["categoriesSectionTitle"]}
           </h2>
           <div className="w-24 h-1 bg-[#37b7ab] mx-auto mt-6 mb-8 rounded-full" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {categories.map(category => (
+          {categories?.map(category => (
             <Link
               key={category.id}
               href={`/bars/${category.slug}`}
@@ -55,24 +110,24 @@ export default function VenuesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#2a2765] mb-4">
-              Lieux à la Une
+            {translations["featuredVenuesTitle"]}
             </h2>
             <div className="w-24 h-1 bg-[#37b7ab] mx-auto mt-4 mb-8" />
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Découvrez nos meilleures recommandations du moment
+            {translations["featuredVenuesDescription"]}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {venues.map(venue => (
+            {venues?.map(venue => (
               <Link
                 key={venue.id}
-                href={`/bars/${venue.categorySlug}/${venue.slug}`}
+                href={`/bars/${venue.category.slug}/${venue.slug}`}
                 className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="relative h-48">
                   <Image
-                    src={venue.image}
+                    src={venue.mainImage.url}
                     alt={venue.name}
                     fill
                     className="object-cover"
@@ -95,16 +150,6 @@ export default function VenuesPage() {
         </div>
       </section>
 
-      <style jsx global>{`
-        @keyframes scroll {
-          0% { transform: translateY(0); opacity: 0; }
-          50% { transform: translateY(10px); opacity: 1; }
-          100% { transform: translateY(20px); opacity: 0; }
-        }
-        .animate-scroll {
-          animation: scroll 2s infinite;
-        }
-      `}</style>
     </main>
   );
 }

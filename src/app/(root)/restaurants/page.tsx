@@ -2,10 +2,68 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Search, Star } from 'lucide-react';
-import { categories, venues } from '../data/venues';
+import { venues } from '../data/venues';
 import HeroCarousel from '@/components/HeroCarousel';
+import useSWR from 'swr';
+import { getPayloadInstance } from "@/lib/payload";
+import { getFeaturedResto, getRestoCategories } from './actions';
+import { Restaurant, RestaurantCategory } from '@/types';
 
-export default function VenuesPage() {
+
+
+export default function RestaurantsPage() {
+  // Fetch restaurants from Payload CMS
+  const { data, error, isLoading } = useSWR<RestaurantCategory[]>(
+    "getRestoCategories",
+    async () => {
+      try {
+        const restaurantsCategory = await getRestoCategories();
+        return restaurantsCategory.map((restaurant: any) => ({
+          id: restaurant.id,
+          name: restaurant.name,
+          slug: restaurant.slug,
+          image:restaurant.image?.url,
+        }));
+      } catch (err) {
+        console.error('Error fetching restaurants:', err);
+        throw err;
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
+  );
+ const { data:restaurants } =useSWR<Restaurant[]>(
+    "getFeaturedResto",
+    async () => {
+      try {
+        const restaurants = await getFeaturedResto();
+        return restaurants.map((restaurant: any) => ({
+          id: restaurant.id,
+          name: restaurant.name,
+          slug: restaurant.slug,
+          mainImage: {
+            url: restaurant.mainImage?.url || '/default-restaurant.jpg',
+            alt: restaurant.name
+          },
+          category: restaurant.category,
+          location: restaurant.location,
+          price: restaurant.price,
+          highlighted: restaurant.highlighted,
+        }));
+      } catch (err) {
+        console.error('Error fetching restaurants:', err);
+        throw err;
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
+  );
+  if (isLoading) return <div>Loading restaurants...</div>;
+  if (error) return <div>Error loading restaurants</div>;
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -22,7 +80,7 @@ export default function VenuesPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {categories.map(category => (
+          {data?.map(category => (
             <Link
               key={category.id}
               href={`/restaurants/${category.slug}`}
@@ -50,7 +108,6 @@ export default function VenuesPage() {
         </div>
       </section>
 
-      {/* Featured Venues Section */}
       <section className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -64,15 +121,15 @@ export default function VenuesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {venues.map(venue => (
+            {restaurants?.map(venue => (
               <Link
                 key={venue.id}
-                href={`/clubs/${venue.categorySlug}/${venue.slug}`}
+                href={`/restaurants/${venue.category.slug}/${venue.slug}`}
                 className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="relative h-48">
                   <Image
-                    src={venue.image}
+                    src={venue.mainImage.url}
                     alt={venue.name}
                     fill
                     className="object-cover"

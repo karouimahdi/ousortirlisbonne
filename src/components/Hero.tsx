@@ -4,8 +4,8 @@ import Image from "next/image";
 
 interface HeroProps {
   imageUrl: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   buttonText: string;
   buttonLink: string;
   altText?: string;

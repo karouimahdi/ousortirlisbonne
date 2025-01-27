@@ -6,23 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { CalendarDays, Clock, ArrowRight, User, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-interface Article {
-  id: number;
+interface Blog {
+  id: string;
   title: string;
-  image: string;
   description: string;
-  content: string;
-  slug: string;
-  date: string;
-  category: string;
-  readTime?: string;
-  author?: string;
-  location?: string;
-  tags?: string[];
+  image: { url: string; alt?: string };
+  createdAt: string;
+  category: { name: string };
+  readTime: string;
+  slug:string
 }
 
 interface ArticleListProps {
-  articles: Article[];
+  articles?: Blog[];
   selectedCategory: string;
 }
 
@@ -43,7 +39,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       layout
     >
-      {articles.map((article, index) => (
+      {articles?.map((article, index) => (
         <motion.div
           key={article.id}
           layout
@@ -64,7 +60,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
               <div className="relative aspect-[4/3] overflow-hidden">
                 <div className="absolute inset-0 bg-black/20 z-10 group-hover:bg-black/30 transition-colors duration-300" />
                 <motion.img
-                  src={article.image}
+                  src={article.image.url}
                   alt={article.title}
                   className="w-full h-full object-cover transition-transform duration-700"
                   whileHover={{ scale: 1.05 }}
@@ -73,14 +69,11 @@ const ArticleList: React.FC<ArticleListProps> = ({
                   <Badge
                     className="px-3 py-1.5 text-sm font-medium"
                     style={{
-                      backgroundColor:
-                        categoryColors[
-                          article.category as keyof typeof categoryColors
-                        ],
+                     
                       color: "white",
                     }}
                   >
-                    {article.category}
+                    {article.category.name}
                   </Badge>
                 </div>
               </div>
@@ -90,7 +83,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                 <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
                   <div className="flex items-center gap-1">
                     <CalendarDays className="w-4 h-4" />
-                    {new Date(article.date).toLocaleDateString("fr-FR", {
+                    {new Date(article.createdAt).toLocaleDateString("fr-FR", {
                       day: "numeric",
                       month: "short",
                       year: "numeric",
@@ -113,68 +106,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
                 </p>
 
                 {/* Additional Info */}
-                <div className="mt-auto space-y-4">
-                  {(article.author || article.location) && (
-                    <div className="flex items-center gap-4 text-sm text-gray-500">
-                      {article.author && (
-                        <div className="flex items-center gap-1">
-                          <User className="w-4 h-4" />
-                          {article.author}
-                        </div>
-                      )}
-                      {article.location && (
-                        <div className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          {article.location}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Tags */}
-                  {article.tags && (
-                    <div className="flex flex-wrap gap-2">
-                      {article.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Read More Button */}
-                  <motion.div
-                    className="inline-flex items-center gap-2 text-white bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full font-medium mt-4 px-6 py-3  shadow-md transition-all"
-                    whileHover={{
-                      x: 5,
-                      scale: 1.05,
-                      shadow: "0 10px 20px rgba(0,0,0,0.2)",
-                    }}
-                    whileTap={{
-                      scale: 0.95,
-                      backgroundColor: "#2a8a80",
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 10,
-                    }}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <span className="whitespace-nowrap">Lire l'article</span>
-                    <motion.span
-                      animate={{ x: 0 }}
-                      whileHover={{ x: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <ArrowRight className="w-4 h-4" />
-                    </motion.span>
-                  </motion.div>
-                </div>
+               
               </div>
             </CardContent>
           </Card>

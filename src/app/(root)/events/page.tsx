@@ -82,32 +82,18 @@ export default function EventsPage() {
         />
       </div>
 
-      {/* Main Content */}
+   
       <main className="container mx-auto px-4 py-12">
-        {/* Pass selectedCategory and setSelectedCategory to CategoryGrid */}
+       
         <CategoryGrid
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
 
-        {/* Display filtered events */}
         <EventsList events={filteredEvents} />
       </main>
 
-      {/* Contact Button */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-          <a
-            href="https://wa.me/1234567890"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-green-600 transition-colors"
-          >
-            <Phone className="w-6 h-6" />
-            <span className="font-medium">Contactez-nous</span>
-          </a>
-        </motion.div>
-      </div>
+   
     </motion.div>
   );
 }

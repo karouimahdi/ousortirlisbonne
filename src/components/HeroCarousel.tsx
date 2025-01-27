@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 const HeroCarousel = ({ 
-  slides = [
+  autoplayInterval = 5000
+}) => {
+  const { translations } = useTranslation();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const slides = [
     {
       image: "/ImageCar2.jpeg",
-      title: "Trouvez l'endroit parfait",
-      subtitle: "pour votre soirée",
-      description: "Découvrez les meilleurs restaurants, bars et clubs sélectionnés pour vous"
+      title: translations["heroSlide1Title"],
+      subtitle: translations["heroSlide1Subtitle"],
+      description: translations["heroSlide1Description"]
     },
     {
       image: "/ImageCarousel1.jpeg",
-      title: "Des moments uniques",
-      subtitle: "à Portugal",
-      description: "Explorez notre sélection des lieux les plus exclusifs de la capitale"
+      title: translations["heroSlide2Title"],
+      subtitle: translations["heroSlide2Subtitle"],
+      description: translations["heroSlide2Description"]
     },
     {
       image: "/Tokyo.jpeg",
-      title: "Ambiance garantie",
-      subtitle: "chaque soir",
-      description: "Les meilleures adresses pour une soirée inoubliable"
+      title: translations["heroSlide3Title"],
+      subtitle: translations["heroSlide3Subtitle"],
+      description: translations["heroSlide3Description"]
     }
-  ],
-  autoplayInterval = 5000
-}) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -100,14 +103,14 @@ const HeroCarousel = ({
       <button
         onClick={handlePrevious}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300"
-        aria-label="Previous slide"
+        aria-label={translations["previousSlide"]}
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={handleNext}
         className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-300"
-        aria-label="Next slide"
+        aria-label={translations["nextSlide"]}
       >
         <ChevronRight className="w-6 h-6" />
       </button>
@@ -121,18 +124,9 @@ const HeroCarousel = ({
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
               currentSlide === index ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/70'
             }`}
-            aria-label={`Go to slide ${index + 1}`}
+            aria-label={`${translations["goToSlide"]} ${index + 1}`}
           />
         ))}
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-8 h-12 rounded-full border-2 border-white/50 flex items-center justify-center">
-            <div className="w-1.5 h-3 bg-white/70 rounded-full animate-scroll" />
-          </div>
-        </div>
       </div>
     </section>
   );

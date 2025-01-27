@@ -12,12 +12,28 @@ export interface Config {
   };
   collections: {
     media: Media;
+    'boats-journey': BoatsJourney;
+    'boats-nouvel-an': BoatsNouvelAn;
+    'boats-to-rent': BoatsToRent;
     'blogs-categories': BlogsCategory;
     blogs: Blog;
     'resto-categories': RestoCategory;
     restaurants: Restaurant;
     forms: Form;
+    'boats-coucher-soleil': BoatsCoucherSoleil;
     submissions: Submission;
+    'events-categories': EventsCategory;
+    events: Event;
+    'boat-parties': BoatParty;
+    'sessimbra-activities': SessimbraActivity;
+    'boats-arrabida': BoatsArrabida;
+    'bar-categories': BarCategory;
+    bars: Bar;
+    sports: Sport;
+    'club-categories': ClubCategory;
+    club: Club;
+    discover: Discover;
+    boats: Boat;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -26,12 +42,28 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     media: MediaSelect<false> | MediaSelect<true>;
+    'boats-journey': BoatsJourneySelect<false> | BoatsJourneySelect<true>;
+    'boats-nouvel-an': BoatsNouvelAnSelect<false> | BoatsNouvelAnSelect<true>;
+    'boats-to-rent': BoatsToRentSelect<false> | BoatsToRentSelect<true>;
     'blogs-categories': BlogsCategoriesSelect<false> | BlogsCategoriesSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     'resto-categories': RestoCategoriesSelect<false> | RestoCategoriesSelect<true>;
     restaurants: RestaurantsSelect<false> | RestaurantsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
+    'boats-coucher-soleil': BoatsCoucherSoleilSelect<false> | BoatsCoucherSoleilSelect<true>;
     submissions: SubmissionsSelect<false> | SubmissionsSelect<true>;
+    'events-categories': EventsCategoriesSelect<false> | EventsCategoriesSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
+    'boat-parties': BoatPartiesSelect<false> | BoatPartiesSelect<true>;
+    'sessimbra-activities': SessimbraActivitiesSelect<false> | SessimbraActivitiesSelect<true>;
+    'boats-arrabida': BoatsArrabidaSelect<false> | BoatsArrabidaSelect<true>;
+    'bar-categories': BarCategoriesSelect<false> | BarCategoriesSelect<true>;
+    bars: BarsSelect<false> | BarsSelect<true>;
+    sports: SportsSelect<false> | SportsSelect<true>;
+    'club-categories': ClubCategoriesSelect<false> | ClubCategoriesSelect<true>;
+    club: ClubSelect<false> | ClubSelect<true>;
+    discover: DiscoverSelect<false> | DiscoverSelect<true>;
+    boats: BoatsSelect<false> | BoatsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -90,11 +122,81 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-journey".
+ */
+export interface BoatsJourney {
+  id: string;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  title: string;
+  'best-seller'?: boolean | null;
+  capacity: string;
+  duration: string;
+  prices?: string | null;
+  départ?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-nouvel-an".
+ */
+export interface BoatsNouvelAn {
+  id: string;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  title: string;
+  'best-seller'?: boolean | null;
+  capacity: string;
+  duration: string;
+  prices?: string | null;
+  départ?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-to-rent".
+ */
+export interface BoatsToRent {
+  id: string;
+  title: string;
+  type: string;
+  'best-seller'?: boolean | null;
+  capacity: string;
+  duration: string;
+  prices?: string | null;
+  départ?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blogs-categories".
  */
 export interface BlogsCategory {
   id: string;
-  title?: string | null;
+  title: string;
+  description: string;
+  icon: string | Media;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Hex color code for category styling
+   */
+  color: string;
+  /**
+   * Higher numbers appear first in category lists
+   */
+  priority: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -132,6 +234,7 @@ export interface Blog {
         id?: string | null;
       }[]
     | null;
+  featured?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -155,7 +258,7 @@ export interface RestoCategory {
 export interface Restaurant {
   id: string;
   name: string;
-  slug?: string | null;
+  slug: string;
   category: string | RestoCategory;
   location: string;
   mainImage: string | Media;
@@ -166,17 +269,18 @@ export interface Restaurant {
       }[]
     | null;
   description: string;
-  price?: number | null;
-  contact?: {
-    phone?: string | null;
-    hours?: string | null;
+  price: number;
+  contact: {
+    phone: string;
+    hours: string;
   };
   features?:
     | {
-        feature?: string | null;
+        feature: string;
         id?: string | null;
       }[]
     | null;
+  highlighted?: boolean | null;
   verified?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -272,6 +376,25 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-coucher-soleil".
+ */
+export interface BoatsCoucherSoleil {
+  id: string;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  title: string;
+  'best-seller'?: boolean | null;
+  capacity: string;
+  duration: string;
+  prices?: string | null;
+  départ?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "submissions".
  */
 export interface Submission {
@@ -285,6 +408,292 @@ export interface Submission {
       }[]
     | null;
   submittedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events-categories".
+ */
+export interface EventsCategory {
+  id: string;
+  title: string;
+  description: string;
+  /**
+   * Hex color code for category styling
+   */
+  color: string;
+  /**
+   * Higher numbers appear first in category lists
+   */
+  priority: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  title: string;
+  image: string | Media;
+  description: string;
+  slug: string;
+  date: string;
+  category: string | EventsCategory;
+  readTime: string;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  featured?: boolean | null;
+  location: string;
+  prix?: string | null;
+  'nombre de place'?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boat-parties".
+ */
+export interface BoatParty {
+  id: string;
+  title: string;
+  description: string;
+  image: string | Media;
+  capacity: number;
+  features?:
+    | {
+        icon: string;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  schedule: {
+    days: string;
+    time: string;
+  };
+  price: number;
+  location: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessimbra-activities".
+ */
+export interface SessimbraActivity {
+  id: string;
+  title: string;
+  descriptions: {
+    description: string;
+    id?: string | null;
+  }[];
+  includes: {
+    include: string;
+    id?: string | null;
+  }[];
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-arrabida".
+ */
+export interface BoatsArrabida {
+  id: string;
+  type: 'motor' | 'sail' | 'fishingBoats' | 'SimpleBoat';
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  title: string;
+  capacity: string;
+  prices?:
+    | {
+        duration: string;
+        price: string;
+        id?: string | null;
+      }[]
+    | null;
+  features?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bar-categories".
+ */
+export interface BarCategory {
+  id: string;
+  name: string;
+  slug?: string | null;
+  image: string | Media;
+  highlighted?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bars".
+ */
+export interface Bar {
+  id: string;
+  name: string;
+  slug: string;
+  category: string | RestoCategory;
+  location: string;
+  mainImage: string | Media;
+  images?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  description: string;
+  price: number;
+  contact: {
+    phone: string;
+    hours: string;
+  };
+  features?:
+    | {
+        feature: string;
+        id?: string | null;
+      }[]
+    | null;
+  highlighted?: boolean | null;
+  verified?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sports".
+ */
+export interface Sport {
+  id: string;
+  title: string;
+  image: string | Media;
+  location: string;
+  price: string;
+  duration: string;
+  includedItems: {
+    item: string;
+    id?: string | null;
+  }[];
+  badge: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "club-categories".
+ */
+export interface ClubCategory {
+  id: string;
+  name: string;
+  slug?: string | null;
+  image: string | Media;
+  highlighted?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "club".
+ */
+export interface Club {
+  id: string;
+  name: string;
+  slug: string;
+  category: string | RestoCategory;
+  location: string;
+  mainImage: string | Media;
+  images?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  description: string;
+  price: number;
+  contact: {
+    phone: string;
+    hours: string;
+  };
+  features?:
+    | {
+        feature: string;
+        id?: string | null;
+      }[]
+    | null;
+  highlighted?: boolean | null;
+  verified?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "discover".
+ */
+export interface Discover {
+  id: string;
+  title: string;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  description: string;
+  duration: string;
+  price: string;
+  locations: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats".
+ */
+export interface Boat {
+  id: string;
+  title: string;
+  capacity: string;
+  description: string;
+  badge: string;
+  prices?:
+    | {
+        duration: string;
+        price: string;
+        id?: string | null;
+      }[]
+    | null;
+  features?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  images?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -317,6 +726,18 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
+        relationTo: 'boats-journey';
+        value: string | BoatsJourney;
+      } | null)
+    | ({
+        relationTo: 'boats-nouvel-an';
+        value: string | BoatsNouvelAn;
+      } | null)
+    | ({
+        relationTo: 'boats-to-rent';
+        value: string | BoatsToRent;
+      } | null)
+    | ({
         relationTo: 'blogs-categories';
         value: string | BlogsCategory;
       } | null)
@@ -337,8 +758,60 @@ export interface PayloadLockedDocument {
         value: string | Form;
       } | null)
     | ({
+        relationTo: 'boats-coucher-soleil';
+        value: string | BoatsCoucherSoleil;
+      } | null)
+    | ({
         relationTo: 'submissions';
         value: string | Submission;
+      } | null)
+    | ({
+        relationTo: 'events-categories';
+        value: string | EventsCategory;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'boat-parties';
+        value: string | BoatParty;
+      } | null)
+    | ({
+        relationTo: 'sessimbra-activities';
+        value: string | SessimbraActivity;
+      } | null)
+    | ({
+        relationTo: 'boats-arrabida';
+        value: string | BoatsArrabida;
+      } | null)
+    | ({
+        relationTo: 'bar-categories';
+        value: string | BarCategory;
+      } | null)
+    | ({
+        relationTo: 'bars';
+        value: string | Bar;
+      } | null)
+    | ({
+        relationTo: 'sports';
+        value: string | Sport;
+      } | null)
+    | ({
+        relationTo: 'club-categories';
+        value: string | ClubCategory;
+      } | null)
+    | ({
+        relationTo: 'club';
+        value: string | Club;
+      } | null)
+    | ({
+        relationTo: 'discover';
+        value: string | Discover;
+      } | null)
+    | ({
+        relationTo: 'boats';
+        value: string | Boat;
       } | null)
     | ({
         relationTo: 'users';
@@ -406,10 +879,75 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-journey_select".
+ */
+export interface BoatsJourneySelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  title?: T;
+  'best-seller'?: T;
+  capacity?: T;
+  duration?: T;
+  prices?: T;
+  départ?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-nouvel-an_select".
+ */
+export interface BoatsNouvelAnSelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  title?: T;
+  'best-seller'?: T;
+  capacity?: T;
+  duration?: T;
+  prices?: T;
+  départ?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-to-rent_select".
+ */
+export interface BoatsToRentSelect<T extends boolean = true> {
+  title?: T;
+  type?: T;
+  'best-seller'?: T;
+  capacity?: T;
+  duration?: T;
+  prices?: T;
+  départ?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blogs-categories_select".
  */
 export interface BlogsCategoriesSelect<T extends boolean = true> {
   title?: T;
+  description?: T;
+  icon?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  color?: T;
+  priority?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -432,6 +970,7 @@ export interface BlogsSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  featured?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -477,6 +1016,7 @@ export interface RestaurantsSelect<T extends boolean = true> {
         feature?: T;
         id?: T;
       };
+  highlighted?: T;
   verified?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -556,6 +1096,26 @@ export interface FormsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-coucher-soleil_select".
+ */
+export interface BoatsCoucherSoleilSelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  title?: T;
+  'best-seller'?: T;
+  capacity?: T;
+  duration?: T;
+  prices?: T;
+  départ?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "submissions_select".
  */
 export interface SubmissionsSelect<T extends boolean = true> {
@@ -568,6 +1128,292 @@ export interface SubmissionsSelect<T extends boolean = true> {
         id?: T;
       };
   submittedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events-categories_select".
+ */
+export interface EventsCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  color?: T;
+  priority?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  description?: T;
+  slug?: T;
+  date?: T;
+  category?: T;
+  readTime?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  featured?: T;
+  location?: T;
+  prix?: T;
+  'nombre de place'?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boat-parties_select".
+ */
+export interface BoatPartiesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+  capacity?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  schedule?:
+    | T
+    | {
+        days?: T;
+        time?: T;
+      };
+  price?: T;
+  location?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessimbra-activities_select".
+ */
+export interface SessimbraActivitiesSelect<T extends boolean = true> {
+  title?: T;
+  descriptions?:
+    | T
+    | {
+        description?: T;
+        id?: T;
+      };
+  includes?:
+    | T
+    | {
+        include?: T;
+        id?: T;
+      };
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-arrabida_select".
+ */
+export interface BoatsArrabidaSelect<T extends boolean = true> {
+  type?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  title?: T;
+  capacity?: T;
+  prices?:
+    | T
+    | {
+        duration?: T;
+        price?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bar-categories_select".
+ */
+export interface BarCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  image?: T;
+  highlighted?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bars_select".
+ */
+export interface BarsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  category?: T;
+  location?: T;
+  mainImage?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  description?: T;
+  price?: T;
+  contact?:
+    | T
+    | {
+        phone?: T;
+        hours?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  highlighted?: T;
+  verified?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sports_select".
+ */
+export interface SportsSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  location?: T;
+  price?: T;
+  duration?: T;
+  includedItems?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  badge?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "club-categories_select".
+ */
+export interface ClubCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  image?: T;
+  highlighted?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "club_select".
+ */
+export interface ClubSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  category?: T;
+  location?: T;
+  mainImage?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  description?: T;
+  price?: T;
+  contact?:
+    | T
+    | {
+        phone?: T;
+        hours?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  highlighted?: T;
+  verified?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "discover_select".
+ */
+export interface DiscoverSelect<T extends boolean = true> {
+  title?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  description?: T;
+  duration?: T;
+  price?: T;
+  locations?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats_select".
+ */
+export interface BoatsSelect<T extends boolean = true> {
+  title?: T;
+  capacity?: T;
+  description?: T;
+  badge?: T;
+  prices?:
+    | T
+    | {
+        duration?: T;
+        price?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

@@ -6,13 +6,13 @@ export const Blog: CollectionConfig = {
     singular: "Blog",
     plural: "Blogs",
   },
-
   fields: [
     {
       name: "title",
       type: "text",
       required: true,
       localized: true,
+    
     },
     {
       name: "image",
@@ -28,7 +28,7 @@ export const Blog: CollectionConfig = {
     },
     {
       name: "content",
-      type: "richText", // Consider using richText instead of textarea for better content editing
+      type: "richText",
       required: true,
       localized: true,
     },
@@ -37,6 +37,7 @@ export const Blog: CollectionConfig = {
       type: "text",
       required: true,
       unique: true,
+      
     },
     {
       name: "date",
@@ -51,7 +52,7 @@ export const Blog: CollectionConfig = {
     {
       name: "category",
       type: "relationship",
-      relationTo: "blogs-categories", //es collection slug
+      relationTo: "blogs-categories",
       required: true,
     },
     {
@@ -70,9 +71,15 @@ export const Blog: CollectionConfig = {
         },
       ],
     },
+    {
+      name: "featured",
+      type: "checkbox",
+      label: "Featured Article",
+      defaultValue: false,
+    }
   ],
   admin: {
-    defaultColumns: ["title", "category", "date", "readTime"],
+    defaultColumns: ["title", "category", "date", "readTime", "featured"],
     useAsTitle: "title",
   },
 };

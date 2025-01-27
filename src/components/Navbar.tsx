@@ -69,9 +69,9 @@ const Navbar = () => {
       name: translations["cruises"],
       icon: <Ship className="w-5 h-5" />,
       items: [
-        { name: translations["groupCruise"], path: '/boats', icon: <Anchor className="w-4 h-4" /> },
-        { name: translations["arrabidaCruise"], path: '/boats/croisiere-arrabida', icon: <Ship className="w-4 h-4" /> },
-        { name: translations["fishingCruise"], path: '/boats/croisiere-peche', icon: <Fish className="w-4 h-4" /> },
+        { name: translations["groupCruise"], path: '/croisiere', icon: <Anchor className="w-4 h-4" /> },
+        { name: translations["arrabidaCruise"], path: '/croisiere/croisiere-arrabida', icon: <Ship className="w-4 h-4" /> },
+        { name: translations["fishingCruise"], path: '/croisiere/croisiere-peche', icon: <Fish className="w-4 h-4" /> },
       ]
     },
     sports: {

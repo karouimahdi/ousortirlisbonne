@@ -5,6 +5,9 @@ import Image from "next/image";
 import { Clock, Users, MapPin } from "lucide-react";
 import HeroSection from "@/components/Hero";
 import { FocusCards } from "@/components/ui/focus-cards";
+import useSWR from "swr";
+import { Discover } from "@/types";
+import { getTOurs } from "./action";
 
 const tours = [
   {
@@ -66,7 +69,36 @@ const cards = [
 ];
 const VisitePriveePage = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+ 
+  const { data: tours, isLoading: boatLoading, error: boatError } = useSWR<Discover[]>(
+    "tours",
+    async () => {
+      try {
+        const boats = await getTOurs(); 
+        return boats.map((boat) => ({
+          id:boat.id,
+          title: boat.title,
+          duration: boat.duration,
+          description: boat.description,
+          locations: boat.locations,
+          price: boat.price,
+          images: boat.images, // Assuming images are already in the correct format
+        }));
 
+      } catch (err) {
+        console.error('Error fetching sunset cruise boats:', err);
+        throw new Error('Failed to load sunset cruises');
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        if (retryCount >= 3) return;
+        setTimeout(() => revalidate({ retryCount }), 5000);
+      }
+    }
+  );
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -144,7 +176,7 @@ const VisitePriveePage = () => {
             Nos visites guidées
           </h2>
           <div className="grid grid-cols-1 gap-12">
-            {tours.map((tour, index) => (
+            {tours?.map((tour, index) => (
               <motion.div
                 key={tour.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -153,27 +185,7 @@ const VisitePriveePage = () => {
                 className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
               >
                 <div className="grid md:grid-cols-2 gap-8">
-                  <div className="relative h-80">
-                    <Image
-                      src={tour.images[activeImageIndex]}
-                      alt={tour.title}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute bottom-4 left-4 right-4 flex justify-center space-x-2">
-                      {tour.images.map((_, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setActiveImageIndex(idx)}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            activeImageIndex === idx
-                              ? "bg-[#37b7ab] w-8"
-                              : "bg-white/50"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
+                
                   <div className="p-8">
                     <h3 className="text-2xl font-bold text-[#2a2765] mb-4">
                       {tour.title}
@@ -185,7 +197,7 @@ const VisitePriveePage = () => {
                       </div>
                       <div className="flex items-center">
                         <MapPin className="w-5 h-5 mr-2 text-[#37b7ab]" />
-                        {tour.locations.join(", ")}
+                        {tour.locations}
                       </div>
                     </div>
                     <p className="text-gray-700 mb-6">{tour.description}</p>

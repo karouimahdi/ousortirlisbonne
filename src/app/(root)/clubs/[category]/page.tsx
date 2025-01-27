@@ -3,14 +3,48 @@ import Image from 'next/image';
 import { MapPin, Star } from 'lucide-react';
 import { venues } from '../../data/venues';
 import { use } from 'react';
+import useSWR from 'swr';
+import { Restaurant } from '@/types';
+import {  getClubs } from './action';
+import { useTranslation } from '@/translations/provider/localeProvider';
 
 export default function CategoryPage({params}: {params: Promise<{ category: string }>})
- {const { category } = use(params);  const categoryVenues = venues.filter(
-    venue => venue.categorySlug === category
+ {
+    const { translations } = useTranslation();
+
+  
+  const { category } = use(params);  
+    const { data:categoryVenues, error, isLoading  } =useSWR<Restaurant[]>(
+    `cllub-${category}`,
+    async () => {
+      try {
+        const restaurants = await getClubs(category);
+        return restaurants.map((restaurant: any) => ({
+          id: restaurant.id,
+          name: restaurant.name,
+          slug: restaurant.slug,
+          mainImage: {
+            url: restaurant.mainImage?.url || '/default-restaurant.jpg',
+            alt: restaurant.name
+          },
+          category: restaurant.category,
+          location: restaurant.location,
+          price: restaurant.price,
+          highlighted: restaurant.highlighted,
+        }));
+      } catch (err) {
+        console.error('Error fetching restaurants:', err);
+        throw err;
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
   );
 
   // Get the category name based on the slug
-  const categoryName = categoryVenues.length > 0 ? categoryVenues[0].category : category;
+  const categoryName = categoryVenues!.length > 0 ? categoryVenues![0].category.name : category;
 
   return (
     <div className="bg-[#f8f9fa]">
@@ -19,14 +53,14 @@ export default function CategoryPage({params}: {params: Promise<{ category: stri
         <div className="absolute inset-0">
           <Image
             src="/hero-bg.jpg" // Replace with your hero background image
-            alt="Hero Background"
+            alt={translations["heroBackgroundAlt"]}
             fill
             className="object-cover opacity-50"
           />
         </div>
         <div className="relative z-10 text-center">
           <h1 className="text-5xl font-bold mb-4">{categoryName}</h1>
-          <p className="text-xl">Découvrez les meilleurs lieux pour vos sorties</p>
+          <p className="text-xl">{translations["categoryHeroDescription"]}</p>
         </div>
       </div>
 
@@ -36,10 +70,10 @@ export default function CategoryPage({params}: {params: Promise<{ category: stri
           href="/clubs"
           className="mb-6 text-[#2a2765] hover:text-[#37b7ab] transition-colors inline-block"
         >
-          ← Retour aux catégories
+          ← {translations["backToCategories"]}
         </Link>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categoryVenues.map(venue => (
+          {categoryVenues?.map(venue => (
             <Link
               key={venue.id}
               href={`/clubs/${category}/${venue.slug}`}
@@ -47,7 +81,7 @@ export default function CategoryPage({params}: {params: Promise<{ category: stri
             >
               <div className="relative h-48">
                 <Image
-                  src={venue.image}
+                  src={venue.mainImage.url}
                   alt={venue.name}
                   fill
                   className="object-cover"

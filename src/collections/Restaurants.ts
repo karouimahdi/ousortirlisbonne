@@ -1,97 +1,110 @@
-// src/collections/Restaurants.ts
-import { CollectionConfig } from 'payload';
-
+import { CollectionConfig } from "payload";
 
 export const Restaurants: CollectionConfig = {
-  slug: 'restaurants',
+  slug: "restaurants",
+  labels: {
+    singular: "Restaurant",
+    plural: "Restaurants",
+  },
   admin: {
-    useAsTitle: 'name',
-    defaultColumns: ['name', 'category', 'price', 'location'],
+    useAsTitle: "name",
+    defaultColumns: ["name", "category", "price", "location"],
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
+      name: "name",
+      type: "text",
       required: true,
     },
     {
-      name: 'slug',
-      type: 'text',
+      name: "slug",
+      type: "text",
       unique: true,
-      
-     
-    },
-    {
-      name: 'category',
-      type: 'relationship',
-      relationTo: 'resto-categories',//es collection slug
       required: true,
     },
     {
-      name: 'location',
-      type: 'text',
+      name: "category",
+      type: "relationship",
+      relationTo: "resto-categories",
       required: true,
     },
     {
-      name: 'mainImage',
-      type: 'upload',
-      relationTo: 'media',
+      name: "location",
+      type: "text",
       required: true,
     },
     {
-      name: 'images',
-      type: 'array',
+      name: "mainImage",
+      type: "upload",
+      relationTo: "media",
+      required: true,
+    },
+    {
+      name: "images",
+      type: "array",
       fields: [
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
+          name: "image",
+          type: "upload",
+          relationTo: "media",
           required: true,
         }
       ],
     },
     {
-      name: 'description',
-      type: 'textarea',
+      name: "description",
+      type: "textarea",
       required: true,
     },
     {
-      name: 'price',
-      type:'number'
+      name: "price",
+      type: "number",
+      required: true,
     },
     {
-      name: 'contact',
-      type: 'group',
+      name: "contact",
+      type: "group",
       fields: [
         {
-          name: 'phone',
-          type: 'text',
-          
+          name: "phone",
+          type: "text",
+          required: true,
         },
         {
-          name: 'hours',
-          type: 'text',
-          defaultValue: '12h-23h',
+          name: "hours",
+          type: "text",
+          defaultValue: "12h-23h",
+          required: true,
         }
       ]
     },
     {
-      name: 'features',
-      type: 'array',
+      name: "features",
+      type: "array",
       fields: [
         {
-          name: 'feature',
-          type: 'text',
+          name: "feature",
+          type: "text",
+          required: true,
         }
       ],
     },
     {
-      name: 'verified',
-      type: 'checkbox',
-      label: 'Verified Restaurant',
+      name: "highlighted",
+      type: "checkbox",
+      label: "Featured Restaurant",
       defaultValue: false,
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
+      }
+    },
+    {
+      name: "verified",
+      type: "checkbox",
+      label: "Verified Restaurant",
+      defaultValue: false,
+      admin: {
+        position: "sidebar",
       }
     }
   ],

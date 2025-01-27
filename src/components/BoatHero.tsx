@@ -1,39 +1,37 @@
-import React, { useState, useEffect, RefObject } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Circle } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
-interface BoatHeroSliderProps {
-  heroRef: RefObject<HTMLDivElement>;
-}
+interface BoatHeroSliderProps {}
 
-const slides = [
-  {
-    image: "/Bateau-lisbonne-min.jpg",
-    title: "Croisière au départ de Lisbonne, Cascais et Setubal",
-    subtitle: "Découvrez notre catalogue composé d’une cinquantaine d’offres",
-    description: "Croisières de groupe et excursions privées sur mesure.",
-  },
-  {
-    image: "/Evora-Mail-2.jpg",
-    title: "Location de bateau à Setubal – TROIA – Portinho da Arrábida",
-    subtitle: "Au programme de votre croisière dans la Serra de Arrabida",
-    description:
-      "Paysage à couper le souffle, du bleu-vert à perte de vue, des eaux cristallines, baignade, plages désertes, détente, convivialité et 95% de chance de rencontrer des dauphins.",
-  },
-  {
-    image: "/Portinho-de-Arrabida.jpeg",
-    title: "Louer un bateau à Cascais",
-    subtitle: "Yacht, voilier, bateau de pêche..",
-    description:
-      "Cascais, connue sous le nom de la «ville de rois et de pêcheurs», est l’une des stations balnéaires les plus appréciées du littoral de Lisbonne. Partez au large de Cascais à bord de l’une de nos embarcations, pour une journée hors du commun.",
-  },
-];
-
-const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
+const BoatHeroSlider: React.FC<BoatHeroSliderProps> = () => {
+  const { translations } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
+
+  const slides = [
+    {
+      image: "/Bateau-lisbonne-min.jpg",
+      title: translations["boatSlide1Title"],
+      subtitle: translations["boatSlide1Subtitle"],
+      description: translations["boatSlide1Description"],
+    },
+    {
+      image: "/Evora-Mail-2.jpg",
+      title: translations["boatSlide2Title"],
+      subtitle: translations["boatSlide2Subtitle"],
+      description: translations["boatSlide2Description"],
+    },
+    {
+      image: "/Portinho-de-Arrabida.jpeg",
+      title: translations["boatSlide3Title"],
+      subtitle: translations["boatSlide3Subtitle"],
+      description: translations["boatSlide3Description"],
+    },
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -42,7 +40,7 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
     }, 10000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -73,7 +71,7 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
   };
 
   return (
-    <div className="relative h-[80vh] w-full overflow-hidden" ref={heroRef}>
+    <div className="relative h-[80vh] w-full overflow-hidden">
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
           key={currentSlide}
@@ -105,7 +103,7 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
         transition={{ delay: 0.5 }}
       >
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-center"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -113,7 +111,7 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
           {slides[currentSlide].title}
         </motion.h1>
         <motion.p
-          className="text-xl md:text-2xl text-[#37b7ab]"
+          className="text-xl md:text-2xl text-[#37b7ab] text-center"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.7 }}
@@ -121,7 +119,7 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
           {slides[currentSlide].subtitle}
         </motion.p>
         <motion.p
-          className="text-base md:text-lg text-white/70"
+          className="text-base md:text-lg text-white/70 text-center max-w-2xl"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.9 }}
@@ -134,7 +132,7 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.9 }}
         >
-          "Faites de votre vie un évènement!"
+          {translations["makeLifeEvent"]}
         </motion.p>
         <motion.div
           initial={{ y: 100, opacity: 0 }}
@@ -149,7 +147,7 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
                 ?.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            Découvrir les Bateaux
+            {translations["discoverBoats"]}
           </Button>
         </motion.div>
       </motion.div>
@@ -176,14 +174,14 @@ const BoatHeroSlider: React.FC<BoatHeroSliderProps> = ({ heroRef }) => {
       <button
         onClick={handlePrevious}
         className="absolute left-8 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 text-white p-4 rounded-full transition-all duration-300"
-        aria-label="Précédent"
+        aria-label={translations["previousSlide"]}
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={handleNext}
         className="absolute right-8 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 text-white p-4 rounded-full transition-all duration-300"
-        aria-label="Suivant"
+        aria-label={translations["nextSlide"]}
       >
         <ChevronRight className="w-6 h-6" />
       </button>

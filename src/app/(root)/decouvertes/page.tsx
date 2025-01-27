@@ -89,7 +89,7 @@ const DecouvertePage = () => {
         "Commentaires historiques",
         "Rafraîchissements",
       ],
-      route: "/boats",
+      route: "/croisiere",
     },
   ];
   return (

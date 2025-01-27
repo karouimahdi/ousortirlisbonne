@@ -3,36 +3,40 @@ import { motion } from "motion/react";
 import React from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation"; // Import useParams
-import { articles } from "../../data/article";
 import { fadeInUp, slideIn } from "../../animation";
-
+import useSWR from "swr";
+import { getBlog } from "./actions";
+import { convertLexicalToHtml } from "@/lib/content";
+interface Article {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  content: string;
+  slug: string;
+  date: string;
+  category: {
+    id: string;
+    title: string;
+    color: string;
+  };
+  readTime: string;
+  tags: string[];
+  featured: boolean;
+}
 const ArticlePage = () => {
   // Use useParams to access the slug
   const params = useParams();
   const slug = params.slug as string; // Cast slug to string
+  const { data: article } = useSWR(
+    useSWR<Article>,
+    async (_) => await getBlog(slug)
+  ); // Fetch the article based on the slug
 
   // Find the article based on the slug
-  const article = articles.find((article) => article.slug === slug);
 
   if (!article) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-white via-white to-[#B4E7E6]/20 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-garage-bold text-4xl text-[#2E2A5D]">
-            Article non trouvé
-          </h1>
-          <Link href="/blog">
-            <motion.span
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block mt-8 bg-[#37b7ab] text-white px-6 py-2 rounded-full font-garage-regular hover:bg-[#ea3e4e] transition-colors duration-300"
-            >
-              Retour au Blog
-            </motion.span>
-          </Link>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -49,7 +53,11 @@ const ArticlePage = () => {
         >
           <div className="relative h-[50vh]">
             <img
-              src={article.image}
+              src={
+                typeof article.image === "string"
+                  ? article.image
+                  : (article.image.url ?? undefined)
+              }
               alt={article.title}
               className="w-full h-full object-cover"
             />
@@ -72,10 +80,13 @@ const ArticlePage = () => {
 
           <div className="p-8 bg-white">
             <motion.div variants={fadeInUp} className="prose max-w-none">
+           
               <div
-                className="font-garage-regular text-gray-700 space-y-6"
-                dangerouslySetInnerHTML={{ __html: article.content }}
-              />
+              className="font-garage-regular text-gray-700 space-y-6"
+              dangerouslySetInnerHTML={{
+                __html: convertLexicalToHtml(article.content as any),
+              }}
+            />
             </motion.div>
 
             <motion.div variants={fadeInUp} className="mt-12 text-center">

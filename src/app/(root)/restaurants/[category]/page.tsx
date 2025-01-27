@@ -1,16 +1,52 @@
+"use client"
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Star } from 'lucide-react';
 import { venues } from '../../data/venues';
 import { use } from 'react';
+import useSWR from 'swr';
+import { Restaurant } from '@/types';
+import { getrestaurants } from './action';
 
 export default function CategoryPage({params}: {params: Promise<{ category: string }>})
- {const { category } = use(params);  const categoryVenues = venues.filter(
-    venue => venue.categorySlug === category
+ {
+  const { category } = use(params); 
+  
+ 
+  const { data:categoryVenues, error, isLoading  } =useSWR<Restaurant[]>(
+    `restaurant-${category}`,
+    async () => {
+      try {
+        const restaurants = await getrestaurants(category);
+        return restaurants.map((restaurant: any) => ({
+          id: restaurant.id,
+          name: restaurant.name,
+          slug: restaurant.slug,
+          mainImage: {
+            url: restaurant.mainImage?.url || '/default-restaurant.jpg',
+            alt: restaurant.name
+          },
+          category: restaurant.category,
+          location: restaurant.location,
+          price: restaurant.price,
+          highlighted: restaurant.highlighted,
+
+        }));
+      } catch (err) {
+        console.error('Error fetching restaurants:', err);
+        throw err;
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
   );
 
+  if (isLoading) return <div>Loading restaurants...</div>;
+  if (error) return <div>Error loading restaurants</div>;
   // Get the category name based on the slug
-  const categoryName = categoryVenues.length > 0 ? categoryVenues[0].category : category;
+  const categoryName = categoryVenues!.length > 0 ? categoryVenues![0].category.name : category;
 
   return (
     <div className="bg-[#f8f9fa]">
@@ -39,7 +75,7 @@ export default function CategoryPage({params}: {params: Promise<{ category: stri
           ← Retour aux catégories
         </Link>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categoryVenues.map(venue => (
+          {categoryVenues?.map(venue => (
             <Link
               key={venue.id}
               href={`/restaurants/${category}/${venue.slug}`}
@@ -47,7 +83,7 @@ export default function CategoryPage({params}: {params: Promise<{ category: stri
             >
               <div className="relative h-48">
                 <Image
-                  src={venue.image}
+                  src={venue.mainImage.url}
                   alt={venue.name}
                   fill
                   className="object-cover"
