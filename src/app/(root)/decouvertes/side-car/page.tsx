@@ -10,9 +10,10 @@ import { Discover } from "@/types";
 import { getTours } from "./action";
 import { useTranslation } from "@/translations/provider/localeProvider";
 
-const {translations}=useTranslation();
 
 const VisitePriveePage = () => {
+  const {translations}=useTranslation();
+
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const cards = [
     {

@@ -364,6 +364,8 @@ export const en = {
   minimum3Hours: "3 hours minimum",
   sixSeats: "6 seats",
   fullTour: "Full tour",
+  navDescription:"Discover the best experiences",
+  explore: "Explore the must-see events, restaurants, and activities",
   audioComments: "Audio commentary",
   photosIncluded: "Photos included",
   sidecarRide: "Sidecar ride",
@@ -477,6 +479,7 @@ export const en = {
   subscribe: "Subscribe",
   discountOffer: "-10% on your next booking!",
   testimonials: "Facebook Testimonials - Where to go in Lisbon ",
-  testimonials1:" Find all the testimonials on our Facebook page or for the latest ones on Trustpilot, and feel free to leave yours!"
-
+  testimonials1:" Find all the testimonials on our Facebook page or for the latest ones on Trustpilot, and feel free to leave yours!",
+eventOfTheDay: "Event of the Day",
+  learnMore: "Learn More"
 } satisfies Translations;

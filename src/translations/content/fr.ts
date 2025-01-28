@@ -83,6 +83,7 @@ export const fr = {
   about: "À propos",
   privacyPolicy: "Politique de confidentialité",
   termsAndConditions: "Conditions générales",
+  navDescription:"Découvrez les meilleures expériences",
   footerDescription: "Découvrez les meilleures expériences pour vos sorties",
   categories: "Catégories",
   usefulLinks: "Liens Utiles",
@@ -476,7 +477,10 @@ tips: "Astuces",
 news: "Actualités",
  stayInformed: "Restez informé des meilleures offres",
   subscribe: "S'inscrire",
+   eventOfTheDay: "Événement du Jour",
+  learnMore: "En savoir plus",
   discountOffer: "-10% sur votre prochaine réservation !",
   testimonials: "Témoignages Facebook - Où sortir à Lisbonne ",
-  testimonials1:" Retrouvez l'intégralité des témoignages sur notre page Facebook ou pour les plus récentes sur Trustpilot et surtout n'hésitez pas à laisser le vôtre !"
+  testimonials1:" Retrouvez l'intégralité des témoignages sur notre page Facebook ou pour les plus récentes sur Trustpilot et surtout n'hésitez pas à laisser le vôtre !",
+  explore:"Explorez les événements, restaurants et activités incontournables"
 };

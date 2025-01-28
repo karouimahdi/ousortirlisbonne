@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import useSWR from "swr";
 import { getEventDay } from "./action";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/translations/provider/localeProvider";
 interface Event {
   title: string;
   description: string;
@@ -12,6 +13,7 @@ interface Event {
   
 }
 const FeaturedEvent = () => {
+  const {translations}=useTranslation()
   const { data: event } = useSWR(
     useSWR<Event>,
     async (_) => await getEventDay()
@@ -38,8 +40,7 @@ const FeaturedEvent = () => {
             </div>
             <div className="w-full md:w-1/2">
               <h3 className="text-2xl font-bold text-[#2a2765] mb-4">
-                Événement du Jour
-              </h3>
+{translations["eventOfTheDay"]}              </h3>
               <h4 className="text-xl font-semibold mb-4">
                 {event?.title}
               </h4>
@@ -47,8 +48,7 @@ const FeaturedEvent = () => {
 {event?.description}              </p>
            
               <Button  onClick={handleLearnMore} className="bg-[#ea3e4e] hover:bg-[#37b7ab] text-white rounded-full transform hover:scale-105 transition-all duration-200">
-                En savoir plus
-              </Button>
+{translations["learnMore"]}              </Button>
              
             </div>
           </div>

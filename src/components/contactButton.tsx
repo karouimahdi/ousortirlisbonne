@@ -2,7 +2,6 @@
 import React from "react";
 import { motion } from "motion/react";
 import { Phone, MessageCircle } from "lucide-react";
-import { useTranslation } from "@/translations/provider/localeProvider";
 
 interface ContactButtonProps {
   phoneNumber?: string;
@@ -12,13 +11,13 @@ interface ContactButtonProps {
   text?: string;
   className?: string;
 }
-const {translations}=useTranslation()
+
 const ContactButton = ({
   phoneNumber = "1234567890",
   message = "",
   position = "bottom-right",
   icon = "whatsapp",
-  text = translations["contactUs"],
+  text = "Contactez-nous",
   className = "",
 }: ContactButtonProps) => {
   const positionClasses = {

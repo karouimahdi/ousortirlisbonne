@@ -10,6 +10,7 @@ import PromotionsBanner from "@/components/PromotionBanner";
 import {
   TestimonialsSection,
 } from "@/components/Testimential";
+import { useTranslation } from "@/translations/provider/localeProvider";
 import { motion } from "motion/react";
 import React from "react";
 
@@ -21,6 +22,7 @@ const sectionVariants = {
 
 // Main HomePage Component
 const HomePage = () => {
+  const {translations}=useTranslation()
   return (
     <div className="mt-20">
       {" "}
@@ -34,9 +36,9 @@ const HomePage = () => {
       >
         <HeroSection
           imageUrl="/tage2min.jpg"
-          title="Découvrez les Meilleures Expériences"
-          description="Explorez les événements, restaurants et activités incontournables"
-          buttonText="Découvrir Maintenant"
+          title={translations["navDescription"]}
+          description={translations["explore"]}
+          buttonText={translations["discoverNow"]}
           buttonLink="/decouvertes"
           altText="Vue panoramique de Lisbonne"
         />

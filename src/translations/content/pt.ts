@@ -354,6 +354,8 @@ unforgettable_night: "Uma noite inesquecível",
     discoveries_monument: "Padrão dos Descobrimentos",
     city_view: "Vista da cidade",
     guidedTour: "Tour guiado",
+    navDescription:"Descubra as melhores experiências",
+    explore: "Explore os eventos, restaurantes e atividades imperdíveis",
     discoverCityWithGuides: "Descubra a cidade com nossos guias portugueses que falam francês",
     magicalSintra: "Sintra Mágica",
     exploreSintra: "Explore as maravilhas arquitetônicas de Sintra",
@@ -474,6 +476,9 @@ unforgettable_night: "Uma noite inesquecível",
 stayInformed: "Fique informado sobre as melhores ofertas",
   subscribe: "Inscrever-se",
   discountOffer: "-10% na sua próxima reserva!",
+  eventOfTheDay: "Evento do Dia",
+  learnMore: "Saiba Mais",
+
   testimonials: "Testemunhos no Facebook - Onde sair em Lisboa ",
   testimonials1:" Encontre todos os testemunhos na nossa página do Facebook ou os mais recentes no Trustpilot e não hesite em deixar o seu!"
 } satisfies Translations;

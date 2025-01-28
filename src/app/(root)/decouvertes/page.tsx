@@ -8,26 +8,27 @@ import { TestimonialsSection } from "@/components/Testimential";
 import CategorySection from "@/components/CategorySection";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/translations/provider/localeProvider";
-const {translations}=useTranslation();
-const heroImages = [
-  {
-    src: "/73.webp",
-    title: translations["guidedTour"],
-    description:
-     translations["discoverCityWithGuides"]  },
-  {
-    src: "/Sintra-Catarina-Ferreira-min.jpg",
-    title: translations["magicalSintra"],
-    description:translations["exploreSintra"],
-  },
-  {
-    src: "/place-du-commerce-min.jpg",
-    title: translations["portugueseFlavors"],
-    description: translations["localWineAndTapas"],
-  },
-];
+
 
 const DecouvertePage = () => {
+  const {translations}=useTranslation();
+  const heroImages = [
+    {
+      src: "/73.webp",
+      title: translations["guidedTour"],
+      description:
+       translations["discoverCityWithGuides"]  },
+    {
+      src: "/Sintra-Catarina-Ferreira-min.jpg",
+      title: translations["magicalSintra"],
+      description:translations["exploreSintra"],
+    },
+    {
+      src: "/place-du-commerce-min.jpg",
+      title: translations["portugueseFlavors"],
+      description: translations["localWineAndTapas"],
+    },
+  ];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
