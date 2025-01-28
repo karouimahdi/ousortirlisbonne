@@ -22,12 +22,7 @@ export const BlogCategory: CollectionConfig = {
       localized: true,
       required: true,
     },
-    {
-      name: 'icon',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-    },  {
+   {
       name: "tags",
       type: "array",
       fields: [
@@ -48,14 +43,59 @@ export const BlogCategory: CollectionConfig = {
       }
     },
    
+  
     {
-      name: 'priority',
-      type: 'number',
+      name: "icon",
+      type: "select",
       required: true,
-      defaultValue: 0,
-      admin: {
-        description: 'Higher numbers appear first in category lists'
-      }
-    }
+    options: [
+      {
+        label: "Musique",
+        value: "Musique",
+      },
+      {
+        label: "Art",
+        value: "Art",
+      },
+      {
+        label: "Cinéma",
+        value: "Cinéma",
+      },
+      {
+        label: "Théâtre et spectacles",
+        value: "Théâtre et spectacles",
+      },
+      {
+        label: "Gastronomie",
+        value: "Gastronomie",
+      },
+      {
+        label: "Sport",
+        value: "Sport",
+      },
+      {
+        label: "Famille et enfants",
+        value: "Famille et enfants",
+      },
+      {
+        label: "Développement personnel",
+        value: "Développement personnel",
+      },
+      {
+        label: "Culture et tradition",
+        value: "Culture et tradition",
+      },
+      {
+        label: "Business et réseautage",
+        value: "Business et réseautage",
+      },
+      {
+        label: "Autres",
+        value: "Autres",
+      },
+    ],
+    admin: {
+      description: "Select an icon that represents this category",
+    },}
   ],
 };

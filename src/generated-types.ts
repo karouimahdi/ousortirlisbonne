@@ -164,6 +164,21 @@ export interface EventsCategory {
    * Hex color code for category styling
    */
   color: string;
+  /**
+   * Select an icon that represents this category
+   */
+  icon:
+    | 'Musique'
+    | 'Art'
+    | 'Cinéma'
+    | 'Théâtre et spectacles'
+    | 'Gastronomie'
+    | 'Sport'
+    | 'Famille et enfants'
+    | 'Développement personnel'
+    | 'Culture et tradition'
+    | 'Business et réseautage'
+    | 'Autres';
   updatedAt: string;
   createdAt: string;
 }
@@ -229,7 +244,6 @@ export interface BlogsCategory {
   id: string;
   title: string;
   description: string;
-  icon: string | Media;
   tags?:
     | {
         tag: string;
@@ -241,9 +255,20 @@ export interface BlogsCategory {
    */
   color: string;
   /**
-   * Higher numbers appear first in category lists
+   * Select an icon that represents this category
    */
-  priority: number;
+  icon:
+    | 'Musique'
+    | 'Art'
+    | 'Cinéma'
+    | 'Théâtre et spectacles'
+    | 'Gastronomie'
+    | 'Sport'
+    | 'Famille et enfants'
+    | 'Développement personnel'
+    | 'Culture et tradition'
+    | 'Business et réseautage'
+    | 'Autres';
   updatedAt: string;
   createdAt: string;
 }
@@ -1021,7 +1046,6 @@ export interface BoatsToRentSelect<T extends boolean = true> {
 export interface BlogsCategoriesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  icon?: T;
   tags?:
     | T
     | {
@@ -1029,7 +1053,7 @@ export interface BlogsCategoriesSelect<T extends boolean = true> {
         id?: T;
       };
   color?: T;
-  priority?: T;
+  icon?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1227,6 +1251,7 @@ export interface EventsCategoriesSelect<T extends boolean = true> {
         id?: T;
       };
   color?: T;
+  icon?: T;
   updatedAt?: T;
   createdAt?: T;
 }

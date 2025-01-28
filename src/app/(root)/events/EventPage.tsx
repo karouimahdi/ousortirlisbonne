@@ -17,6 +17,14 @@ import {
   Music,
   Palette,
   Utensils,
+  Clapperboard,
+  Theater,
+  Dumbbell,
+  Users2,
+  BrainCog,
+  Globe,
+  Handshake,
+  CircleDot,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import HeroSection from "@/components/Hero";
@@ -45,7 +53,7 @@ interface Category {
   id: string;
   title: string;
   description: string;
-  icon?: string;
+  icon: string;
   color: string;
   priority: number;
   tags: string[];
@@ -55,7 +63,19 @@ interface CombinedEventsPageProps {
   events: Event[];
   categories: Category[];
 }
-
+const iconMap: { [key: string]: React.ComponentType<any> } = {
+  'Musique': Music,
+  'Art': Palette,
+  'Cinéma': Clapperboard,
+  'Théâtre et spectacles': Theater,
+  'Gastronomie': Utensils,
+  'Sport': Dumbbell,
+  'Famille et enfants': Users2,
+  'Développement personnel': BrainCog,
+  'Culture et tradition': Globe,
+  'Business et réseautage': Handshake,
+  'Autres': CircleDot,
+};
 const CombinedEventsPage: React.FC<CombinedEventsPageProps> = ({
   events,
   categories,
@@ -186,12 +206,12 @@ const CombinedEventsPage: React.FC<CombinedEventsPageProps> = ({
               {categories.map((category, index) => (
                 <CategorySection
                   key={category.id}
-                  icon={Music} // Replace with dynamic icon if available
+                  icon={iconMap[category.icon] || Sparkles}
                   label={category.title}
                   color={category.color}
                   description={category.description}
-                  gradient={`from-[${category.color}] via-[${category.color}]/40 to-[${category.color}]/10`}
-                  accent={`from-[${category.color}] via-[${category.color}]/40 to-[${category.color}]/10`}
+                  gradient='bg-gradient-to-r from-[#37b7ab] via-[rgba(55,183,171,0.4)] to-[rgba(55,183,171,0.1)]'
+                  accent={category.color}
                   highlights={category.tags}
                   index={index}
                   onClick={() => setSelectedCategory(category.title)}

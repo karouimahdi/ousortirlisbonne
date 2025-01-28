@@ -3,8 +3,30 @@ import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, Clock, ArrowRight, Sparkles, Target, Music, Utensils, Users } from "lucide-react";
-import CategorySection from "@/components/CategorySection";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
+  Clock,
+  MapPin,
+  Users,
+  Heart,
+  Sparkles,
+  LandPlot,
+  Music,
+  Palette,
+  Utensils,
+  Clapperboard,
+  Theater,
+  Dumbbell,
+  Users2,
+  BrainCog,
+  Globe,
+  Handshake,
+  CircleDot,
+  Target,
+  CalendarDays,
+} from "lucide-react";import CategorySection from "@/components/CategorySection";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/translations/provider/localeProvider";
@@ -41,7 +63,19 @@ interface CombinedArticlePageProps {
   articles: Article[];
   categories: Category[];
 }
-
+const iconMap: { [key: string]: React.ComponentType<any> } = {
+  'Musique': Music,
+  'Art': Palette,
+  'Cinéma': Clapperboard,
+  'Théâtre et spectacles': Theater,
+  'Gastronomie': Utensils,
+  'Sport': Dumbbell,
+  'Famille et enfants': Users2,
+  'Développement personnel': BrainCog,
+  'Culture et tradition': Globe,
+  'Business et réseautage': Handshake,
+  'Autres': CircleDot,
+};
 const CombinedArticlePage = ({ articles, categories }: CombinedArticlePageProps) => {
  
    const { translations } = useTranslation();
@@ -123,16 +157,12 @@ const CombinedArticlePage = ({ articles, categories }: CombinedArticlePageProps)
               {categories.map((category, index) => (
                 <CategorySection
                   key={category.id}
-                  icon={{
-            'target': Target,
-            'music': Music,
-            'utensils': Utensils,
-            'users': Users
-          }[category.icon] || Target}
+                                   icon={iconMap[category.icon] || Target}
+                 
                   label={category.title}
                   color={category.color}
                   description={category.description}
-                  gradient={`from-[${category.color}] via-[${category.color}]/70 to-[${category.color}]/10`}
+                  gradient='bg-gradient-to-r from-[#37b7ab] via-[rgba(55,183,171,0.4)] to-[rgba(55,183,171,0.1)]'
                   accent=""
                   highlights={category.tag
                   }
