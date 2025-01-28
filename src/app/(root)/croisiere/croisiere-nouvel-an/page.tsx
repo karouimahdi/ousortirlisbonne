@@ -18,6 +18,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useSWR from "swr";
 import { CoucheSoleilBoat } from "@/types";
 import { getBoats } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 interface BoatCardProps {
   title: string;
@@ -29,10 +30,12 @@ interface BoatCardProps {
 }
 
 const HeroBanner = () => {
+  const {translations}=useTranslation()
+
   const features = [
-    { icon: Sparkles, text: "Vue sur les feux d'artifice" },
-    { icon: Music, text: "Musique & Animation" },
-    { icon: PartyPopper, text: "Champagne inclus" },
+    { icon: Sparkles, text: translations["firework_view"] },
+    { icon: Music, text: translations["music_animation"]},
+    { icon: PartyPopper, text: translations["champagne_included"] },
   ];
 
   return (
@@ -68,13 +71,11 @@ const HeroBanner = () => {
           className="text-center mb-16"
         >
           <Badge className="mb-6 bg-[#37b7ab]/20 text-[#37b7ab] hover:bg-[#37b7ab]/30">
-            Offre Spéciale Nouvel An
-          </Badge>
+{translations["special_offer_new_year"]}          </Badge>
 
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            Croisières du
-            <span className="text-[#37b7ab]"> nouvel an</span>
-            <br />à Lisbonne
+{translations["cruises_of"]}            <span className="text-[#37b7ab]"> {translations["new_year"]}</span>
+            <br />{translations["in_lisbon"]}
           </h1>
 
           <motion.p
@@ -83,10 +84,8 @@ const HeroBanner = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Célébrez l'année écoulée et l'année à venir de manière idéale.
-            <br />
-            Embarquez pour un instant privilégié et passez en 2025 de bon pied!
-          </motion.p>
+{translations["celebrate_year"]}            <br />
+{translations["embark_on_experience"]}          </motion.p>
 
           <motion.p
             className="text-lg text-[#37b7ab] mb-12"
@@ -94,11 +93,9 @@ const HeroBanner = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Profitez des magnifiques lumières des feux d'artifice ✨ du jour de
-            l'an
+           {translations["fireworks_lights"]}
             <br />
-            vues depuis le « TEJO ». 🥳️ ⚓ 🥂 🎊 🎆 🎉 🍾
-          </motion.p>
+{translations["view_from_tejo"]}          </motion.p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {features.map(({ icon: Icon, text }) => (
@@ -119,8 +116,7 @@ const HeroBanner = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
           >
-            FAITES DE VOTRE VIE UN ÉVÈNEMENT
-          </motion.h2>
+{translations["make_life_event"]}          </motion.h2>
         </motion.div>
 
         <motion.div
@@ -136,11 +132,9 @@ const HeroBanner = () => {
             <Ticket className="w-8 h-8 mr-4 text-[#ea3e4e]" />
             <div>
               <h3 className="text-xl font-semibold text-white mb-2">
-                Package Premium inclus
-              </h3>
+{translations["premium_package"]}              </h3>
               <p className="text-white/80">
-                Dîner gastronomique • Boissons • Animation
-              </p>
+{translations["gourmet_dinner"]}              </p>
             </div>
           </motion.div>
 
@@ -151,9 +145,8 @@ const HeroBanner = () => {
             <GlassWater className="w-8 h-8 mr-4 text-[#ea3e4e]" />
             <div>
               <h3 className="text-xl font-semibold text-white mb-2">
-                Open Bar
-              </h3>
-              <p className="text-white/80">Champagne • Vins • Cocktails</p>
+{translations["open_bar"]}              </h3>
+              <p className="text-white/80">{translations["champagne_wine_cocktails"]}</p>
             </div>
           </motion.div>
         </motion.div>
@@ -172,6 +165,7 @@ const BoatCard = ({
   departure,
   images,
 }: BoatCardProps) => {
+  const {translations}=useTranslation()
   const [isHovered, setIsHovered] = useState(false);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 }),
@@ -216,8 +210,7 @@ const BoatCard = ({
 
       <div className="p-8">
         <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765] hover:bg-[#2a2765]/20">
-          Best-seller
-        </Badge>
+{translations["bestSeller"]}        </Badge>
 
         <h3 className="text-2xl font-bold text-[#2a2765] mb-4">{title}</h3>
 
@@ -247,11 +240,11 @@ const BoatCard = ({
 
         <div className="mt-6 flex justify-between items-center">
           <div>
-            <p className="text-sm text-gray-500">à partir de</p>
+            <p className="text-sm text-gray-500">{translations["startingFrom"]}</p>
             <p className="text-3xl font-bold text-[#37b7ab]">{price}</p>
           </div>
           <Button className="bg-[#ea3e4e] hover:bg-[#37b7ab] px-8 py-6 rounded-full text-lg shadow-lg">
-            Réserver
+            {translations["bookNow1"]}
           </Button>
         </div>
       </div>
@@ -259,6 +252,7 @@ const BoatCard = ({
   );
 };
 export default function NewYearBoatPage() {
+  const {translations}=useTranslation()
 
   const { data: boats, isLoading: boatLoading, error: boatError } = useSWR<CoucheSoleilBoat[]>(
     "coucher-boats",
@@ -301,14 +295,11 @@ export default function NewYearBoatPage() {
           className="text-center mb-16"
         >
           <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765]">
-            Nos offres
-          </Badge>
+{translations["ourOffersBadge"]}          </Badge>
           <h2 className="text-4xl font-bold text-[#2a2765] mb-4">
-            Une soirée inoubliable
-          </h2>
+{translations["unforgettable_evening"]}          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Choisissez votre forfait pour une célébration unique du Nouvel An
-            sur le Tage
+        {translations["choose_package"]}
           </p>
         </motion.div>
 
@@ -319,8 +310,7 @@ export default function NewYearBoatPage() {
         </div>
 
         <p className="text-center text-sm text-gray-400 mt-12">
-          *Prix par personne - Dîner et boissons inclus - Places limitées
-        </p>
+{translations["price_per_person"]}        </p>
       </section>
     </div>
   );

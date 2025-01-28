@@ -4,21 +4,25 @@
 import { getPayloadInstance } from "@/lib/payload";
 import { getLocale } from "@/lib/payload";
 
-export async function getEventCategories() {
+export async function getEventDay() {
   const payload = await getPayloadInstance();
   const locale = await getLocale();
-
+  
   const { docs } = await payload.find({
-    collection: "events-categories", // Match the slug in your collection config
+    collection: "event-day",
     locale: locale,
-    depth: 1, // Adjust depth as needed
+    limit: 1  // Get only the first entry
   });
 
-  return docs.map((doc) => ({
-    id: doc.id,
-    title: doc.title,
-    description: doc.description,
-    color: doc.color,
-    tags: doc.tags?.map((tag) => tag.tag) || [], // Extract tags
-  }));
+  return docs[0]; // Return first boat party
+}
+export async function getComments(){
+  const payload = await getPayloadInstance();
+  const locale = await getLocale();
+  const { docs } = await payload.find({
+    collection: "comments",
+    locale: locale,
+  });
+
+  return docs;
 }

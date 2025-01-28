@@ -1,10 +1,10 @@
 import type { CollectionConfig } from "payload";
 
-export const Event: CollectionConfig = {
-  slug: "events",
+export const EventDay: CollectionConfig = {
+  slug: "event-day",
   labels: {
-    singular: "Event",
-    plural: "Events",
+    singular: "Today Event",
+    plural: "Today Events",
   },
   fields: [
     {
@@ -13,7 +13,12 @@ export const Event: CollectionConfig = {
       required: true,
       localized: true,
     
-    },
+    },  {
+        name: "slug",
+        type: "text",
+        required: true,
+      
+      },
     {
       name: "image",
       type: "upload",
@@ -27,13 +32,7 @@ export const Event: CollectionConfig = {
       localized: true,
     },
    
-    {
-      name: "slug",
-      type: "text",
-      required: true,
-      unique: true,
-      
-    },
+    
     {
       name: "date",
       type: "text",

@@ -8,7 +8,6 @@ import HeroSection from "@/components/Hero";
 import Newsletter from "@/components/Newsletter";
 import PromotionsBanner from "@/components/PromotionBanner";
 import {
-  EnhancedTestimonialCard,
   TestimonialsSection,
 } from "@/components/Testimential";
 import { motion } from "motion/react";

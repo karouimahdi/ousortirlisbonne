@@ -19,6 +19,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useSWR from "swr";
 import { CoucheSoleilBoat } from "@/types";
 import { getBoats } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 interface BoatCardProps {
   title: string;
   price: string;
@@ -28,10 +29,11 @@ interface BoatCardProps {
   images: string[];
 }
 const HeroBanner = () => {
+  const {translations}=useTranslation()
   const features = [
-    { icon: Sun, text: "Vues panoramiques" },
-    { icon: Coffee, text: "Service à bord" },
-    { icon: Waves, text: "Experience unique" },
+    { icon: Sun, text: translations["panoramicViews"] },
+    { icon: Coffee, text: translations["onboardService"] },
+    { icon: Waves, text: translations["uniqueExperience"]},
   ];
 
   return (
@@ -59,14 +61,11 @@ const HeroBanner = () => {
           className="text-center mb-16"
         >
           <Badge className="mb-6 bg-[#37b7ab]/20 text-white hover:bg-[#37b7ab]/30">
-            Découvrez Lisbonne autrement
-          </Badge>
+{translations["discoverLisbon1"]}          </Badge>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
-            Croisière en
-            <span className="text-[#37b7ab]"> journée</span>
-          </h1>
+{translations["dayCruise"]}          </h1>
           <p className="text-xl text-white/90 mb-8">
-            À partir de{" "}
+            À{translations["startingFrom"]}{" "}
             <span className="text-4xl font-bold text-[#ea3e4e]">25€</span>
           </p>
 
@@ -91,7 +90,7 @@ const HeroBanner = () => {
           transition={{ delay: 0.3 }}
         >
           <div className="space-y-6 text-white">
-            <h2 className="text-2xl font-semibold mb-4">Points d'intérêt</h2>
+            <h2 className="text-2xl font-semibold mb-4">{translations["pointsOfInterest"]}</h2>
             <div className="grid grid-cols-2 gap-4">
               {[
                 "Cristo Rei",
@@ -117,14 +116,14 @@ const HeroBanner = () => {
                 className="flex items-center bg-[#2a2765]/40 backdrop-blur-md p-4 rounded-xl border border-[#37b7ab]/20"
               >
                 <Ticket className="w-6 h-6 mr-3 text-[#ea3e4e]" />
-                <span>Tarif réduit pour les enfants</span>
+                <span>{translations["reducedRate"]}</span>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center bg-[#2a2765]/40 backdrop-blur-md p-4 rounded-xl border border-[#37b7ab]/20"
               >
                 <GlassWater className="w-6 h-6 mr-3 text-[#ea3e4e]" />
-                <span>Boisson premium incluse</span>
+                <span>{translations["premiumDrink"]}</span>
               </motion.div>
             </div>
           </div>
@@ -152,6 +151,8 @@ const BoatCard = ({
   departure,
   images,
 }: BoatCardProps) => {
+  const {translations}=useTranslation()
+
   const [isHovered, setIsHovered] = useState(false);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 }),
@@ -196,7 +197,7 @@ const BoatCard = ({
 
       <div className="p-8">
         <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765] hover:bg-[#2a2765]/20">
-          Best-seller
+        {translations["bestSeller"]}
         </Badge>
 
         <h3 className="text-2xl font-bold text-[#2a2765] mb-4">{title}</h3>
@@ -227,11 +228,11 @@ const BoatCard = ({
 
         <div className="mt-6 flex justify-between items-center">
           <div>
-            <p className="text-sm text-gray-500">à partir de</p>
+            <p className="text-sm text-gray-500">{translations["startingFrom"]}</p>
             <p className="text-3xl font-bold text-[#37b7ab]">{price}</p>
           </div>
           <Button className="bg-[#ea3e4e] hover:bg-[#37b7ab] px-8 py-6 rounded-full text-lg shadow-lg">
-            Réserver
+          {translations["bookNow1"]}
           </Button>
         </div>
       </div>
@@ -240,7 +241,7 @@ const BoatCard = ({
 };
 
 export default function CroisierJourneePage() {
-
+const {translations}=useTranslation()
   const { data: boats, isLoading: boatLoading, error: boatError } = useSWR<CoucheSoleilBoat[]>(
     "coucher-boats",
     async () => {
@@ -282,14 +283,12 @@ export default function CroisierJourneePage() {
           className="text-center mb-16"
         >
           <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765]">
-            Nos offres
+            {translations["ourOffersBadge"]}
           </Badge>
           <h2 className="text-4xl font-bold text-[#2a2765] mb-4">
-            Choisissez votre aventure
-          </h2>
+{translations["chooseYourAdventureTitle"]}          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Découvrez nos embarcations soigneusement sélectionnées pour une
-            expérience inoubliable
+            {translations["chooseYourAdventureDescription"]}
           </p>
         </motion.div>
 
@@ -300,8 +299,7 @@ export default function CroisierJourneePage() {
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-12">
-          *Tarif spécial enfant disponible - Les horaires peuvent varier selon
-          la marée
+         {translations["specialChildDiscountText"]}
         </p>
       </section>
     </div>

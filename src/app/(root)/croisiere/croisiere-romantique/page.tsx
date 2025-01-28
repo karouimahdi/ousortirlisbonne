@@ -6,12 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import { useTranslation } from "@/translations/provider/localeProvider";
+import { translations } from "@/translations";
 
 const HeroBanner = () => {
+  const {translations}=useTranslation()
   const features = [
-    { icon: Heart, text: "Expérience intime" },
-    { icon: Wine, text: "Dîner gastronomique" },
-    { icon: MoonStar, text: "Nuit romantique" },
+    { icon: Heart, text: translations["intimate_experience"] },
+    { icon: Wine, text:translations["gourmet_dinner1"] },
+    { icon: MoonStar, text:translations["romantic_night"] },
   ];
 
   return (
@@ -23,14 +26,12 @@ const HeroBanner = () => {
           className="text-center mb-16"
         >
           <Badge className="mb-6 bg-[#37b7ab] text-white hover:bg-[#37b7ab]/90">
-            Une nuit inoubliable
-          </Badge>
+{translations["unforgettable_night"]}          </Badge>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
-            Croisière Romantique
-            <span className="text-[#ea3e4e]"> Lisbonne</span>
+{translations["romantic_cruise"]}            <span className="text-[#ea3e4e]"> {translations["lisbon"]}</span>
           </h1>
           <p className="text-xl text-white/90 mb-8">
-            À partir de{" "}
+            {translations["startingFrom"]}{" "}
             <span className="text-4xl font-bold text-[#ea3e4e]">575€</span>
           </p>
 
@@ -51,18 +52,16 @@ const HeroBanner = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 text-white">
             <p className="text-lg leading-relaxed">
-              Installez-vous confortablement à bord de votre embarcation privée
-              pour une escapade romantique. Idéal pour une demande en mariage ou
-              un moment privilégié à deux.
+             {translations["romantic_cruise_description"]}
             </p>
             <div className="grid grid-cols-2 gap-4">
               {[
-                "Cristo Rei",
-                "Pont 25 de abril",
-                "Torre de Belém",
-                "Praça do Comércio",
-                "Padrão dos Descobrimentos",
-                "Vue sur la ville",
+                translations["cristoRei"],
+                translations["ponte_25_abril"],
+                translations["belem_tower"],
+                translations["comercio_square"],
+                translations["discoveries_monument"],
+                translations["city_view"],
               ].map((monument) => (
                 <motion.div
                   key={monument}
@@ -84,6 +83,7 @@ const HeroBanner = () => {
 };
 
 const RomanticExperienceSlider = () => {
+  const {translations}=useTranslation();
   const [emblaRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 }),
   ]);
@@ -131,21 +131,21 @@ const RomanticExperienceSlider = () => {
           <div className="space-y-4">
             <div className="flex items-center">
               <Utensils className="w-6 h-6 mr-3 text-[#2a2765]" />
-              <span>Dîner gastronomique au choix</span>
+              <span>{translations["dining_options"]}</span>
             </div>
             <div className="flex items-center">
               <Sunrise className="w-6 h-6 mr-3 text-[#2a2765]" />
-              <span>Petit-déjeuner livré</span>
+              <span>{translations["breakfast_delivery"]}</span>
             </div>
           </div>
           <div className="space-y-4">
             <div className="flex items-center">
               <MoonStar className="w-6 h-6 mr-3 text-[#2a2765]" />
-              <span>Nuit à quai privative</span>
+              <span>{translations["private_quay_night"]}</span>
             </div>
             <div className="flex items-center">
               <Heart className="w-6 h-6 mr-3 text-[#2a2765]" />
-              <span>Décoration romantique</span>
+              <span>{translations["romantic_decoration"]}</span>
             </div>
           </div>
         </div>
@@ -155,16 +155,15 @@ const RomanticExperienceSlider = () => {
 };
 
 const PackageDetails = () => {
+  const {translations}=useTranslation()
   return (
     <section className="max-w-7xl mx-auto px-4 py-24">
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-8">
           <Badge className="bg-[#37b7ab] text-white">
-            Notre offre exclusive
-          </Badge>
+{translations["exclusive_offer"]}          </Badge>
           <h2 className="text-4xl font-bold text-[#2a2765]">
-            Expérience Romantique avec Nuit à Bord
-          </h2>
+{translations["romantic_experience_onboard"]}          </h2>
 
           <div className="space-y-6">
             <div className="flex items-start p-4 bg-[#f8f7fc] rounded-xl">
@@ -173,32 +172,31 @@ const PackageDetails = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-[#2a2765]">
-                  575€ pour deux
-                </h3>
-                <p className="text-gray-600">Inclus toutes les prestations</p>
+{translations["price_for_two"]}                </h3>
+                <p className="text-gray-600">{translations["all_services_included"]}</p>
               </div>
             </div>
 
             {[
               {
                 icon: "🌅",
-                title: "Croisière au coucher de soleil",
-                text: "2h de navigation privative",
+                title: translations["sunset_cruise"],
+                text: translations["private_navigation"],
               },
               {
                 icon: "🍽️",
-                title: "Dîner gastronomique",
-                text: "Sushi ou menu italien avec vin",
+                title: translations["gourmet_dinner1"],
+                text: translations["gourmet_dinner_options"],
               },
               {
                 icon: "🛌",
-                title: "Nuit romantique",
-                text: "Cabine privée avec décoration premium",
+                title: translations["romantic_night"],
+                text: translations["private_cabin"],
               },
               {
                 icon: "🥐",
-                title: "Petit-déjeuner",
-                text: "Livraison à l'heure souhaitée",
+                title: translations["breakfast_delivery"],
+                text: translations["breakfast_time_delivery"],
               },
             ].map((item, index) => (
               <motion.div
@@ -216,8 +214,7 @@ const PackageDetails = () => {
           </div>
 
           <Button className="bg-[#ea3e4e] hover:bg-[#37b7ab] px-8 py-6 rounded-full text-lg shadow-lg w-full md:w-auto">
-            Réserver maintenant
-          </Button>
+{translations["bookNow"]}          </Button>
         </div>
 
         <div className="grid gap-6">

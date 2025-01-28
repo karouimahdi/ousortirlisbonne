@@ -182,7 +182,7 @@ export default function EventDetail({
                   /* Handle reservation */
                 }}
               >
-                Réserver Maintenant{" "}
+                Réserver Maintenant
               </Button>
             </motion.div>
           </CardContent>

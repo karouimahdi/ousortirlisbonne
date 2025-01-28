@@ -20,6 +20,7 @@ import HeroSection from "@/components/Hero";
 import { getBoatsByType } from "./action";
 import useSWR from "swr";
 import { ArrabidaBoat } from "@/types";
+import { useTranslation } from "@/translations/provider/localeProvider";
 const featureIconMap: { [key: string]: React.ComponentType<any> } = {
   "Yamaha 50hp": Anchor,
   "5 passagers max": Users,
@@ -32,7 +33,7 @@ const featureIconMap: { [key: string]: React.ComponentType<any> } = {
 
 
 const CascaisPage = () => {
-
+const {translations}=useTranslation()
   const { data: sampleBoats, isLoading: motorLoading, error: motorError } = useSWR<ArrabidaBoat[]>(
     "sample-boats",
     async () => {
@@ -127,10 +128,9 @@ const CascaisPage = () => {
       <section className="relative h-[70vh] flex items-center mb-12">
         <HeroSection
           imageUrl="/Cascais-min.jpg"
-          title=" Louer un bateau à Cascais"
-          description="              Cascais, la « ville de rois et de pêcheurs », station balnéaire prisée du littoral de Lisbonne
-"
-          buttonText="Voir les offres"
+          title={translations["rent_boat_cascais"]}
+          description= {translations["cascais_description"]}
+          buttonText={translations["see_offers"]}
           buttonLink="/decouvertes"
           altText="Vue panoramique de Lisbonne"
         />
@@ -145,25 +145,20 @@ const CascaisPage = () => {
             whileInView={{ opacity: 1, x: 0 }}
           >
             <h2 className="text-3xl font-bold text-[#2a2765]">
-              Découvrez Cascais vue de l'océan
-            </h2>
+{translations["discover_cascais"]}            </h2>
             <ul className="space-y-4 text-gray-600">
               <li className="flex items-center">
                 <Sun className="w-5 h-5 mr-3 text-[#37b7ab]" />
-                Plages de Praia da Conceição et Praia da Duquesa
-              </li>
+{translations["beaches"]}              </li>
               <li className="flex items-center">
                 <Sailboat className="w-5 h-5 mr-3 text-[#37b7ab]" />
-                Villas historiques du XIXe siècle
-              </li>
+{translations["historical_villas"]}              </li>
               <li className="flex items-center">
                 <MapPin className="w-5 h-5 mr-3 text-[#37b7ab]" />
-                Musée Castro Guimaraes et Parque Marechal Carmona
-              </li>
+{translations["museum_and_park"]}              </li>
               <li className="flex items-center">
                 <Fish className="w-5 h-5 mr-3 text-[#37b7ab]" />
-                Observation marine et pêche sportive
-              </li>
+{translations["marine_observation"]}              </li>
             </ul>
           </motion.div>
 
@@ -192,11 +187,9 @@ const CascaisPage = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-[#2a2765] mb-4">
-              Bateaux de plaisance à Cascais
-            </h2>
+{translations["pleasure_boats_cascais"]}            </h2>
             <p className="text-gray-600 max-w-xl mx-auto">
-              Yachts, voiliers, catamarans - Choisissez votre embarcation idéale
-            </p>
+{translations["boats_yachts"]}            </p>
           </div>
            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                       {fishingBoats?.map((boat) => (
@@ -212,7 +205,7 @@ const CascaisPage = () => {
                               className="w-full h-full object-cover"
                             />
                             <Badge className="absolute top-4 left-4 bg-[#37b7ab] text-white">
-                              Disponible
+                              {translations["available"]}
                             </Badge>
                           </div>
           
@@ -254,8 +247,7 @@ const CascaisPage = () => {
                             </div>
           
                             <Button className="w-full bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full h-12">
-                              Réserver maintenant
-                            </Button>
+{translations["bookNow"]}                    </Button>
                           </div>
                         </motion.div>
                       ))}
@@ -267,14 +259,11 @@ const CascaisPage = () => {
       <section className="max-w-7xl mx-auto px-4 py-24">
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-[#ea3e4e]/10 text-[#ea3e4e]">
-            🎣 Pêche Sportive
-          </Badge>
+{translations["sport_fishing"]}          </Badge>
           <h2 className="text-3xl font-bold text-[#2a2765] mb-4">
-            Excursions Pêche au Gros
-          </h2>
+{translations["big_game_fishing"]}          </h2>
           <p className="text-gray-600 max-w-xl mx-auto">
-            Expérience de pêche en mer avec équipement professionnel
-          </p>
+{translations["fishing_experience"]}          </p>
         </div>
          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {sampleBoats?.map((boat) => (
@@ -290,7 +279,7 @@ const CascaisPage = () => {
                             className="w-full h-full object-cover"
                           />
                           <Badge className="absolute top-4 left-4 bg-[#37b7ab] text-white">
-                            Disponible
+                            {translations["available"]}
                           </Badge>
                         </div>
         
@@ -332,8 +321,7 @@ const CascaisPage = () => {
                           </div>
         
                           <Button className="w-full bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full h-12">
-                            Réserver maintenant
-                          </Button>
+{translations["bookNow"]}                          </Button>
                         </div>
                       </motion.div>
                     ))}

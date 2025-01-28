@@ -29,6 +29,8 @@ import newYearCruise from "./collections/NewYearCruise";
 import RentBoat from "./collections/RentBoat";
 import {BigBoatCollection} from "./collections/BigBoat"
 import { SideCar } from "./collections/SideCar";
+import { EventDay } from "./collections/EventDay";
+import { Testimential } from "./collections/comments";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,6 +42,7 @@ export default buildConfig({
   // Define and configure your collections in this array
   collections: [
     Media,
+    EventDay,
     BoatJourney,
     newYearCruise,
     RentBoat,
@@ -62,7 +65,8 @@ export default buildConfig({
     Club,
     Decouvertes,
     BigBoatCollection,
-    SideCar
+    SideCar,
+    Testimential
 
   ],
   typescript: {

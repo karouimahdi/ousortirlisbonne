@@ -12,6 +12,7 @@ export interface Config {
   };
   collections: {
     media: Media;
+    'event-day': EventDay;
     'boats-journey': BoatsJourney;
     'boats-nouvel-an': BoatsNouvelAn;
     'boats-to-rent': BoatsToRent;
@@ -35,6 +36,7 @@ export interface Config {
     discover: Discover;
     boats: Boat;
     'side-car-viree': SideCarViree;
+    comments: Comment;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -43,6 +45,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     media: MediaSelect<false> | MediaSelect<true>;
+    'event-day': EventDaySelect<false> | EventDaySelect<true>;
     'boats-journey': BoatsJourneySelect<false> | BoatsJourneySelect<true>;
     'boats-nouvel-an': BoatsNouvelAnSelect<false> | BoatsNouvelAnSelect<true>;
     'boats-to-rent': BoatsToRentSelect<false> | BoatsToRentSelect<true>;
@@ -66,6 +69,7 @@ export interface Config {
     discover: DiscoverSelect<false> | DiscoverSelect<true>;
     boats: BoatsSelect<false> | BoatsSelect<true>;
     'side-car-viree': SideCarVireeSelect<false> | SideCarVireeSelect<true>;
+    comments: CommentsSelect<false> | CommentsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -121,6 +125,47 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-day".
+ */
+export interface EventDay {
+  id: string;
+  title: string;
+  slug: string;
+  image: string | Media;
+  description: string;
+  date: string;
+  time: string;
+  category: string | EventsCategory;
+  location: string;
+  featured?: boolean | null;
+  prix?: string | null;
+  'nombre de place'?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events-categories".
+ */
+export interface EventsCategory {
+  id: string;
+  title: string;
+  description: string;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Hex color code for category styling
+   */
+  color: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -415,27 +460,6 @@ export interface Submission {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "events-categories".
- */
-export interface EventsCategory {
-  id: string;
-  title: string;
-  description: string;
-  tags?:
-    | {
-        tag: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Hex color code for category styling
-   */
-  color: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
@@ -445,18 +469,12 @@ export interface Event {
   description: string;
   slug: string;
   date: string;
+  time: string;
   category: string | EventsCategory;
-  readTime: string;
-  tags?:
-    | {
-        tag: string;
-        id?: string | null;
-      }[]
-    | null;
-  featured?: boolean | null;
   location: string;
+  featured?: boolean | null;
   prix?: string | null;
-  'nombre de place'?: number | null;
+  'nombre de place'?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -721,6 +739,17 @@ export interface SideCarViree {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments".
+ */
+export interface Comment {
+  id: string;
+  authorName: string;
+  description: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -746,6 +775,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'event-day';
+        value: string | EventDay;
       } | null)
     | ({
         relationTo: 'boats-journey';
@@ -840,6 +873,10 @@ export interface PayloadLockedDocument {
         value: string | SideCarViree;
       } | null)
     | ({
+        relationTo: 'comments';
+        value: string | Comment;
+      } | null)
+    | ({
         relationTo: 'users';
         value: string | User;
       } | null);
@@ -902,6 +939,25 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-day_select".
+ */
+export interface EventDaySelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  image?: T;
+  description?: T;
+  date?: T;
+  time?: T;
+  category?: T;
+  location?: T;
+  featured?: T;
+  prix?: T;
+  'nombre de place'?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1184,16 +1240,10 @@ export interface EventsSelect<T extends boolean = true> {
   description?: T;
   slug?: T;
   date?: T;
+  time?: T;
   category?: T;
-  readTime?: T;
-  tags?:
-    | T
-    | {
-        tag?: T;
-        id?: T;
-      };
-  featured?: T;
   location?: T;
+  featured?: T;
   prix?: T;
   'nombre de place'?: T;
   updatedAt?: T;
@@ -1464,6 +1514,16 @@ export interface SideCarVireeSelect<T extends boolean = true> {
   duration?: T;
   price?: T;
   locations?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments_select".
+ */
+export interface CommentsSelect<T extends boolean = true> {
+  authorName?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }

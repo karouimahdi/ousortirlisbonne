@@ -1,6 +1,4 @@
-// src/components/CategoryGrid.tsx
 "use client";
-
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion, Variants, AnimatePresence } from "motion/react";
@@ -14,9 +12,8 @@ import {
   Utensils,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import useSWR from "swr";
-import { getEventCategories } from "./action";
-import CategorySection from "./CategorySection";
+import EventsList from "./events";
+import CategorySection from "./CategorySection"; // Import du nouveau composant
 
 interface CategoryGridProps {
   selectedCategory: string | null;
@@ -30,11 +27,40 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // Fetch event categories using SWR
-  const { data: categories, error } = useSWR("event-categories", getEventCategories);
-
-  if (error) return <div>Failed to load categories</div>;
-  if (!categories) return <div>Loading...</div>;
+  const categories = [
+    {
+      name: "Musique",
+      icon: Music,
+      color: "#FF4B6E",
+      gradient: "from-[#FF4B6E] via-[#FF4B6E]/40 to-[#FF4B6E]/10",
+      description: "Découvrez des événements musicaux exceptionnels",
+      highlights: ["Concerts", "Festivals", "DJ Sets"],
+    },
+    {
+      name: "Art",
+      icon: Palette,
+      color: "#00C9A7",
+      gradient: "from-[#00C9A7] via-[#00C9A7]/40 to-[#00C9A7]/10",
+      description: "Explorez le monde de l'art contemporain",
+      highlights: ["Expositions", "Galeries", "Ateliers"],
+    },
+    {
+      name: "Gastronomie",
+      icon: Utensils,
+      color: "#4A4FE4",
+      gradient: "from-[#4A4FE4] via-[#4A4FE4]/40 to-[#4A4FE4]/10",
+      description: "Savourez des expériences culinaires uniques",
+      highlights: ["Cuisine Locale", "Dégustations", "Chefs Étoilés"],
+    },
+    {
+      name: "Sport",
+      icon: LandPlot,
+      color: "#FF8F3F",
+      gradient: "from-[#FF8F3F] via-[#FF8F3F]/40 to-[#FF8F3F]/10",
+      description: "Participez à des événements sportifs passionnants",
+      highlights: ["Compétitions", "Marathons", "Sports Nautiques"],
+    },
+  ];
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -101,24 +127,24 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({
           variants={containerVariants}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16"
         >
-          {categories?.map((category, index) => (
+          {categories.map((category, index) => (
             <CategorySection
-              key={category.id} // Use the category ID as the key
+              key={category.name}
               index={index}
-              icon={Music} // Replace with dynamic icons if needed
-              label={category.title}
+              icon={category.icon}
+              label={category.name}
               color={category.color}
               description={category.description}
-              gradient={`from-[${category.color}] via-[${category.color}/40] to-[${category.color}/10]`}
-              accent={`from-[${category.color}] via-[${category.color}/40] to-[${category.color}/10]`}
-              highlights={category.tags} // Use tags as highlights
-              isSelected={selectedCategory === category.title}
-              onHover={() => setHoveredCategory(category.title)}
+              gradient={category.gradient}
+              accent={category.gradient}
+              highlights={category.highlights}
+              isSelected={selectedCategory === category.name}
+              onHover={() => setHoveredCategory(category.name)}
               onClick={() => {
-                setSelectedCategory(category.title);
-                setHoveredIndex(index);
+                setSelectedCategory(category.name);
+                setHoveredIndex(index); // Force le hover sur la catégorie sélectionnée
               }}
-              hoverIndex={selectedCategory === category.title ? index : null}
+              hoverIndex={selectedCategory === category.name ? index : null}
             />
           ))}
         </motion.div>
