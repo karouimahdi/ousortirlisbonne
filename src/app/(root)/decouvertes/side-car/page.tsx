@@ -8,8 +8,9 @@ import HeroSection from "@/components/Hero";
 import useSWR from "swr";
 import { Discover } from "@/types";
 import { getTours } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
-
+const {translations}=useTranslation();
 
 const VisitePriveePage = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -65,10 +66,10 @@ const VisitePriveePage = () => {
       <div className="relative h-screen">
         <HeroSection
           imageUrl="/Street-Art-Side-Car-Lisbon.jpeg"
-          title="Virée authentique en Side-car à Lisbonne"
-          description="Le tour de Lisbonne et ses alentours en side-car est un excellent moyen de sortir des sentiers battus pour des souvenirs incroyables dans une ambiance authentique et originale.
-"
-          buttonText="Voir les offres "
+          title={translations["authenticSidecarRide"]}
+          description={translations["authenticSidecarRideDescription"]}
+
+          buttonText={translations["seeOffers"]}
           buttonLink="#"
           altText="Vue panoramique de Lisbonne"
         />
@@ -82,23 +83,13 @@ const VisitePriveePage = () => {
           className="text-center max-w-4xl mx-auto"
         >
           <h2 className="text-4xl font-bold text-[#2a2765] mb-8">
-            À la découverte de Lisbonne en Side-car
+            {translations["discoverLisbonSidecar"]}
           </h2>
           <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-            Découvrez Lisbonne d’une manière unique et authentique en optant
-            pour nos excursions en side-car.
+         {translations["uniqueLisbonExperience"]}
           </p>
           <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-            Les side-cars des ses tours originales de Lisbonne sont les modèles
-            les plus récents du marché, inspirés de la première Ural M72. Ils
-            allient les valeurs authentiques de la marque, telles que leur
-            robustesse, leur simplicité et leur look rétro, tout en s’inscrivant
-            dans la modernité (démarreur électrique, suspension, frein à disque
-            pour une virée en tout sécurité). Profitez d’une expérience
-            personnalisée, où chaque coin de rue révèle son histoire fascinante.
-            Explorez les ruelles étroites et les sites emblématiques de la ville
-            en toute commodité. Activité parfaite à deux pour les programmes de
-            quelques jours à Lisbonne.
+           {translations["discoverLisbonSidecarDescription"]}
           </p>
         </motion.div>
 
@@ -110,7 +101,7 @@ const VisitePriveePage = () => {
       <div className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-[#2a2765] mb-12 text-center">
-            Nos visites guidées
+           {translations["guidedTour"]}
           </h2>
           <div className="grid grid-cols-1 gap-12">
             {tours?.map((tour, index) => (
@@ -163,8 +154,7 @@ const VisitePriveePage = () => {
                         {tour.price}
                       </div>
                       <button className="bg-[#ea3e4e] rounded-full hover:bg-[#37b7ab] text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
-                        Réserver
-                      </button>
+{translations["bookNow1"]}                      </button>
                     </div>
                   </div>
                 </div>

@@ -6,23 +6,24 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TestimonialsSection } from "@/components/Testimential";
 import CategorySection from "@/components/CategorySection";
-
+import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/translations/provider/localeProvider";
+const {translations}=useTranslation();
 const heroImages = [
   {
     src: "/73.webp",
-    title: "Visite touristique avec guides",
+    title: translations["guidedTour"],
     description:
-      "Découvrez la ville accompagnés de nos guides portugais francophones",
-  },
+     translations["discoverCityWithGuides"]  },
   {
     src: "/Sintra-Catarina-Ferreira-min.jpg",
-    title: "Sintra Magique",
-    description: "Explorez les merveilles architecturales de Sintra",
+    title: translations["magicalSintra"],
+    description:translations["exploreSintra"],
   },
   {
     src: "/place-du-commerce-min.jpg",
-    title: "Saveurs Portugaises",
-    description: "Dégustez les meilleurs vins et tapas locaux",
+    title: translations["portugueseFlavors"],
+    description: translations["localWineAndTapas"],
   },
 ];
 
@@ -48,46 +49,46 @@ const DecouvertePage = () => {
 
   const experiences = [
     {
-      title: "Visite privée à pied",
+      title: translations["privateWalkingTour"],
       icon: "🚶‍♂️",
       color: "#FF4B6E",
       gradient: "from-[#FF4B6E] via-[#FF4B6E]/40 to-[#FF4B6E]/10",
-      description: "Dégustation incluse",
-      highlights: ["Guide francophone", "Personnalisable", "3h minimum"],
+      description: translations["tastingIncluded"],
+      highlights: [translations["frenchSpeakingGuide"], translations["customizable"], translations["minimum3Hours"]],
       route: "/decouvertes/visite-privee",
     },
     {
-      title: "Tour en tuktuk",
+      title: translations["tuktukTour"],
       icon: "🛺",
       color: "#4A4FE4",
       gradient: "from-[#4A4FE4] via-[#4A4FE4]/40 to-[#4A4FE4]/10",
-      description: "6 places disponibles",
-      highlights: ["Visite complète", "Commentaires audio", "Photos incluses"],
+      description: translations["sixSeats"],
+      highlights: [translations["fullTour"], translations["audioComments"], translations["photosIncluded"]],
       route: "/decouvertes/tuktuk-tour",
     },
     {
-      title: "Virée en side-car",
+      title: translations["sidecarRide"],
       icon: "🏍️",
       color: "#00C9A7",
       gradient: "from-[#00C9A7] via-[#00C9A7]/40 to-[#00C9A7]/10",
-      description: "Sensation unique",
+      description: translations["uniqueExperience1"],
       highlights: [
-        "Pilote expérimenté",
-        "Casques fournis",
-        "Circuit personnalisé",
+        translations["experiencedDriver"],
+        translations["helmetsProvided"],
+        translations["personalizedCircuit"]
       ],
       route: "/decouvertes/side-car",
     },
     {
-      title: "Croisière sur le Tejo",
+      title: translations["tejoCruise"],
       icon: "⛵",
       color: "#FF8F3F",
       gradient: "from-[#FF8F3F] via-[#FF8F3F]/40 to-[#FF8F3F]/10",
-      description: "Vue panoramique",
+      description: translations["panoramicView"],
       highlights: [
-        "2h de croisière",
-        "Commentaires historiques",
-        "Rafraîchissements",
+        translations["twoHourCruise"],
+        translations["historicalComments"],
+        translations["refreshments"],
       ],
       route: "/croisiere",
     },
@@ -134,8 +135,7 @@ const DecouvertePage = () => {
                     href="#"
                     className="hover:bg-[#37b7ab] bg-[#ea3e4e] text-white px-10 py-4 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
-                    Découvrir nos expériences
-                  </Link>
+{translations["discoverOurExperiences"]}                  </Link>
                 </motion.div>
               </div>
             </motion.div>
@@ -176,8 +176,7 @@ const DecouvertePage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           className="text-5xl font-bold text-[#2a2765] mb-16 text-center"
         >
-          Visite de Lisbonne sur mesure
-        </motion.h2>
+{translations["tailoredLisbonTour"]}        </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {experiences.map((experience, index) => (
             <CategorySection
@@ -210,20 +209,16 @@ const DecouvertePage = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 className="text-4xl font-bold mb-8"
               >
-                Sintra, ses monuments et sa côte
-              </motion.h2>
+{translations["sintraMonumentsAndCoast"]}              </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 className="text-lg text-white/90 leading-relaxed"
               >
-                Cette ville est un haut lieu de l'architecture romantique et
-                abrite l'une des 7 merveilles du Portugal...
+                {translations["sintraRomanticCity"]}
                 <br />
                 <br />
-                Nous proposons la visite de Sintra accompagné de nos
-                chauffeur/guide passionnés d'histoire, d'architecture et de
-                botanique.
+               {translations["sintraGuidedTour"]}
               </motion.p>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -231,12 +226,10 @@ const DecouvertePage = () => {
                 whileHover={{ scale: 1.05 }}
                 className="mt-8"
               >
-                <Link
-                  href="/sintra"
+                <Button
                   className="inline-block bg-[#37b7ab] hover:bg-[#ea3e4e] text-white px-8 py-3 rounded-full font-medium transition-all duration-300"
                 >
-                  Découvrir Sintra
-                </Link>
+{translations["discoverSintra"]}                </Button>
               </motion.div>
             </div>
             <motion.div
@@ -270,31 +263,24 @@ const DecouvertePage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               className="text-4xl font-bold text-[#2a2765] mb-8"
             >
-              Découverte de la ville en vélo
-            </motion.h2>
+{translations["bikeCityTour"]}            </motion.h2>
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               className="space-y-6 text-lg text-gray-700"
             >
               <p>
-                Partez à la découverte de Lisbonne et ses alentours à vélo !
-                Notre guide Taibat vous concoctera un parcours au fil de ses
-                passions : les arts, les évènements culturels, les plages, la
-                photo et la vidéo.
+               {translations["bikeTourDescription"]}
               </p>
               <p>
-                Équipée de sa caméra, elle réalise des reportages photos/vidéos
-                digne des plus grands journalistes du tour de France. Ce qui
-                fera de votre rencontre un souvenir inoubliable.
+               {translations["taibatPhotography"]}
               </p>
               <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
                 <Link
-                  href="#"
+                  href="/reservation"
                   className="mt-6 inline-block bg-[#ea3e4e] hover:bg-[#2a2765] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
-                  Découvrez les programmes de Taibat
-                </Link>
+{translations["discoverTaibatPrograms"]}                </Link>
               </motion.div>
             </motion.div>
           </div>
@@ -330,35 +316,30 @@ const DecouvertePage = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 className="text-4xl font-bold mb-8"
               >
-                Dégustation de vins, tapas & produits locaux
-              </motion.h2>
+{translations["wineAndTapasTasting"]}              </motion.h2>
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 className="space-y-6 text-lg text-white/90"
               >
                 <p>
-                  Ces expériences sont l'occasion de découvrir le terroir
-                  portugais et ibérique au travers de ses produits, expression
-                  de leur savoir faire au fil des époques, autour d'une belle
-                  table.
+              {translations["tastingDescription"]}
                 </p>
                 <div className="space-y-2">
                   <h3 className="text-[#37b7ab] font-semibold mb-3">
-                    Nos propositions :
-                  </h3>
+{translations["tastingSuggestions"]}                  </h3>
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     className="grid grid-cols-2 gap-4"
                   >
                     {[
-                      "Fromages et charcuteries",
-                      "Porto de 10, 20, 30 et 40 ans",
-                      "Vins blancs ou rouge",
-                      "Gin portugais",
-                      "Sardines en boîtes",
-                      "Spécialités ibériques",
+                      translations["cheeseAndCharcuterie"],
+                      translations["portoAged10To40Years"],
+                      translations["whiteAndRedWines"],
+                      translations["portugueseGin"],
+                      translations["cannedSardines"],
+                      translations["iberianSpecialties"],
                     ].map((item, index) => (
                       <motion.div
                         key={index}
@@ -381,8 +362,7 @@ const DecouvertePage = () => {
                     href="#"
                     className="mt-6 inline-block hover:bg-[#37b7ab] bg-[#ea3e4e] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
-                    Réservez votre dégustation
-                  </Link>
+{translations["bookYourTasting"]}                  </Link>
                 </motion.div>
               </motion.div>
             </div>

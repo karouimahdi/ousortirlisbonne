@@ -8,6 +8,7 @@ import { events } from "@/app/(root)/data/events";
 import { motion, AnimatePresence } from "motion/react";
 import useSWR from "swr";
 import { getEvent } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 interface Coordinates {
   lat: number;
@@ -62,6 +63,8 @@ export default function EventDetail({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+    const {translations}=useTranslation()
+  
   const { slug } = use(params);
   const { data: event } = useSWR(
     useSWR<Event>,
@@ -138,8 +141,7 @@ export default function EventDetail({
               className="mb-8"
             >
               <h2 className="text-2xl font-garage-gothic-bold text-[#2a2765] mb-4">
-                Description
-              </h2>
+{translations["describ"]}              </h2>
               <p className="text-gray-700 leading-relaxed">
                 {event?.description}
               </p>
@@ -167,7 +169,7 @@ export default function EventDetail({
                     title="Event location map"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 text-sm p-2 text-center">
-                    Coordinates: {coordinates.lat.toFixed(4)},{" "}
+                    {translations["coordinatesLabel"]}: {coordinates.lat.toFixed(4)},{" "}
                     {coordinates.lon.toFixed(4)}
                   </div>
                 </>
@@ -182,7 +184,7 @@ export default function EventDetail({
                   /* Handle reservation */
                 }}
               >
-                Réserver Maintenant{" "}
+               {translations["bookNow"]}{" "}
               </Button>
             </motion.div>
           </CardContent>
@@ -198,8 +200,7 @@ export default function EventDetail({
         transition={{ duration: 0.5, delay: 0.8 }}
         className="text-center text-xl font-garage-gothic-regular italic text-[#2a2765]"
       >
-        Faites de votre vie un évènement!
-      </motion.div>
+{translations["makeLifeAnEvent"]}      </motion.div>
     </div>
   );
 }

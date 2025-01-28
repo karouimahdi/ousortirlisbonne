@@ -20,13 +20,15 @@ import Autoplay from "embla-carousel-autoplay";
 import useSWR from "swr";
 import { BigBoat } from "@/types";
 import { getBoats } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 // ... HeroBanner component remains the same ...
 const HeroBanner = () => {
+  const {translations}=useTranslation()
   const features = [
-    { icon: Ship, text: "Bateau à moteur 25 places" },
-    { icon: PartyPopper, text: "Événements jusqu'à 80 personnes" },
-    { icon: Sunset, text: "Croisières sunset disponibles" },
+    { icon: Ship, text: translations["motorBoat25Seats"]},
+    { icon: PartyPopper, text: translations["eventsUpTo80People"]},
+    { icon: Sunset, text: translations["sunsetCruisesAvailable"] },
   ];
 
   return (
@@ -53,13 +55,11 @@ const HeroBanner = () => {
           className="text-center mb-16"
         >
           <Badge className="mb-6 bg-[#37b7ab]/20 text-white hover:bg-[#37b7ab]/30">
-            Location & Événements
-          </Badge>
+{translations["rentalAndEvents"]}          </Badge>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            Location de bateau/Local d'event
-            <span className="text-[#37b7ab]"> jusqu'à 80 personnes</span>
+{translations["boatRentalOrEventSpace"]}            <span className="text-[#37b7ab]"> {translations["upTo80People"]}</span>
           </h1>
-          <p className="text-xl text-white/90 mb-8">Au départ de Lisbonne</p>
+          <p className="text-xl text-white/90 mb-8">{translations["fromLisbon"]}</p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {features.map(({ icon: Icon, text }) => (
@@ -99,6 +99,7 @@ const BoatCard = ({
   images,
   hasSunsetFee = true,
 }: BoatCardProps) => {
+  const {translations}=useTranslation()
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 }),
   ]);
@@ -167,7 +168,6 @@ const BoatCard = ({
               <p className="text-gray-500 text-sm mb-1">{duration}</p>
               <p className="text-xl font-bold text-[#2a2765]">
                 {price}
-                <span className="text-sm text-gray-400 ml-1">/jour</span>
               </p>
               <div className="absolute top-0 right-0 w-8 h-8 bg-[#37b7ab]/10 rounded-bl-xl rounded-tr-xl flex items-center justify-center">
                 <Euro className="w-4 h-4 text-[#37b7ab]" />
@@ -184,10 +184,9 @@ const BoatCard = ({
             <div className="flex items-center text-[#ea3e4e]">
               <Sunset className="w-6 h-6 mr-2" />
               <div>
-                <p className="font-semibold">Option Sunset +100€</p>
+                <p className="font-semibold">{translations["sunsetOptionPlus100"]}</p>
                 <p className="text-sm text-[#ea3e4e]/80 mt-1">
-                  Créneau coucher de soleil exclusif
-                </p>
+{translations["exclusiveSunsetSlot"]}                </p>
               </div>
             </div>
           </motion.div>
@@ -195,14 +194,14 @@ const BoatCard = ({
 
         <Button className="hover:bg-[#37b7ab] bg-[#ea3e4e] py-6 text-lg rounded-full  shadow-lg transition-all transform hover:-translate-y-0.5">
           <Ticket className="mr-3 w-5 h-5" />
-          Réserver maintenant
-        </Button>
+{translations["bookNow"]}        </Button>
       </div>
     </motion.div>
   );
 };
 
 export default function LocationBateauPage() {
+  const{translations}=useTranslation()
   const { data: boats, isLoading: boatLoading, error: boatError } = useSWR<BigBoat[]>(
     "big-boats",
     async () => {
@@ -237,14 +236,11 @@ export default function LocationBateauPage() {
           className="text-center mb-16"
         >
           <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765]">
-            Notre flotte
-          </Badge>
+{translations["ourFleet"]}          </Badge>
           <h2 className="text-4xl font-bold text-[#2a2765] mb-4">
-            Location de bateau privé
-          </h2>
+{translations["privateBoatRental1"]}          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Une sélection de bateaux adaptés à tous vos événements
-          </p>
+{translations["boatSelectionForAllEvents"]}          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8">

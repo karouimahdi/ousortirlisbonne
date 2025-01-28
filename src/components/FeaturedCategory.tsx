@@ -16,79 +16,81 @@ import {
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import CategorySection from "./CategorySection";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 const FeaturedCategories = () => {
+  const {translations}=useTranslation()
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const categories = [
     {
       icon: Calendar,
-      label: "Événements",
+      label: translations["events"],
       color: "#ea3e4e",
-      description: "Découvrez les meilleurs événements",
+      description: translations["discoverBestEvents"],
       gradient: "from-[#ea3e4e]/20 via-[#ea3e4e]/10 to-transparent",
       accent: "group-hover:border-[#ea3e4e]/50",
-      highlights: ["Festivals", "Concerts", "Expositions"],
+      highlights: [translations["festivals"], translations["concerts"], translations["exhibitions"]],
       route: "/events",
     },
     {
       icon: Utensils,
-      label: "Restaurants",
+      label: translations["restaurant"],
       color: "#37b7ab",
-      description: "Explorez la gastronomie locale",
+      description: translations["exploreLocalCuisine"],
       gradient: "from-[#37b7ab]/20 via-[#37b7ab]/10 to-transparent",
       accent: "group-hover:border-[#37b7ab]/50",
-      highlights: ["Cuisine locale", "Vue mer", "Gastronomique"],
+      highlights: [translations["localCuisine"], translations["seaView"], translations["gastronomic"]],
       route: "/restaurants",
     },
     {
       icon: Beer,
-      label: "Bars",
+      label: translations["bars"],
       color: "#2a2765",
-      description: "Les meilleurs bars de la ville",
+      description: translations["bestBarsInTheCity"],
       gradient: "from-[#2a2765]/20 via-[#2a2765]/10 to-transparent",
       accent: "group-hover:border-[#2a2765]/50",
-      highlights: ["Rooftops", "Cocktails", "Ambiance"],
+      highlights: [translations["rooftops"], translations["cocktails"], translations["ambiance"]],
       route: "/bars",
     },
     {
       icon: Music,
-      label: "Clubs",
+      label: translations["clubs"],
       color: "#ea3e4e",
-      description: "Vivez la vie nocturne",
+      description: translations["liveTheNightlife"],
       gradient: "from-[#ea3e4e]/20 via-[#ea3e4e]/10 to-transparent",
       accent: "group-hover:border-[#ea3e4e]/50",
-      highlights: ["DJ Sets", "Dance Floor", "VIP"],
+      highlights: [translations["djSets"],translations["danceFloor"], translations["vip"]],
       route: "/clubs",
     },
     {
       icon: Ship,
-      label: "Bateaux",
+      label: translations["boats"],
       color: "#37b7ab",
-      description: "Aventures maritimes",
+      description: translations["maritimeAdventures"],
       gradient: "from-[#37b7ab]/20 via-[#37b7ab]/10 to-transparent",
       accent: "group-hover:border-[#37b7ab]/50",
-      highlights: ["Croisières", "Yacht", "Sunset"],
+      highlights: [translations["cruises"], translations["yacht"], translations["sunset"]],
       route: "/croisiere",
     },
     {
       icon: Activity,
-      label: "Activités",
+      label: translations["activities"],
       color: "#2a2765",
-      description: "Expériences uniques",
+      description: translations["uniqueExperience"],
       gradient: "from-[#2a2765]/20 via-[#2a2765]/10 to-transparent",
       accent: "group-hover:border-[#2a2765]/50",
-      highlights: ["Sports", "Culture", "Nature"],
+      highlights: [translations["sports"], translations["culture"], translations["nature"]],
       route: "/decouvertes",
     },
     {
       icon: BookOpen,
-      label: "Blog",
+      label: translations["blog"],
       color: "#ea3e4e",
-      description: "Inspirations et conseils",
+      description: translations["inspirationsAndTips"],
       gradient: "from-[#ea3e4e]/20 via-[#ea3e4e]/10 to-transparent",
       accent: "group-hover:border-[#ea3e4e]/50",
-      highlights: ["Guides", "Astuces", "Actualités"],
+      highlights: [translations["guides"], translations["tips"], translations["news"]],
       route: "/blog",
     },
   ];
@@ -119,21 +121,18 @@ const FeaturedCategories = () => {
               />
             </div>
             <span className="text-xs sm:text-sm font-medium text-[#ea3e4e] tracking-wider">
-              DÉCOUVREZ
-            </span>
+{translations["discover"]}            </span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6 text-[#2a2765] bg-clip-text">
-            Nos Catégories
-          </h2>
+{translations["ourCategories"]}          </h2>
 
           <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-lg">
-            Explorez notre sélection d'expériences uniques et découvrez
-            <span className="text-[#37b7ab] font-medium">
+{translations["exploreOurSelectionOfUniqueExperiencesAndDiscoverTheBestActivitiesInLisbon"]}            <span className="text-[#37b7ab] font-medium">
               {" "}
-              les meilleures activités{" "}
+           {translations["best"]}{" "}
             </span>
-            à Lisbonne
+         {translations["inLisb"]}
           </p>
         </motion.div>
 

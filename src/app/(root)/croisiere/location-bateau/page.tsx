@@ -17,6 +17,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useSWR from "swr";
 import { BoatToRent, CoucheSoleilBoat } from "@/types";
 import { getBoats } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 interface BoatCardProps {
   title: string;
@@ -28,10 +29,11 @@ interface BoatCardProps {
 }
 
 const HeroBanner = () => {
+  const {translations}=useTranslation();
   const features = [
-    { icon: Shield, text: "Service personnalisé" },
-    { icon: Crown, text: "Flotte premium" },
-    { icon: Ship, text: "Plus de 50 bateaux" },
+    { icon: Shield, text: translations["personalizedService"] },
+    { icon: Crown, text:translations["premiumFleet"]  },
+    { icon: Ship, text: translations["moreThan50Boats"]  },
   ];
 
   return (
@@ -58,17 +60,14 @@ const HeroBanner = () => {
           className="text-center mb-16"
         >
           <Badge className="mb-6 bg-[#37b7ab]/20 text-white hover:bg-[#37b7ab]/30">
-            Location de bateaux privés
-          </Badge>
+{translations["privateBoatRental"]}          </Badge>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-            Croisière privée
-            <br />
-            <span className="text-[#37b7ab]">sur mesure</span> au départ de
-            Lisbonne
+{translations["privateCruise"]}            <br />
+            <span className="text-[#37b7ab]">{translations["tailored"]}</span>{translations["from"]}
+            {translations["lisbon"]}
           </h1>
           <p className="text-xl text-white/90 mb-8">
-            Location de voiliers, catamarans et yachts au départ de Lisbonne.
-          </p>
+{translations["boatRentalFromLisbon"]}          </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {features.map(({ icon: Icon, text }) => (
@@ -90,14 +89,10 @@ const HeroBanner = () => {
             className="max-w-3xl mx-auto text-white/90 text-lg"
           >
             <p className="mb-6">
-              Indiquez vos attentes via le formulaire ci-dessous et nous vous
-              ferons parvenir en moins de 24 heures les options disponibles
-              correspondant à vos besoins.
+             {translations["customRequestDescription"]}
             </p>
             <p>
-              Avec une flotte de plus de cinquante embarcations, allant de 4 à
-              220 places, nous avons la formule idéale pour un évènement unique
-              et inoubliable !
+             {translations["fleetDescription"]}
             </p>
           </motion.div>
         </motion.div>
@@ -114,6 +109,7 @@ const BoatCard = ({
   type,
   images,
 }: BoatCardProps) => {
+  const{translations}=useTranslation()
   const [isHovered, setIsHovered] = useState(false);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 }),
@@ -182,12 +178,11 @@ const BoatCard = ({
 
         <div className="mt-6 flex justify-between items-center">
           <div>
-            <p className="text-sm text-gray-500">à partir de</p>
+            <p className="text-sm text-gray-500">{translations["from"]}</p>
             <p className="text-3xl font-bold text-[#37b7ab]">{price}</p>
           </div>
           <Button className="bg-[#ea3e4e] hover:bg-[#37b7ab] px-8 py-6 rounded-full text-lg shadow-lg">
-            Réserver
-          </Button>
+{translations["bookNow1"]}          </Button>
         </div>
       </div>
     </motion.div>
@@ -195,6 +190,8 @@ const BoatCard = ({
 };
 
 export default function PrivateBoatPage() {
+  const{translations}=useTranslation()
+
   const { data: boats, isLoading: boatLoading, error: boatError } = useSWR<BoatToRent[]>(
     "coucher-boats",
     async () => {
@@ -239,14 +236,11 @@ export default function PrivateBoatPage() {
           className="text-center mb-16"
         >
           <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765]">
-            Notre flotte
-          </Badge>
+{translations["ourFleet"]}          </Badge>
           <h2 className="text-4xl font-bold text-[#2a2765] mb-4">
-            Des bateaux pour tous vos projets
-          </h2>
+{translations["boatsForAllProjects"]}          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Une sélection d'embarcations adaptée à vos besoins
-          </p>
+{translations["selectionForYourNeeds"]}          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">

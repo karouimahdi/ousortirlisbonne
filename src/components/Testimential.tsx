@@ -1,9 +1,11 @@
 // components/TestimonialsSection.tsx
+"use client"
 import React from 'react';
 import useSWR from 'swr';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { getComments } from './action';
+import { useTranslation } from '@/translations/provider/localeProvider';
 
 interface Testimential {
   authorName: string;
@@ -60,25 +62,21 @@ export function TestimonialCard({
 }
 
 export function TestimonialsSection() {
+  const {translations}=useTranslation()
   const { data: testimonials, error } = useSWR<Testimential[]>(
     'testimonials', // Key for SWR caching
     async () => await getComments() // Fetcher function
   );
 
-  if (error) return <div>Failed to load testimonials</div>;
-  if (!testimonials) return <div>Loading...</div>;
 
   return (
     <section className="py-20 overflow-hidden bg-gradient-to-br from-[#2a2765]/5 via-[#37b7ab]/5 to-[#ea3e4e]/5">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#2a2765] bg-clip-text">
-            Témoignages Facebook Où sortir à Lisbonne
-          </h2>
+{translations["testimonials"]}          </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Retrouvez l'intégralité des témoignages sur notre page Facebook ou
-            pour les plus récentes sur Truspilot et surtout n'hésitez pas à
-            laisser le votre!
+          {translations["testimonials1"]}
           </p>
         </div>
 
@@ -90,7 +88,7 @@ export function TestimonialsSection() {
             <div className="flex animate-marquee">
               {[...Array(2)].map((_, setIndex) => (
                 <div key={setIndex} className="flex">
-                  {testimonials.map((testimonial, index) => (
+                  {testimonials?.map((testimonial, index) => (
                     <TestimonialCard
                       key={`${setIndex}-${index}`}
                       authorName={testimonial.authorName}
@@ -104,7 +102,7 @@ export function TestimonialsSection() {
             <div className="flex animate-marquee2">
               {[...Array(2)].map((_, setIndex) => (
                 <div key={setIndex} className="flex">
-                  {testimonials.map((testimonial, index) => (
+                  {testimonials?.map((testimonial, index) => (
                     <TestimonialCard
                       key={`${setIndex}-${index}`}
                       authorName={testimonial.authorName}

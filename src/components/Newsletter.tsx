@@ -1,7 +1,10 @@
+"use client"
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/translations/provider/localeProvider";
 import {Mail} from 'lucide-react';
 
 const Newsletter = () => {
+  const {translations}=useTranslation()
     const handleSubmit = () => {
      
       // Handle newsletter subscription
@@ -12,11 +15,9 @@ const Newsletter = () => {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-[#2a2765] mb-4">
-              Newsletter
-            </h2>
+{translations["newsletter"]}            </h2>
             <p className="text-gray-600 mb-8">
-              Restez informé des meilleures offres
-            </p>
+{translations["stayInformed"]}            </p>
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="relative flex-grow max-w-md">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -31,8 +32,7 @@ const Newsletter = () => {
                 type="submit"
                 className="bg-[#2a2765] hover:bg-[#37b7ab] text-white rounded-full transform hover:scale-105 transition-all duration-200 whitespace-nowrap"
               >
-                S'inscrire
-              </Button>
+{translations["subscribe"]}              </Button>
             </form>
           </div>
         </div>

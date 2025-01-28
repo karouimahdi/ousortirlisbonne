@@ -21,6 +21,7 @@ import {
 import { useRouter } from "next/navigation";
 import HeroSection from "@/components/Hero";
 import CategorySection from "@/components/CategorySection";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 interface Event {
   id: string;
@@ -59,6 +60,7 @@ const CombinedEventsPage: React.FC<CombinedEventsPageProps> = ({
   events,
   categories,
 }) => {
+  const {translations}=useTranslation()
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -120,9 +122,9 @@ const CombinedEventsPage: React.FC<CombinedEventsPageProps> = ({
       <div className="relative h-[80vh] overflow-hidden">
         <HeroSection
           imageUrl="/tage2min.jpg"
-          title="Découvrez Nos Meilleures Événements"
-          description="Faites de votre vie un évènement!"
-          buttonText="Découvrir Maintenant"
+          title={translations["discoverOurBestEvents"]}
+          description={translations["makeYourLifeAnEvent"]}
+          buttonText={translations["discoverNow"]}
           buttonLink="#"
         />
       </div>
@@ -159,22 +161,20 @@ const CombinedEventsPage: React.FC<CombinedEventsPageProps> = ({
                   />
                 </div>
                 <span className="text-lg font-medium text-[#FF4B6E] tracking-wider">
-                  DÉCOUVREZ
+                  {translations["discover"]}
                 </span>
               </div>
 
               <h2 className="text-6xl font-bold mb-8 text-[#2a2765] bg-clip-text">
-                Nos Catégories
+              {translations["discover"]}
               </h2>
 
               <p className="text-gray-600 max-w-2xl mx-auto text-xl leading-relaxed">
-                Explorez notre sélection d'expériences uniques et découvrez
-                <span className="text-[#00C9A7] font-semibold">
+{translations["exploreOurSelectionOfUniqueExperiencesAndDiscoverTheBestActivitiesInLisbon"]}                <span className="text-[#00C9A7] font-semibold">
                   {" "}
-                  les meilleures activités{" "}
+                  {translations["best"]}{" "}
                 </span>
-                à Lisbonne
-              </p>
+{translations["inLisb"]}              </p>
             </motion.div>
 
             <motion.div
@@ -281,8 +281,7 @@ const CombinedEventsPage: React.FC<CombinedEventsPageProps> = ({
                             className="bg-[#ea3e4e] hover:bg-[#37b7ab] rounded-full text-white px-6"
                             onClick={() => router.push(`/events/${event.slug}`)}
                           >
-                            Voir Détails
-                            <ChevronRight className="ml-2 w-4 h-4" />
+{translations["viewDetails"]}                            <ChevronRight className="ml-2 w-4 h-4" />
                           </Button>
                         </motion.div>
                       </div>

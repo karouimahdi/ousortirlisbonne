@@ -8,6 +8,7 @@ import { FocusCards } from "@/components/ui/focus-cards";
 import useSWR from "swr";
 import { Discover } from "@/types";
 import { getTours } from "./action";
+import { useTranslation } from "@/translations/provider/localeProvider";
 
 
 const cards = [
@@ -37,6 +38,7 @@ const cards = [
   },
 ];
 const VisitePriveePage = () => {
+  const {translations}=useTranslation()
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const { data: tours, isLoading: boatLoading, error: boatError } = useSWR<Discover[]>(
     "tours",
@@ -64,9 +66,9 @@ const VisitePriveePage = () => {
       <div className="relative h-screen">
         <HeroSection
           imageUrl="/place-du-commerce-2-min.jpg"
-          title=" Découvrez Lisbonne à pied : une immersion authentique"
-          description=" Passant par son âme, pour rejoindre son coeur et découvrir son corps"
-          buttonText="Suivez le guide"
+          title={translations["discoverLisbonOnFoot"]}
+          description={translations["passingThroughItsSoulToReachItsHeartAndDiscoverItsBody"]}
+          buttonText={translations["followTheGuide"]}
           buttonLink="#"
           altText="Vue panoramique de Lisbonne"
         />
@@ -80,19 +82,12 @@ const VisitePriveePage = () => {
           className="text-center max-w-4xl mx-auto"
         >
           <h2 className="text-4xl font-bold text-[#2a2765] mb-8">
-            L'âme de Lisbonne
-          </h2>
+{translations["theSoulOfLisbon"]}          </h2>
           <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-            Lisbonne est une ville pleine de charme, où chaque ruelle raconte
-            une histoire. Que vous soyez en couple, en famille, ou même en solo,
-            nos tours à pied sont conçus pour vous offrir une véritable plongée
-            dans l'histoire et la culture locales.
+            {translations["lisbonIsACharmingCity"]}
           </p>
           <p className="text-lg text-gray-700 mb-12 leading-relaxed">
-            De l'authenticité des vieux quartiers aux couleurs vibrantes du
-            street art, laissez-vous guider par nos passionnés, véritables
-            historiens ou amoureux de la ville, pour une visite inoubliable !
-          </p>
+            {translations["fromTheAuthenticityOfTheOldNeighborhoodsToTheVibrantColorsOfStreetArt"]}     </p>
         </motion.div>
 
         {/* Tarifs Box */}
@@ -101,29 +96,23 @@ const VisitePriveePage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           className="bg-gradient-to-r from-[#2a2765] to-[#15103a] rounded-2xl p-8 md:p-12 text-white max-w-3xl mx-auto"
         >
-          <h3 className="text-2xl font-bold mb-6">Tarifs et conditions</h3>
+          <h3 className="text-2xl font-bold mb-6">{translations["pricesAndConditions"]}</h3>
           <p className="mb-6">
-            Nos tours à pied durent entre 3h et 4h et sont accessibles à partir
-            de 90€ pour deux personnes. Ce tarif inclut :
+           {translations["ourWalkingToursLastBetween3To4HoursAndAreAvailableFrom"]}
           </p>
           <ul className="space-y-3 mb-6">
             <li className="flex items-center">
               <div className="w-2 h-2 rounded-full bg-[#37b7ab] mr-3" />
-              Un tour privé
-            </li>
+{translations["aPrivateTour"]}            </li>
             <li className="flex items-center">
               <div className="w-2 h-2 rounded-full bg-[#37b7ab] mr-3" />
-              Le service d'un guide expérimenté
-            </li>
+{translations["experiencedGuideService"]}            </li>
             <li className="flex items-center">
               <div className="w-2 h-2 rounded-full bg-[#37b7ab] mr-3" />
-              La dégustation de une ou plusieurs spécialités locales
-            </li>
+{translations["tastingOneOrMoreLocalSpecialties"]}            </li>
           </ul>
           <p className="text-[#37b7ab] font-medium">
-            Les enfants de moins de 10 ans participent gratuitement, rendant
-            cette expérience idéale pour les familles.
-          </p>
+            {translations["childrenUnder10ParticipateForFree"]}</p>
         </motion.div>
       </div>
       <FocusCards cards={cards} />
@@ -132,8 +121,7 @@ const VisitePriveePage = () => {
       <div className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-[#2a2765] mb-12 text-center">
-            Nos visites guidées
-          </h2>
+{translations["guidedTours"]}          </h2>
           <div className="grid grid-cols-1 gap-12">
             {tours?.map((tour, index) => (
               <motion.div
@@ -185,8 +173,7 @@ const VisitePriveePage = () => {
                         {tour.price}
                       </div>
                       <button className="bg-[#ea3e4e] hover:bg-[#37b7ab] text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
-                        Réserver
-                      </button>
+{translations["bookNow1"]}                      </button>
                     </div>
                   </div>
                 </div>
