@@ -15,26 +15,37 @@ const cards = [
   {
     title: "ALFAMA",
     src: "/prive1.jpeg",
+    id:"t1"
   },
   {
     title: "BELEM ET SA TOUR",
     src: "/prive4.jpg",
+    id:"t8"
+
   },
   {
     title: "BAIRRO ALTO",
     src: "/prive5.jpg",
+    id:"t2"
+
   },
   {
     title: "PRACA DO COMERCIO",
     src: "/prive6.jpg",
+    id:"t3"
+
   },
   {
     title: "PARQUES DAS NACOES",
     src: "/prive9.jpg",
+    id:"t4"
+
   },
   {
     title: "MONASTERE DES HERONYMITES",
     src: "/prive10.jpg",
+    id:"t5"
+
   },
 ];
 const VisitePriveePage = () => {

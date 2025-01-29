@@ -18,26 +18,37 @@ const VisitePriveePage = () => {
   const cards = [
     {
       title: "",
+      id:"1",
       src: "/side2.jpeg",
     },
     {
       title: "Valley of life",
       src: "/side3.jpg",
+      id:"2",
+
     },
     {
       title: "",
       src: "/side4.jpeg",
+      id:"3",
+
     },
     {
       title: "",
+      id:"4",
+
       src: "/side5.jpg",
     },
     {
       title: "",
+      id:"5",
+
       src: "/side6.jpeg",
     },
     {
       title: "",
+      id:"6",
+
       src: "/side7.jpeg",
     },
   ];

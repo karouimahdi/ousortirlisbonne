@@ -33,6 +33,7 @@ export interface Config {
     sports: Sport;
     'club-categories': ClubCategory;
     club: Club;
+    'boats-romatic': BoatsRomatic;
     discover: Discover;
     boats: Boat;
     'side-car-viree': SideCarViree;
@@ -66,6 +67,7 @@ export interface Config {
     sports: SportsSelect<false> | SportsSelect<true>;
     'club-categories': ClubCategoriesSelect<false> | ClubCategoriesSelect<true>;
     club: ClubSelect<false> | ClubSelect<true>;
+    'boats-romatic': BoatsRomaticSelect<false> | BoatsRomaticSelect<true>;
     discover: DiscoverSelect<false> | DiscoverSelect<true>;
     boats: BoatsSelect<false> | BoatsSelect<true>;
     'side-car-viree': SideCarVireeSelect<false> | SideCarVireeSelect<true>;
@@ -216,7 +218,7 @@ export interface BoatsNouvelAn {
   capacity: string;
   duration: string;
   prices?: string | null;
-  départ?: string | null;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -227,7 +229,10 @@ export interface BoatsNouvelAn {
 export interface BoatsToRent {
   id: string;
   title: string;
-  type: string;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
   'best-seller'?: boolean | null;
   capacity: string;
   duration: string;
@@ -696,6 +701,25 @@ export interface Club {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-romatic".
+ */
+export interface BoatsRomatic {
+  id: string;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  title: string;
+  'best-seller'?: boolean | null;
+  capacity: string;
+  duration: string;
+  prices?: string | null;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "discover".
  */
 export interface Discover {
@@ -886,6 +910,10 @@ export interface PayloadLockedDocument {
         value: string | Club;
       } | null)
     | ({
+        relationTo: 'boats-romatic';
+        value: string | BoatsRomatic;
+      } | null)
+    | ({
         relationTo: 'discover';
         value: string | Discover;
       } | null)
@@ -1020,7 +1048,7 @@ export interface BoatsNouvelAnSelect<T extends boolean = true> {
   capacity?: T;
   duration?: T;
   prices?: T;
-  départ?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1030,7 +1058,12 @@ export interface BoatsNouvelAnSelect<T extends boolean = true> {
  */
 export interface BoatsToRentSelect<T extends boolean = true> {
   title?: T;
-  type?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   'best-seller'?: T;
   capacity?: T;
   duration?: T;
@@ -1470,6 +1503,26 @@ export interface ClubSelect<T extends boolean = true> {
       };
   highlighted?: T;
   verified?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "boats-romatic_select".
+ */
+export interface BoatsRomaticSelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  title?: T;
+  'best-seller'?: T;
+  capacity?: T;
+  duration?: T;
+  prices?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }

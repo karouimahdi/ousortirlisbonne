@@ -31,13 +31,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, venueName }) => {
         transition={{ duration: 0.5 }}
         onClick={() => openLightbox(mainImageIndex)}
       >
-        <Image
+        <img
           src={images[mainImageIndex]}
           alt={`${venueName} - Featured Image`}
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
+          
+          className="object-cover w-full h-full"
+          
         />
       </motion.div>
 

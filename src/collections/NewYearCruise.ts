@@ -57,7 +57,7 @@
 
       },
       {
-        name: 'départ',
+        name: 'description',
         type: 'text',
         localized:true
       },

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 interface HeroProps {
-  imageUrl: string;
+  imageUrl?: string;
   title?: string;
   description?: string;
   buttonText: string;
@@ -22,12 +22,11 @@ const HeroSection = ({
   return (
     <div className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
-        <Image
+        <img
           src={imageUrl}
           alt={altText}
-          fill
-          className="object-cover"
-          priority
+               className="object-cover w-full h-full"
+        
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#2a2765]/80 to-transparent" />
       </div>

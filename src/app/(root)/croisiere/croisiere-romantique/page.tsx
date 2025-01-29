@@ -1,13 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
-import { Heart, MoonStar, Utensils, Sunrise, MapPin, Wine } from "lucide-react";
+import { Heart, MoonStar, Utensils, Sunrise, MapPin, Wine, Users, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useTranslation } from "@/translations/provider/localeProvider";
 import { translations } from "@/translations";
+import useSWR from "swr";
+import { CoucheSoleilBoat } from "@/types";
+import { getBoats } from "./action";
 
 const HeroBanner = () => {
   const {translations}=useTranslation()
@@ -241,12 +244,146 @@ const PackageDetails = () => {
     </section>
   );
 };
+interface BoatCardProps {
+  title: string;
+  price: string;
+  time: string;
+  capacity: string;
+  departure: string;
+  images: string[];
+}
+const BoatCard = ({
+  title,
+  price,
+  time,
+  capacity,
+  departure,
+  images,
+}: BoatCardProps) => {
+  const {translations}=useTranslation()
+  const [isHovered, setIsHovered] = useState(false);
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 5000 }),
+  ]);
 
+  return (
+    <motion.div
+      className="relative bg-white rounded-2xl shadow-lg overflow-hidden h-full"
+      whileHover={{ y: -8, scale: 1.02 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
+      <div className="relative h-56 bg-gray-200" ref={emblaRef}>
+        <div className="embla__container h-full">
+          {images.map((image, index) => (
+            <motion.div
+              className="embla__slide flex-[0_0_100%] h-full"
+              key={index}
+              animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img
+                src={image}
+                alt={`${title} - Image ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {images.map((_, index) => (
+            <motion.div
+              key={index}
+              className="w-2 h-2 rounded-full bg-white shadow-lg"
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: index === 0 ? 1 : 0.5 }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="p-8">
+        <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765] hover:bg-[#2a2765]/20">
+{translations["bestSeller"]}        </Badge>
+
+        <h3 className="text-2xl font-bold text-[#2a2765] mb-4">{title}</h3>
+
+        <div className="space-y-3 text-sm text-gray-600">
+          <motion.div
+            className="flex items-center p-2 rounded-lg hover:bg-gray-50"
+            whileHover={{ x: 5 }}
+          >
+            <Users className="w-5 h-5 mr-3 text-[#37b7ab]" />
+            {capacity}
+          </motion.div>
+          <motion.div
+            className="flex items-center p-2 rounded-lg hover:bg-gray-50"
+            whileHover={{ x: 5 }}
+          >
+            <Clock className="w-5 h-5 mr-3 text-[#37b7ab]" />
+            {time}
+          </motion.div>
+          <motion.div
+            className="flex items-center p-2 rounded-lg hover:bg-gray-50"
+            whileHover={{ x: 5 }}
+          >
+            {departure}
+          </motion.div>
+        </div>
+
+        <div className="mt-6 flex justify-between items-center">
+          <div>
+            <p className="text-sm text-gray-500">{translations["startingFrom"]}</p>
+            <p className="text-3xl font-bold text-[#37b7ab]">{price}</p>
+          </div>
+          <Button className="bg-[#ea3e4e] hover:bg-[#37b7ab] px-8 py-6 rounded-full text-lg shadow-lg">
+            {translations["bookNow1"]}
+          </Button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 export default function CroisiereRomantiquePage() {
+  const { data: boats, isLoading: boatLoading, error: boatError } = useSWR<CoucheSoleilBoat[]>(
+    "romantic-boats",
+    async () => {
+      try {
+        const boats = await getBoats();
+        return boats.map((boat: any) => ({
+          title: boat.title || "Untitled Cruise", // Assuming English is default locale
+          price: boat.prices || "Price not available", // Changed from 'price' to 'prices'
+          time: boat.duration || "Duration not specified",
+          capacity: boat.capacity|| "Capacity not specified",
+          departure: boat.description || "", // Changed to 'départ'
+          images: boat.images?.map((img: any) => img.image?.url || "/default-boat.jpg") || [],
+          isBestSeller: boat["best-seller"] || false // Added best-seller field
+        }));
+      } catch (err) {
+        console.error('Error fetching sunset cruise boats:', err);
+        throw new Error('Failed to load sunset cruises');
+      }
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+        if (error.status === 404) return;
+        if (retryCount >= 3) return;
+        setTimeout(() => revalidate({ retryCount }), 5000);
+      }
+    }
+  );
   return (
     <div className="min-h-screen bg-white">
       <HeroBanner />
       <PackageDetails />
+      <div className="grid md:grid-cols-2 gap-8">
+          {boats?.map((boat, index) => (
+            <BoatCard key={index} {...boat} />
+          ))}
+        </div>
     </div>
   );
 }

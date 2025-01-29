@@ -9,7 +9,7 @@ export async function getBoats(){
   const locale = await getLocale();
   
   const { docs } = await payload.find({
-    collection: "boats-nouvel-an",
+    collection: "boats-romatic",
    
       
     locale: locale,

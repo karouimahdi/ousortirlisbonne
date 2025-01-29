@@ -31,6 +31,7 @@ import {BigBoatCollection} from "./collections/BigBoat"
 import { SideCar } from "./collections/SideCar";
 import { EventDay } from "./collections/EventDay";
 import { Testimential } from "./collections/comments";
+import RomanticCruise from "./collections/RomanticBoat";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -63,6 +64,7 @@ export default buildConfig({
     Sport,
     ClubCategory,
     Club,
+    RomanticCruise,
     Decouvertes,
     BigBoatCollection,
     SideCar,

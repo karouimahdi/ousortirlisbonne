@@ -28,13 +28,12 @@ const BoatPartyPage = () => {
           imageUrl={
             typeof boatParty?.image === "string"
               ? boatParty.image
-              : (boatParty?.image.url ?? undefined) || ""
-          }
+              : (boatParty?.image.url ?? undefined)           }
           title={boatParty?.title}
           description={boatParty?.description}
           buttonText={translations["bookNow"]}
           buttonLink="#"
-          altText={boatParty?.title || "Boat Party"}
+          altText= "Boat Party"
         />
         {/* Decorative wave overlay */}
       </div>

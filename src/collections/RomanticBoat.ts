@@ -2,26 +2,16 @@
 
   // collections/Boats.ts
   import { CollectionConfig } from 'payload';
-import { text } from 'stream/consumers';
   
   
-  const RentBoat: CollectionConfig = {
-    slug: 'boats-to-rent',
+  const RomanticCruise: CollectionConfig = {
+    slug: 'boats-romatic',
     admin: {
       useAsTitle: 'title',
       defaultColumns: ['title', 'type', 'capacity'],
     },
     fields: [
       
-  
-    
-      {
-        name: 'title',
-        type: 'text',
-        required: true,
-        localized: true,
-  
-      },
       {
         name: 'images',
         type: 'array',
@@ -35,7 +25,14 @@ import { text } from 'stream/consumers';
         ],
         required: true,
       },
-   
+    
+      {
+        name: 'title',
+        type: 'text',
+        required: true,
+        localized: true,
+  
+      },
       {
         name:"best-seller",
         type:"checkbox"
@@ -60,11 +57,11 @@ import { text } from 'stream/consumers';
 
       },
       {
-        name: 'départ',
+        name: 'description',
         type: 'text',
         localized:true
       },
     ],
   };
   
-  export default RentBoat;
+  export default RomanticCruise;

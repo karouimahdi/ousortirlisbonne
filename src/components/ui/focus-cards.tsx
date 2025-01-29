@@ -23,11 +23,11 @@ export const Card = React.memo(
         hovered !== null && hovered !== index && "blur-sm scale-[0.98]"
       )}
     >
-      <Image
+      <img
         src={card.src}
-        alt={card.title}
-        fill
-        className="object-cover absolute inset-0"
+        alt={card.id}
+        
+        className="object-cover absolute inset-0 w-full h-full"
       />
       <div
         className={cn(
@@ -48,6 +48,7 @@ Card.displayName = "Card";
 type Card = {
   title: string;
   src: string;
+  id:string
 };
 
 export function FocusCards({ cards }: { cards: Card[] }) {
@@ -57,8 +58,8 @@ export function FocusCards({ cards }: { cards: Card[] }) {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto md:px-8 w-full">
       {cards.map((card, index) => (
         <Card
-          key={card.title}
-          card={card}
+        key={card.id} // Change from card.title to card.id
+        card={card}
           index={index}
           hovered={hovered}
           setHovered={setHovered}

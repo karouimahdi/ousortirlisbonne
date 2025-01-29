@@ -233,7 +233,6 @@ const BoatCard = ({
             className="flex items-center p-2 rounded-lg hover:bg-gray-50"
             whileHover={{ x: 5 }}
           >
-            <MapPin className="w-5 h-5 mr-3 text-[#37b7ab]" />
             {departure}
           </motion.div>
         </div>
@@ -264,7 +263,7 @@ export default function NewYearBoatPage() {
           price: boat.prices || "Price not available", // Changed from 'price' to 'prices'
           time: boat.duration || "Duration not specified",
           capacity: boat.capacity|| "Capacity not specified",
-          departure: boat.départ || "Departure location not set", // Changed to 'départ'
+          departure: boat.description || "", // Changed to 'départ'
           images: boat.images?.map((img: any) => img.image?.url || "/default-boat.jpg") || [],
           isBestSeller: boat["best-seller"] || false // Added best-seller field
         }));

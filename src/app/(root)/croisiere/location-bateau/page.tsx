@@ -1,14 +1,9 @@
 "use client";
+
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import {
-  Anchor,
-  Users,
-  Clock,
-  MapPin,
-  Ship,
-  Shield,
-  Crown,
+  Anchor, Users, Clock, MapPin, Ship, Shield, Crown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -29,11 +24,11 @@ interface BoatCardProps {
 }
 
 const HeroBanner = () => {
-  const {translations}=useTranslation();
+  const { translations } = useTranslation();
   const features = [
     { icon: Shield, text: translations["personalizedService"] },
-    { icon: Crown, text:translations["premiumFleet"]  },
-    { icon: Ship, text: translations["moreThan50Boats"]  },
+    { icon: Crown, text: translations["premiumFleet"] },
+    { icon: Ship, text: translations["moreThan50Boats"] },
   ];
 
   return (
@@ -52,32 +47,35 @@ const HeroBanner = () => {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 py-24">
+      <div className="relative max-w-7xl mx-auto px-4 py-12 sm:py-16 md:py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <Badge className="mb-6 bg-[#37b7ab]/20 text-white hover:bg-[#37b7ab]/30">
-{translations["privateBoatRental"]}          </Badge>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-{translations["privateCruise"]}            <br />
-            <span className="text-[#37b7ab]">{translations["tailored"]}</span>{translations["from"]}
+          <Badge className="mb-4 sm:mb-6 bg-[#37b7ab]/20 text-white hover:bg-[#37b7ab]/30">
+            {translations["privateBoatRental"]}
+          </Badge>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white">
+            {translations["privateCruise"]} <br />
+            <span className="text-[#37b7ab]">{translations["tailored"]}</span>
+            {translations["from"]}
             {translations["lisbon"]}
           </h1>
-          <p className="text-xl text-white/90 mb-8">
-{translations["boatRentalFromLisbon"]}          </p>
+          <p className="text-lg sm:text-xl text-white/90 mb-6 sm:mb-8">
+            {translations["boatRentalFromLisbon"]}
+          </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
             {features.map(({ icon: Icon, text }) => (
               <motion.div
                 key={text}
                 whileHover={{ scale: 1.05 }}
-                className="flex items-center bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-[#37b7ab]/20"
+                className="flex items-center bg-white/10 backdrop-blur-md rounded-full px-4 sm:px-6 py-2 sm:py-3 border border-[#37b7ab]/20"
               >
-                <Icon className="w-5 h-5 mr-2 text-[#37b7ab]" />
-                <span className="text-white">{text}</span>
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-[#37b7ab]" />
+                <span className="text-sm sm:text-base text-white">{text}</span>
               </motion.div>
             ))}
           </div>
@@ -86,13 +84,13 @@ const HeroBanner = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="max-w-3xl mx-auto text-white/90 text-lg"
+            className="max-w-3xl mx-auto text-white/90 text-base sm:text-lg px-4"
           >
-            <p className="mb-6">
-             {translations["customRequestDescription"]}
+            <p className="mb-4 sm:mb-6">
+              {translations["customRequestDescription"]}
             </p>
             <p>
-             {translations["fleetDescription"]}
+              {translations["fleetDescription"]}
             </p>
           </motion.div>
         </motion.div>
@@ -109,7 +107,7 @@ const BoatCard = ({
   type,
   images,
 }: BoatCardProps) => {
-  const{translations}=useTranslation()
+  const { translations } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 }),
@@ -122,7 +120,7 @@ const BoatCard = ({
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      <div className="relative h-56 bg-gray-200" ref={emblaRef}>
+      <div className="relative h-48 sm:h-56 bg-gray-200" ref={emblaRef}>
         <div className="embla__container h-full">
           {images.map((image, index) => (
             <motion.div
@@ -144,7 +142,7 @@ const BoatCard = ({
           {images.map((_, index) => (
             <motion.div
               key={index}
-              className="w-2 h-2 rounded-full bg-white shadow-lg"
+              className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shadow-lg"
               initial={{ opacity: 0.5 }}
               animate={{ opacity: index === 0 ? 1 : 0.5 }}
             />
@@ -152,37 +150,38 @@ const BoatCard = ({
         </div>
       </div>
 
-      <div className="p-8">
-        <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765] hover:bg-[#2a2765]/20">
+      <div className="p-4 sm:p-6 md:p-8">
+        <Badge className="mb-3 sm:mb-4 bg-[#2a2765]/10 text-[#2a2765] hover:bg-[#2a2765]/20">
           {type}
         </Badge>
 
-        <h3 className="text-2xl font-bold text-[#2a2765] mb-4">{title}</h3>
+        <h3 className="text-xl sm:text-2xl font-bold text-[#2a2765] mb-3 sm:mb-4">{title}</h3>
 
-        <div className="space-y-3 text-sm text-gray-600">
+        <div className="space-y-2 sm:space-y-3 text-sm text-gray-600">
           <motion.div
             className="flex items-center p-2 rounded-lg hover:bg-gray-50"
             whileHover={{ x: 5 }}
           >
-            <Users className="w-5 h-5 mr-3 text-[#37b7ab]" />
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-[#37b7ab]" />
             {capacity}
           </motion.div>
           <motion.div
             className="flex items-center p-2 rounded-lg hover:bg-gray-50"
             whileHover={{ x: 5 }}
           >
-            <MapPin className="w-5 h-5 mr-3 text-[#37b7ab]" />
+            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-[#37b7ab]" />
             {departure}
           </motion.div>
         </div>
 
-        <div className="mt-6 flex justify-between items-center">
+        <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <p className="text-sm text-gray-500">{translations["from"]}</p>
-            <p className="text-3xl font-bold text-[#37b7ab]">{price}</p>
+            <p className="text-xs sm:text-sm text-gray-500">{translations["from"]}</p>
+            <p className="text-2xl sm:text-3xl font-bold text-[#37b7ab]">{price}</p>
           </div>
-          <Button className="bg-[#ea3e4e] hover:bg-[#37b7ab] px-8 py-6 rounded-full text-lg shadow-lg">
-{translations["bookNow1"]}          </Button>
+          <Button className="w-full sm:w-auto bg-[#ea3e4e] hover:bg-[#37b7ab] px-6 sm:px-8 py-4 sm:py-6 rounded-full text-base sm:text-lg shadow-lg">
+            {translations["bookNow1"]}
+          </Button>
         </div>
       </div>
     </motion.div>
@@ -190,7 +189,7 @@ const BoatCard = ({
 };
 
 export default function PrivateBoatPage() {
-  const{translations}=useTranslation()
+  const { translations } = useTranslation();
 
   const { data: boats, isLoading: boatLoading, error: boatError } = useSWR<BoatToRent[]>(
     "coucher-boats",
@@ -198,15 +197,14 @@ export default function PrivateBoatPage() {
       try {
         const boats = await getBoats();
         return boats.map((boat: any) => ({
-          title: boat.title || "Untitled Cruise", // Assuming English is default locale
-          price: boat.prices || "Price not available", // Changed from 'price' to 'prices'
+          title: boat.title || "Untitled Cruise",
+          price: boat.prices || "Price not available",
           time: boat.duration || "Duration not specified",
-          capacity: boat.capacity|| "Capacity not specified",
-          departure: boat.départ || "Departure location not set", // Changed to 'départ'
+          capacity: boat.capacity || "Capacity not specified",
+          departure: boat.départ || "Departure location not set",
           images: boat.images?.map((img: any) => img.image?.url || "/default-boat.jpg") || [],
-          isBestSeller: boat["best-seller"] || false ,
-          
-          type:boat.type// Added best-seller field
+          isBestSeller: boat["best-seller"] || false,
+          type: boat.type
         }));
       } catch (err) {
         console.error('Error fetching sunset cruise boats:', err);
@@ -228,22 +226,25 @@ export default function PrivateBoatPage() {
     <div className="min-h-screen bg-gray-50">
       <HeroBanner />
 
-      <section className="max-w-7xl mx-auto px-4 py-24">
+      <section className="max-w-7xl mx-auto px-4 py-12 sm:py-16 md:py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <Badge className="mb-4 bg-[#2a2765]/10 text-[#2a2765]">
-{translations["ourFleet"]}          </Badge>
-          <h2 className="text-4xl font-bold text-[#2a2765] mb-4">
-{translations["boatsForAllProjects"]}          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-{translations["selectionForYourNeeds"]}          </p>
+          <Badge className="mb-3 sm:mb-4 bg-[#2a2765]/10 text-[#2a2765]">
+            {translations["ourFleet"]}
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#2a2765] mb-3 sm:mb-4">
+            {translations["boatsForAllProjects"]}
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto px-4">
+            {translations["selectionForYourNeeds"]}
+          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {boats?.map((boat, index) => (
             <BoatCard key={index} {...boat} />
           ))}

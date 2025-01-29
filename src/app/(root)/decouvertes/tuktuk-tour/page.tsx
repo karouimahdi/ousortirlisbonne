@@ -12,26 +12,38 @@ const TourTuktukPage = () => {
     {
       title: "",
       src: "/tuk8.jpeg",
+      id: "tuk-1" // Add unique IDs
+
     },
     {
       title: "",
       src: "/tuk7.jpeg",
+      id: "tuk-2" // Add unique IDs
+
     },
     {
       title: "",
       src: "/tuk6.jpg",
+      id: "tuk-3" // Add unique IDs
+
     },
     {
       title: "",
       src: "/tuk4.jpg",
+      id: "tuk-5" // Add unique IDs
+
     },
     {
       title: "",
       src: "/tuk5.jpg",
+      id: "tuk-4" // Add unique IDs
+
     },
     {
       title: "",
       src: "/tuk3.jpeg",
+      id: "tuk-6" // Add unique IDs
+
     },
   ];
     
